@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
+  Switch,
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -53,19 +54,22 @@ class App extends React.Component {
     return (
       <Router>
         <Header />
-        <Route path='/' exact>
-          {this.state.accessToken ?
-          <Collections /> :
-          <>
-            <h2>Welcome, We Have Such Sights To Show You!</h2>
-            <p>Please Login</p>
-            <Login storeTokens={this.storeTokens} />
-          </>
-          }
-        </Route>
-        <Route path='/collections/movies'>
-          <Movies myMovies={this.state.movies} />
-        </Route>
+        <Switch>
+          <Route path='/' exact>
+            {/* Render collections or login depending on presence of tokens */}
+            { this.state.accessToken ?
+              <Collections /> :
+              <>
+                <h2>Welcome, We Have Such Sights To Show You!</h2>
+                <p>Please Login</p>
+                <Login storeTokens={this.storeTokens} />
+              </>
+            }
+          </Route>
+          <Route path='/collections/movies'>
+            <Movies movies={this.state.movies} />
+          </Route>
+        </Switch>
         <Footer />
       </Router>
     );
