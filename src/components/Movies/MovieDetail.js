@@ -1,17 +1,39 @@
-// import React from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-// class MovieDetail extends React.Component {
+class MovieDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movie: {},
+    }
+  }
+  
+  componentDidMount() {
+    const id = parseInt(this.props.match.params.movieID);
+    const movie = this.props.movies.find( movie => (movie.id === id));
+    this.setState({
+      movie: movie,
+    })
+  }
 
-//   render() {
-//     return (
-//       <div className="movie-detail">
-//         <h3>{props.movie.title} ({props.movie.release_year})</h3>
-//         <img src={props.movie.image_link} alt={`${props.movie.title} cover art`} />
-//         <p>MPAA Rating: {props.movie.mpaa_rating}</p>
-//         <p>Runtime (mins): {props.movie.runtime_minutes}</p>
-//       </div>
-//     )
-//   }
-// }
+  render() {
+    return (<>
+      { this.state.movie ?
 
-// export default MovieDetail;
+        <div className="movie-detail">
+          <h2>Movie Detail Page</h2>
+          <p>{this.state.movie.title}</p>
+          <h3>{this.state.movie.title} ({this.state.movie.release_year})</h3>
+          <img src={this.state.movie.image_link} alt={`${this.state.movie.title} cover art`} />
+          <p>MPAA Rating: {this.state.movie.mpaa_rating}</p>
+          <p>Runtime (mins): {this.state.movie.runtime_minutes}</p>
+        </div> :
+
+        <Redirect to='/' />
+      }
+    </>)
+  }
+}
+
+export default MovieDetail;
