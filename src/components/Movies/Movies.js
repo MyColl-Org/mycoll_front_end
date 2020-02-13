@@ -15,7 +15,7 @@ class Movies extends React.Component {
       <Route 
         path='/collections/movies/:movieID' 
         exact
-        // Using render and the routerProps allows you to pass 
+        // Using render and routerProps allows you to pass 
         // match, history, location, and your own props into the component 
         render={ routerProps => <MovieDetail {...routerProps} movies={this.props.movies}/>} 
       />
