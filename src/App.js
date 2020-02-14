@@ -41,7 +41,6 @@ class App extends React.Component {
   
     try {
       const response = await axios.get(URL, headers);
-      console.log('RESPONSE:', response);
       this.setState({
         movies: response.data,
       });

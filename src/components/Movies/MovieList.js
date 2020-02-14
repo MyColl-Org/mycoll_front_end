@@ -26,7 +26,7 @@ export default props => {
 const MovieItem = props => (
   // Returns representation of a single movie
     <div className="movie-item">
-      <Link to={`movies/${props.movie.id}`} replace >
+      <Link to={{pathname: `movies/${props.movie.id}`, state: props.movie}} replace >
         <h3>{props.movie.title} ({props.movie.release_year})</h3>
       </Link>
       <img src={props.movie.image_link} alt={`${props.movie.title} cover art`} />

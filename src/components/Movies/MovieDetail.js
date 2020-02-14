@@ -14,6 +14,7 @@ class MovieDetail extends React.Component {
     const movie = this.props.movies.find( movie => (movie.id === id));
     this.setState({
       movie: movie,
+      copies: movie.copies,
     })
   }
 
@@ -22,15 +23,40 @@ class MovieDetail extends React.Component {
       { this.state.movie ?
 
         <div className="movie-detail">
+          
           <h2>Movie Detail Page</h2>
-          <p>{this.state.movie.title}</p>
           <h3>{this.state.movie.title} ({this.state.movie.release_year})</h3>
           <img src={this.state.movie.image_link} alt={`${this.state.movie.title} cover art`} />
           <p>MPAA Rating: {this.state.movie.mpaa_rating}</p>
           <p>Runtime (mins): {this.state.movie.runtime_minutes}</p>
+          
+          <h3>Copies:</h3>
+          <ul>
+          { this.state.copies ?
+
+            this.state.copies.map( copy => (<MovieCopy copy={copy} />)):
+
+            <li>No Copies</li>
+          }
+          </ul>
         </div> :
 
         <Redirect to='/' />
+      }
+    </>)
+  }
+}
+
+
+class MovieCopy extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (<>
+      { this.props.copy.vod_link ?
+        <li><a href={this.props.copy.vod_link}>{this.props.copy.form} on {this.props.copy.platform}</a></li> :
+        <li>{this.props.copy.form} on {this.props.copy.platform}</li>
       }
     </>)
   }
