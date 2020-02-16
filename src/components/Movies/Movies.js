@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import MovieForm from './MovieForm';
@@ -16,6 +16,7 @@ class Movies extends React.Component {
     };
 
     this.addCreatedMovie = this.addCreatedMovie.bind(this);
+    this.addCreatedMovieCopy = this.addCreatedMovieCopy.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
   }
 
@@ -47,31 +48,53 @@ class Movies extends React.Component {
     });
   }
 
+  addCreatedMovieCopy(newCopy) {
+    const id = newCopy.movie;
+    
+    // Inspiration: https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
+    this.setState( prevState => ({
+      movies: prevState.movies.map( movie => (
+        // If this is the related movie, update the copies
+        movie.id === id ?
+        {copies: [...movie.copies, newCopy], ...movie} :
+        // Else, return the unaltered movie
+        movie
+      ))
+    }));
+  }
+
   render() {
     return (<>
-      <Route path='/movies' exact >
-        <h2>Your Movies:</h2>
-        <Link to='/movies/new'>Add Movie</Link>
-        <MovieList movies={this.state.movies} />
-      </Route>
-      <Route path='/movies/new' exact >
-        <MovieForm
-          accessToken={this.props.accessToken}
-          onSuccess={this.addCreatedMovie}
-        />
-      </Route>
-      <Route 
-        path='/movies/detail/:movieID' 
-        exact
-        // render allows access to routerProps (match, history, location)
-        // used here for filtering state before passing props and rendering
-        render={ routerProps => {
-            const id = parseInt(routerProps.match.params.movieID);
-            const movie = this.state.movies.find( movie => (movie.id === id));
-            return <MovieDetail movie={movie}/> 
+      <Switch>
+
+        <Route path='/movies' exact >
+          <h2>Your Movies:</h2>
+          <Link to='/movies/new'>Add Movie</Link>
+          <MovieList movies={this.state.movies} />
+        </Route>
+        <Route path='/movies/new' exact >
+          <MovieForm
+            accessToken={this.props.accessToken}
+            onSuccess={this.addCreatedMovie}
+          />
+        </Route>
+        <Route 
+          path='/movies/detail/:movieID' 
+          exact
+          // render allows access to routerProps (match, history, location)
+          // used here for filtering state before passing props and rendering
+          render={ routerProps => {
+              const id = parseInt(routerProps.match.params.movieID);
+              const movie = this.state.movies.find( movie => (movie.id === id));
+              return  <MovieDetail 
+                        movie={movie} 
+                        accessToken={this.props.accessToken}
+                        addCopy={this.addCreatedMovieCopy}
+                      /> 
+            }
           }
-        }
-      />
+        />
+      </Switch>
     </>);
   }
 }

@@ -1,8 +1,36 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+import MovieCopyForm from './MovieCopyForm';
+
 
 class MovieDetail extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      renderCopyForm: false,
+    }
+
+    this.copyCreated = this.copyCreated.bind(this);
+    this.toggleCopyForm = this.toggleCopyForm.bind(this);
+  }
+
+  toggleCopyForm() {
+    // Toggle the form for creating copies of movies
+    let change = true;
+    if (this.state.renderCopyForm) {
+      change = false;
+    }
+    this.setState({
+      renderCopyForm: change,
+    });
+  }
+
+  copyCreated(newCopy) {
+    this.toggleCopyForm();
+    this.props.addCopy(newCopy);
+  }
 
   render() {
     // Pre-assemble text content for clarity
@@ -20,16 +48,28 @@ class MovieDetail extends React.Component {
           <img src={this.props.movie.image_link} alt={`${this.props.movie.title} cover art`} />
           <p>{ movieRating }</p>
           <p>{ movieRuntime }</p>
-          
-          <h3>Copies:</h3>
-          <ul>
-          { this.props.movie.copies ?
+          { this.props.movie.copies.length > 0 ?
 
-            this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)):
+            <>
+              <h3>Copies:</h3>
+              <ul>
+                { this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)) }
+              </ul>
+            </> :
 
-            <li key="0">No Copies</li>
+            false
           }
-          </ul>
+
+          { this.state.renderCopyForm ?
+          
+            <MovieCopyForm 
+              movieID={this.props.movie.id} 
+              accessToken={this.props.accessToken}
+              onSuccess={this.copyCreated}
+            /> :
+
+            <button onClick={this.toggleCopyForm}>Add Copy</button>
+          }
         </div> :
 
         <Redirect to='/' />
