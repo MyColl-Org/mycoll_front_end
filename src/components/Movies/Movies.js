@@ -55,7 +55,12 @@ class Movies extends React.Component {
         exact
         // Using render and routerProps allows you to pass 
         // match, history, location, and your own props into the component 
-        render={ routerProps => <MovieDetail {...routerProps} movies={this.state.movies}/>} 
+        render={ routerProps => {
+            const id = parseInt(routerProps.match.params.movieID);
+            const movie = this.state.movies.find( movie => (movie.id === id));
+            return <MovieDetail movie={movie}/> 
+          }
+        }
       />
     </>)
   }
