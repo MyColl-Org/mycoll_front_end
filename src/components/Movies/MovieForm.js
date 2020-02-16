@@ -66,7 +66,7 @@ class MovieForm extends React.Component {
     return (<>
       { this.state.formSubmitted ? 
 
-        <Redirect to={`/movies/${this.state.id}`} /> :
+        <Redirect to={`/movies/detail/${this.state.id}`} /> :
 
         <form onSubmit={this.createMovie}>
           <input 

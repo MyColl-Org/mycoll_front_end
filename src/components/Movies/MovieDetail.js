@@ -23,9 +23,9 @@ class MovieDetail extends React.Component {
           
           <h3>Copies:</h3>
           <ul>
-          { this.props.movie.copies ?
+          { this.props.movie.copies.length > 0 ?
 
-            this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)):
+            this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)) :
 
             <li key="0">No Copies</li>
           }
