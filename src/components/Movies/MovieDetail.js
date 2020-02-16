@@ -48,15 +48,17 @@ class MovieDetail extends React.Component {
           <img src={this.props.movie.image_link} alt={`${this.props.movie.title} cover art`} />
           <p>{ movieRating }</p>
           <p>{ movieRuntime }</p>
-          <h3>Copies:</h3>
-          <ul>
           { this.props.movie.copies.length > 0 ?
 
-            this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)) :
+            <>
+              <h3>Copies:</h3>
+              <ul>
+                { this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)) }
+              </ul>
+            </> :
 
-            <li key="0">No Copies</li>
+            false
           }
-          </ul>
 
           { this.state.renderCopyForm ?
           

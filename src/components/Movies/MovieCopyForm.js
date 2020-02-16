@@ -41,7 +41,6 @@ class MovieCopyForm extends React.Component {
 
     try {
       const response = await axios.post(URL, formData, axiosConfig);
-      console.log("Response from Server for New Copy:", response);
       this.props.onSuccess(response.data);
     } catch(error) {
       console.error(error);
