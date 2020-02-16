@@ -6,9 +6,9 @@ class MovieDetail extends React.Component {
 
   render() {
     // Pre-assemble text content for clarity
-    let movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`
-    let movieRating = `MPAA Rating: ${this.props.movie.mpaa_rating}`
-    let movieRuntime = `Runtime (mins): ${this.props.movie.runtime_minutes}`
+    const movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`;
+    const movieRating = `MPAA Rating: ${this.props.movie.mpaa_rating}`;
+    const movieRuntime = `Runtime (mins): ${this.props.movie.runtime_minutes}`;
     
     return (<>
       { this.props.movie ?
@@ -25,32 +25,36 @@ class MovieDetail extends React.Component {
           <ul>
           { this.props.movie.copies ?
 
-            this.props.movie.copies.map( copy => (<MovieCopy copy={copy} />)):
+            this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)):
 
-            <li>No Copies</li>
+            <li key="0">No Copies</li>
           }
           </ul>
         </div> :
 
         <Redirect to='/' />
       }
-    </>)
+    </>);
   }
 }
 
 
 class MovieCopy extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    let copyText = `${this.props.copy.form} on ${this.props.copy.platform}`
+    const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
+
     return (<>
       { this.props.copy.vod_link ?
-        <li><a href={this.props.copy.vod_link} target="_blank">{ copyText }</a></li> :
+
+        <li>
+          <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
+            { copyText }
+          </a>
+        </li> :
+        
         <li>{ copyText }</li>
       }
-    </>)
+    </>);
   }
 }
 

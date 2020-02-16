@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-const url = 'http://127.0.0.1:8000/accounts/'
-// Add 'token/' to URL for obtaining a token pair
-// Add 'create/' to URL to create a user
+
+const URL = 'http://127.0.0.1:8000/accounts/';
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-    }
+    };
     this.obtainTokens = this.obtainTokens.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
   }
@@ -21,7 +21,7 @@ class Login extends React.Component {
     event.preventDefault();
 
     try {
-      const response = await axios.post(url + 'token/', {
+      const response = await axios.post(URL + 'token/', {
         username: this.state.username,
         password: this.state.password,
       });

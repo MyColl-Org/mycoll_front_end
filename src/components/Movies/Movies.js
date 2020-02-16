@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import axios from 'axios';
 
 import MovieForm from './MovieForm';
@@ -13,8 +13,9 @@ class Movies extends React.Component {
 
     this.state = {
       movies: [],
-    }
+    };
 
+    this.addCreatedMovie = this.addCreatedMovie.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
   }
 
@@ -23,13 +24,12 @@ class Movies extends React.Component {
   }
 
   async fetchMovies() {
-    // This URL is hard-coded for movies for now
-    const URL = `http://127.0.0.1:8000/api/v1/movies/`
+    const URL = "http://127.0.0.1:8000/api/v1/movies/";
     const headers = {
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
       }
-    }
+    };
   
     try {
       const response = await axios.get(URL, headers);
@@ -41,20 +41,30 @@ class Movies extends React.Component {
     }
   }
 
+  addCreatedMovie(newMovie) {
+    this.setState({
+      movies: this.state.movies.concat([newMovie])
+    });
+  }
+
   render() {
     return (<>
       <Route path='/movies' exact >
         <h2>Your Movies:</h2>
+        <Link to='/movies/new'>Add Movie</Link>
         <MovieList movies={this.state.movies} />
       </Route>
       <Route path='/movies/new' exact >
-        <MovieForm />
+        <MovieForm
+          accessToken={this.props.accessToken}
+          onSuccess={this.addCreatedMovie}
+        />
       </Route>
       <Route 
-        path='/movies/:movieID' 
+        path='/movies/detail/:movieID' 
         exact
-        // Using render and routerProps allows you to pass 
-        // match, history, location, and your own props into the component 
+        // render allows access to routerProps (match, history, location)
+        // used here for filtering state before passing props and rendering
         render={ routerProps => {
             const id = parseInt(routerProps.match.params.movieID);
             const movie = this.state.movies.find( movie => (movie.id === id));
@@ -62,7 +72,7 @@ class Movies extends React.Component {
           }
         }
       />
-    </>)
+    </>);
   }
 }
 

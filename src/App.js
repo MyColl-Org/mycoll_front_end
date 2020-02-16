@@ -19,8 +19,7 @@ class App extends React.Component {
     this.state = {
       accessToken: '',
       refreshToken: '',
-      movies: [],
-    }
+    };
 
     this.storeTokens = this.storeTokens.bind(this);
   }
