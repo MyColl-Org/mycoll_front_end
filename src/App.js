@@ -4,7 +4,6 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import axios from 'axios';
 
 import Collections from './components/Collections/Collections';
 import Header from './components/Header/Header';
@@ -20,8 +19,7 @@ class App extends React.Component {
     this.state = {
       accessToken: '',
       refreshToken: '',
-      movies: [],
-    }
+    };
 
     this.storeTokens = this.storeTokens.bind(this);
   }
@@ -30,23 +28,7 @@ class App extends React.Component {
     this.setState({
       accessToken: access,
       refreshToken: refresh,
-    })
-    // This URL is hard-coded for movies for now
-    const URL = `http://127.0.0.1:8000/api/v1/movies/`
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${this.state.accessToken}`
-      }
-    }
-  
-    try {
-      const response = await axios.get(URL, headers);
-      this.setState({
-        movies: response.data,
-      });
-    } catch(error) {
-      console.error('Error Fetching Movies', error);
-    }
+    });
   }
 
   render() {
@@ -65,8 +47,11 @@ class App extends React.Component {
               </>
             }
           </Route>
-          <Route path='/collections/movies'>
-            <Movies movies={this.state.movies} />
+          <Route path='/movies'>
+            <Movies 
+              accessToken={this.state.accessToken}
+              refreshToken={this.state.refreshToken} 
+            />
           </Route>
         </Switch>
         <Footer />

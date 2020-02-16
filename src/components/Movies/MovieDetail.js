@@ -1,64 +1,60 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+
 class MovieDetail extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movie: {},
-    }
-  }
-  
-  componentDidMount() {
-    const id = parseInt(this.props.match.params.movieID);
-    const movie = this.props.movies.find( movie => (movie.id === id));
-    this.setState({
-      movie: movie,
-      copies: movie.copies,
-    })
-  }
 
   render() {
+    // Pre-assemble text content for clarity
+    const movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`;
+    const movieRating = `MPAA Rating: ${this.props.movie.mpaa_rating}`;
+    const movieRuntime = `Runtime (mins): ${this.props.movie.runtime_minutes}`;
+    
     return (<>
-      { this.state.movie ?
+      { this.props.movie ?
 
         <div className="movie-detail">
           
           <h2>Movie Detail Page</h2>
-          <h3>{this.state.movie.title} ({this.state.movie.release_year})</h3>
-          <img src={this.state.movie.image_link} alt={`${this.state.movie.title} cover art`} />
-          <p>MPAA Rating: {this.state.movie.mpaa_rating}</p>
-          <p>Runtime (mins): {this.state.movie.runtime_minutes}</p>
+          <h3>{ movieTitle }</h3>
+          <img src={this.props.movie.image_link} alt={`${this.props.movie.title} cover art`} />
+          <p>{ movieRating }</p>
+          <p>{ movieRuntime }</p>
           
           <h3>Copies:</h3>
           <ul>
-          { this.state.copies ?
+          { this.props.movie.copies ?
 
-            this.state.copies.map( copy => (<MovieCopy copy={copy} />)):
+            this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)):
 
-            <li>No Copies</li>
+            <li key="0">No Copies</li>
           }
           </ul>
         </div> :
 
         <Redirect to='/' />
       }
-    </>)
+    </>);
   }
 }
 
 
 class MovieCopy extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
+    const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
+
     return (<>
       { this.props.copy.vod_link ?
-        <li><a href={this.props.copy.vod_link}>{this.props.copy.form} on {this.props.copy.platform}</a></li> :
-        <li>{this.props.copy.form} on {this.props.copy.platform}</li>
+
+        <li>
+          <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
+            { copyText }
+          </a>
+        </li> :
+        
+        <li>{ copyText }</li>
       }
-    </>)
+    </>);
   }
 }
 
