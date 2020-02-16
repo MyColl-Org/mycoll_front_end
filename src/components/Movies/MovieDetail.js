@@ -62,7 +62,7 @@ class MovieCopy extends React.Component {
     let copyText = `${this.props.copy.form} on ${this.props.copy.platform}`
     return (<>
       { this.props.copy.vod_link ?
-        <li><a href={this.props.copy.vod_link}>{ copyText }</a></li> :
+        <li><a href={this.props.copy.vod_link} target="_blank">{ copyText }</a></li> :
         <li>{ copyText }</li>
       }
     </>)

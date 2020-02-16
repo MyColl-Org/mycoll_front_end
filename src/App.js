@@ -48,7 +48,7 @@ class App extends React.Component {
               </>
             }
           </Route>
-          <Route path='/collections/movies'>
+          <Route path='/movies'>
             <Movies 
               accessToken={this.state.accessToken}
               refreshToken={this.state.refreshToken} 

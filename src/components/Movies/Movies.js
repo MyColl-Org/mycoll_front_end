@@ -43,15 +43,15 @@ class Movies extends React.Component {
 
   render() {
     return (<>
-      <Route path='/collections/movies' exact >
+      <Route path='/movies' exact >
         <h2>Your Movies:</h2>
         <MovieList movies={this.state.movies} />
       </Route>
-      <Route path='/collections/movies/new' exact >
+      <Route path='/movies/new' exact >
         <MovieForm />
       </Route>
       <Route 
-        path='/collections/movies/:movieID' 
+        path='/movies/:movieID' 
         exact
         // Using render and routerProps allows you to pass 
         // match, history, location, and your own props into the component 
