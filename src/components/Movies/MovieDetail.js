@@ -19,16 +19,20 @@ class MovieDetail extends React.Component {
   }
 
   render() {
+    // pre-assemble text content
+    let movieTitle = `${this.state.movie.title} (${this.state.movie.release_year})`
+    let movieRating = `MPAA Rating: ${this.state.movie.mpaa_rating}`
+    let movieRuntime = `Runtime (mins): ${this.state.movie.runtime_minutes}`
     return (<>
       { this.state.movie ?
 
         <div className="movie-detail">
           
           <h2>Movie Detail Page</h2>
-          <h3>{this.state.movie.title} ({this.state.movie.release_year})</h3>
+          <h3>{ movieTitle }</h3>
           <img src={this.state.movie.image_link} alt={`${this.state.movie.title} cover art`} />
-          <p>MPAA Rating: {this.state.movie.mpaa_rating}</p>
-          <p>Runtime (mins): {this.state.movie.runtime_minutes}</p>
+          <p>{ movieRating }</p>
+          <p>{ movieRuntime }</p>
           
           <h3>Copies:</h3>
           <ul>
@@ -53,10 +57,11 @@ class MovieCopy extends React.Component {
     super(props);
   }
   render() {
+    let copyText = `${this.props.copy.form} on ${this.props.copy.platform}`
     return (<>
       { this.props.copy.vod_link ?
-        <li><a href={this.props.copy.vod_link}>{this.props.copy.form} on {this.props.copy.platform}</a></li> :
-        <li>{this.props.copy.form} on {this.props.copy.platform}</li>
+        <li><a href={this.props.copy.vod_link}>{ copyText }</a></li> :
+        <li>{ copyText }</li>
       }
     </>)
   }
