@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+
 class MovieDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -19,10 +20,11 @@ class MovieDetail extends React.Component {
   }
 
   render() {
-    // pre-assemble text content
+    // Pre-assemble text content for clarity
     let movieTitle = `${this.state.movie.title} (${this.state.movie.release_year})`
     let movieRating = `MPAA Rating: ${this.state.movie.mpaa_rating}`
     let movieRuntime = `Runtime (mins): ${this.state.movie.runtime_minutes}`
+    
     return (<>
       { this.state.movie ?
 

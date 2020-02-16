@@ -66,7 +66,11 @@ class App extends React.Component {
             }
           </Route>
           <Route path='/collections/movies'>
-            <Movies movies={this.state.movies} />
+            <Movies 
+              movies={this.state.movies}
+              access={this.state.accessToken}
+              refresh={this.state.refreshToken} 
+            />
           </Route>
         </Switch>
         <Footer />

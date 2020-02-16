@@ -14,7 +14,6 @@ export default props => {
 
   return (
     <>
-      <h2>Your Movies:</h2>
       { props.movies.map(movie_data => (
         <MovieItem movie={movie_data} key={movie_data.id}/>
       ))}
@@ -23,14 +22,23 @@ export default props => {
 }
 
 
-const MovieItem = props => (
+// <MovieItem /> Component
+const MovieItem = props => {
   // Returns representation of a single movie
+  
+  // Pre-assemble text content for clarity
+  let movieTitle = `${props.movie.title} (${props.movie.release_year})`
+  let movieRating = `MPAA Rating: ${props.movie.mpaa_rating}`
+  let movieRuntime = `Runtime (mins): ${props.movie.runtime_minutes}`
+  
+  return (
     <div className="movie-item">
       <Link to={{pathname: `movies/${props.movie.id}`, state: props.movie}} replace >
-        <h3>{props.movie.title} ({props.movie.release_year})</h3>
+        <h3>{ movieTitle }</h3>
       </Link>
       <img src={props.movie.image_link} alt={`${props.movie.title} cover art`} />
-      <p>MPAA Rating: {props.movie.mpaa_rating}</p>
-      <p>Runtime (mins): {props.movie.runtime_minutes}</p>
+      <p>{ movieRating }</p>
+      <p>{ movieRuntime }</p>
     </div>
-)
+  )
+}

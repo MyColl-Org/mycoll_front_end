@@ -10,7 +10,11 @@ class Movies extends React.Component {
   render() {
     return (<>
       <Route path='/collections/movies' exact >
+        <h2>Your Movies:</h2>
         <MovieList movies={this.props.movies} />
+      </Route>
+      <Route path='/collections/movies/new' exact >
+        <MovieForm />
       </Route>
       <Route 
         path='/collections/movies/:movieID' 
