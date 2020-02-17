@@ -54,10 +54,11 @@ class Movies extends React.Component {
     // Inspiration: https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
     this.setState( prevState => ({
       movies: prevState.movies.map( movie => (
-        // If this is the related movie, update the copies
         movie.id === id ?
-        {copies: [...movie.copies, newCopy], ...movie} :
-        // Else, return the unaltered movie
+        // IF this is the related movie: update the copies
+        // TIP: Spread objects before adding new properties to be merged
+        {...movie, copies: [...movie.copies, newCopy]} :
+        // ELSE: return the unaltered movie
         movie
       ))
     }));
