@@ -6,10 +6,11 @@ import {
 } from 'react-router-dom';
 
 import Collections from './components/Collections/Collections';
+import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 import Movies from './components/Movies/Movies';
-import Footer from './components/Footer/Footer';
+import SignUp from './components/SignUp/SignUp';
 
 
 class App extends React.Component {
@@ -19,15 +20,34 @@ class App extends React.Component {
     this.state = {
       accessToken: '',
       refreshToken: '',
+      renderSignUp: false,
+      newUser: '',
     };
 
+    this.greetNewUser = this.greetNewUser.bind(this);
     this.storeTokens = this.storeTokens.bind(this);
+    this.toggleSignUp = this.toggleSignUp.bind(this);
   }
 
   async storeTokens({ access, refresh }) {
     this.setState({
       accessToken: access,
       refreshToken: refresh,
+    });
+  }
+
+  toggleSignUp() {
+    let newState = true;
+    if (this.state.renderSignUp) newState = false;
+    this.setState({
+      renderSignUp: newState
+    });
+  }
+
+  greetNewUser(newUser) {
+    this.setState({
+      newUser: newUser.username,
+      renderSignUp: false,
     });
   }
 
@@ -41,9 +61,22 @@ class App extends React.Component {
             { this.state.accessToken ?
               <Collections /> :
               <>
-                <h2>Welcome, We Have Such Sights To Show You!</h2>
-                <p>Please Login</p>
+                { this.state.newUser ?
+                  <>
+                    <h2>Welcome {this.state.newUser}, We Have Such Sights To Show You!</h2>
+                    <p>Please Login to Your New Account</p> 
+                  </> :
+                  <>
+                    <h2>Welcome, We Have Such Sights To Show You!</h2>
+                    <p>Please Login</p>
+                  </>
+                }
                 <Login storeTokens={this.storeTokens} />
+                <p>OR</p>
+                { this.state.renderSignUp ?
+                  <SignUp onSuccess={this.greetNewUser} /> :
+                  <button onClick={this.toggleSignUp}>Sign Up</button>
+                }
               </>
             }
           </Route>
