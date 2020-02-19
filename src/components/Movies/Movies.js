@@ -17,6 +17,7 @@ class Movies extends React.Component {
 
     this.addCreatedMovie = this.addCreatedMovie.bind(this);
     this.addCreatedMovieCopy = this.addCreatedMovieCopy.bind(this);
+    this.removeMovie = this.removeMovie.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
   }
 
@@ -64,6 +65,15 @@ class Movies extends React.Component {
     }));
   }
 
+  removeMovie(id) {
+    // Filter out the movie that was just deleted from the database
+    this.setState( prevState => ({
+      movies: prevState.movies.filter( movie => (movie.id !== id))
+    }));
+  };
+
+
+
   render() {
     return (<>
       <Switch>
@@ -88,9 +98,10 @@ class Movies extends React.Component {
               const id = parseInt(routerProps.match.params.movieID);
               const movie = this.state.movies.find( movie => (movie.id === id));
               return  <MovieDetail 
-                        movie={movie} 
                         accessToken={this.props.accessToken}
                         addCopy={this.addCreatedMovieCopy}
+                        onDeleteSuccess={this.removeMovie}
+                        movie={movie} 
                       /> 
             }
           }
