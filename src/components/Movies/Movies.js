@@ -17,8 +17,9 @@ class Movies extends React.Component {
 
     this.addCreatedMovie = this.addCreatedMovie.bind(this);
     this.addCreatedMovieCopy = this.addCreatedMovieCopy.bind(this);
-    this.removeMovie = this.removeMovie.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
+    this.removeMovie = this.removeMovie.bind(this);
+    this.updateMovie = this.updateMovie.bind(this);
   }
 
   componentDidMount() {
@@ -72,7 +73,15 @@ class Movies extends React.Component {
     }));
   };
 
-
+  updateMovie(updatedMovie) {
+    this.setState( prevState => ({
+      movies: prevState.movies.map( movie => (
+        movie.id === updatedMovie.id ?
+        { ...updatedMovie } :
+        movie
+      ))
+    }));
+  }
 
   render() {
     return (<>
@@ -101,6 +110,7 @@ class Movies extends React.Component {
                         accessToken={this.props.accessToken}
                         addCopy={this.addCreatedMovieCopy}
                         onDeleteSuccess={this.removeMovie}
+                        onUpdateSuccess={this.updateMovie}
                         movie={movie} 
                       /> 
             }
