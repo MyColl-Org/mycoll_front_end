@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import MovieCopyForm from './MovieCopyForm';
+import MovieUpdateForm from './MovieUpdateForm';
 
 
 class MovieDetail extends React.Component {
@@ -12,12 +13,14 @@ class MovieDetail extends React.Component {
     this.state = {
       confirmDelete: false,
       renderCopyForm: false,
+      renderUpdateForm: false,
     }
 
     this.copyCreated = this.copyCreated.bind(this);
     this.deleteMovie = this.deleteMovie.bind(this);
     this.toggleConfirmDelete = this.toggleConfirmDelete.bind(this);
     this.toggleCopyForm = this.toggleCopyForm.bind(this);
+    this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
   }
 
   toggleCopyForm() {
@@ -40,6 +43,13 @@ class MovieDetail extends React.Component {
     let newState = this.state.confirmDelete ? false : true;
     this.setState({
       confirmDelete: newState
+    });
+  }
+
+  toggleUpdateForm() {
+    let newState = this.state.renderUpdateForm ? false : true;
+    this.setState({
+      renderUpdateForm: newState
     });
   }
 
@@ -78,22 +88,40 @@ class MovieDetail extends React.Component {
     }
     
     return (<>
+      {/* Movie Info OR <Redirect> */}
       { this.props.movie ?
 
         <div className="movie-detail">
-          
-          {/* Movie Info OR <Redirect> */}
-          <h2>{ movieTitle }</h2>
-          <img src={this.props.movie.image_link} alt={`${this.props.movie.title} cover art`} />
-          <p>{ movieRating }</p>
-          <p>{ movieRuntime }</p>
+          {/* Movie Details OR Movie Update Form */}
+          { this.state.renderUpdateForm ?
+
+            <>
+              <MovieUpdateForm 
+                movie={this.props.movie}
+                accessToken={this.props.accessToken}
+                onSuccess={this.props.onUpdateSuccess}
+                toggleForm={this.toggleUpdateForm}
+              />
+              <button onClick={this.toggleUpdateForm}>CANCEL</button>
+            </> :
+
+            <>
+              <h2>{ movieTitle }</h2>
+              <img src={this.props.movie.image_link} alt={`${this.props.movie.title} cover art`} />
+              <p>{ movieRating }</p>
+              <p>{ movieRuntime }</p>
+              <button onClick={this.toggleUpdateForm}>UPDATE</button>
+            </>
+          }
 
           {/* Delete Buttons */}
           { this.state.confirmDelete ?
+
             <>
               <button onClick={this.toggleConfirmDelete}>CANCEL</button>
               <button onClick={this.deleteMovie}>CONFIRM DELETE</button>
             </> :
+
             <button onClick={this.toggleConfirmDelete}>Delete Movie</button>
           }
 
