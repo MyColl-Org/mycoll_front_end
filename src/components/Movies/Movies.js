@@ -5,6 +5,7 @@ import axios from 'axios';
 import MovieForm from './MovieForm';
 import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
+import Nav from '../Nav/Nav';
 
 
 class Movies extends React.Component {
@@ -85,8 +86,8 @@ class Movies extends React.Component {
 
   render() {
     return (<>
+        <Nav />
       <Switch>
-
         <Route path='/movies' exact >
           <h2>Your Movies:</h2>
           <Link to='/movies/new'>Add Movie</Link>

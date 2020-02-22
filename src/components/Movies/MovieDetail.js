@@ -86,6 +86,8 @@ class MovieDetail extends React.Component {
       movieRating = `MPAA Rating: ${this.props.movie.mpaa_rating}`;
       movieRuntime = `Runtime (mins): ${this.props.movie.runtime_minutes}`;
     }
+
+    console.log(this.props.movie)
     
     return (<>
       {/* Movie Info OR <Redirect> */}
@@ -110,6 +112,17 @@ class MovieDetail extends React.Component {
               <img src={this.props.movie.image_link} alt={`${this.props.movie.title} cover art`} />
               <p>{ movieRating }</p>
               <p>{ movieRuntime }</p>
+              {/* Render link to The Movie Database if present */}
+              { this.props.movie.tmdb_page_link !== '' ?
+                <a 
+                  href={this.props.movie.tmdb_page_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  TMDb Details
+                </a> :
+                false
+              }
               <button onClick={this.toggleUpdateForm}>UPDATE</button>
             </>
           }

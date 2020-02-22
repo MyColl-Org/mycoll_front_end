@@ -13,6 +13,7 @@ class MovieForm extends React.Component {
       mpaaRating: '',
       runtimeMinutes: '',
       imageLink: '',
+      tmdbPageLink: '',
       formSubmitted: false,
       id: 0,
     };
@@ -30,7 +31,8 @@ class MovieForm extends React.Component {
       release_year: this.state.releaseYear,
       mpaa_rating: this.state.mpaaRating,
       runtime_minutes: this.state.runtimeMinutes,
-      image_link: this.state.imageLink
+      image_link: this.state.imageLink,
+      tmdb_page_link: this.state.tmdbPageLink,
     };
     let axiosConfig = {
       headers: {
@@ -101,7 +103,14 @@ class MovieForm extends React.Component {
             name="imageLink" 
             type="text"
             value={this.state.imageLink}
-            placeholder='Image Link'
+            placeholder='Image Link (optional)'
+            onChange={this.changeHandler}
+          />
+          <input 
+            name="tmdbPageLink" 
+            type="text"
+            value={this.state.tmdbPageLink}
+            placeholder='TMDB Page Link (optional)'
             onChange={this.changeHandler}
           />
           <input

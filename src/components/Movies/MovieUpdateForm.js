@@ -13,6 +13,7 @@ class MovieForm extends React.Component {
       mpaaRating: '',
       runtimeMinutes: '',
       imageLink: '',
+      tmdbPageLink: '',
     };
 
     this.changeHandler = this.changeHandler.bind(this);
@@ -26,7 +27,8 @@ class MovieForm extends React.Component {
       releaseYear: this.props.movie.release_year,
       mpaaRating: this.props.movie.mpaa_rating,
       runtimeMinutes: this.props.movie.runtime_minutes,
-      imageLink: this.props.movie.image_link
+      imageLink: this.props.movie.image_link,
+      tmdbPageLink: this.props.movie.tmdb_page_link,
     });
   }
 
@@ -39,7 +41,8 @@ class MovieForm extends React.Component {
       release_year: this.state.releaseYear,
       mpaa_rating: this.state.mpaaRating,
       runtime_minutes: this.state.runtimeMinutes,
-      image_link: this.state.imageLink
+      image_link: this.state.imageLink,
+      tmdb_page_link: this.state.tmdbPageLink,
     };
     let axiosConfig = {
       headers: {
@@ -99,6 +102,13 @@ class MovieForm extends React.Component {
           type="text"
           value={this.state.imageLink}
           placeholder='Image Link'
+          onChange={this.changeHandler}
+        />
+        <input
+          name="tmdbPageLink"
+          type="text"
+          value={this.state.tmdbPageLink}
+          placeholder='TMDb Page Link'
           onChange={this.changeHandler}
         />
         <input
