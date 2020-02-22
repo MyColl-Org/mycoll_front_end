@@ -57,7 +57,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route path='/' exact>
-            {/* Render collections or login depending on presence of tokens */}
+            {/* Render collections or login/signup depending on presence of tokens */}
             { this.state.accessToken ?
               <Collections /> :
               <>
