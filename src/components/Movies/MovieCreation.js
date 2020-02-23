@@ -25,21 +25,22 @@ class MovieCreation extends React.Component {
     this.toggleForm = this.toggleForm.bind(this);
   }
 
-  toggleForm() {
-    let newState = true;
-    if (this.state.renderForm) newState = false;
+  buttonText() {
+    // Toggles text within <button> depending on whether for is currently rendered
+    return this.state.renderForm ? "Hide Form" : "Manual Entry"
+  }
+  
+  changeHandler(event) {
+    // Handles updating of state and form fields upon user input
     this.setState({
-      renderForm: newState,
+      [event.target.name]: event.target.value,
     });
   }
 
-  buttonText() {
-    return this.state.renderForm ? "Hide Form" : "Manual Entry"
-  }
-
   async createMovie(event) {
+    // POSTS movie to DB and updated state in <Movies> on success
     event.preventDefault();
-
+    
     const URL = "http://127.0.0.1:8000/api/v1/movies/";
     let formData = {
       title: this.state.title,
@@ -56,26 +57,27 @@ class MovieCreation extends React.Component {
     };
     
     try {
-
       const response = await axios.post(URL, formData, axiosConfig);
       const id = response.data.id.toString();
       this.props.onSuccess(response.data);
-
+      
       this.setState({
         id: id,
         formSubmitted: true,
       });
-
-    } catch(error) {
+    } 
+    catch(error) {
       console.log("Error while trying to POST new movie.");
       console.error(error);
     }
-
   }
-
-  changeHandler(event) {
+  
+  toggleForm() {
+    // Toggles whether manual entry form should be rendered
+    let newState = true;
+    if (this.state.renderForm) newState = false;
     this.setState({
-      [event.target.name]: event.target.value
+      renderForm: newState,
     });
   }
 
@@ -86,6 +88,7 @@ class MovieCreation extends React.Component {
         <Redirect to={`/movies/detail/${this.state.id}`} /> :
         false
       }
+      {/* Initial content */}
       <h1>Movie Creation Page</h1>
       <button onClick={this.toggleForm}>{this.buttonText()}</button>
       

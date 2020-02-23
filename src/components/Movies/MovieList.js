@@ -70,7 +70,11 @@ const MovieItem = props => {
       <Link to={{pathname: `movies/detail/${props.movie.id}`, state: props.movie}} replace >
         <h3>{ movieTitle }</h3>
       </Link>
-      <img src={props.movie.image_link} alt={`${props.movie.title} cover art`} />
+      <img 
+        src={props.movie.image_link} 
+        alt={`${props.movie.title} cover art`}
+        title={props.movie.title} 
+      />
       <p>{ movieRating }</p>
       <p>{ movieRuntime }</p>
     </div>

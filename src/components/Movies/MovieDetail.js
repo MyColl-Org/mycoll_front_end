@@ -109,7 +109,11 @@ class MovieDetail extends React.Component {
 
             <>
               <h2>{ movieTitle }</h2>
-              <img src={this.props.movie.image_link} alt={`${this.props.movie.title} cover art`} />
+              <img 
+                src={this.props.movie.image_link} 
+                alt={`${this.props.movie.title} cover art`}
+                title={this.props.movie.title} 
+              />
               <p>{ movieRating }</p>
               <p>{ movieRuntime }</p>
               {/* Render link to The Movie Database if present */}
