@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import MovieForm from './MovieForm';
+import MovieCreation from './MovieCreation';
 import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
 import Nav from '../Nav/Nav';
@@ -94,10 +94,9 @@ class Movies extends React.Component {
           <MovieList movies={this.state.movies} />
         </Route>
         <Route path='/movies/new' exact >
-          <MovieForm
+          <MovieCreation
             accessToken={this.props.accessToken}
-            onSuccess={this.addCreatedMovie}
-          />
+            onSuccess={this.addCreatedMovie} />
         </Route>
         <Route 
           path='/movies/detail/:movieID' 
