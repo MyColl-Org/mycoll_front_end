@@ -24,6 +24,7 @@ class MovieCreation extends React.Component {
     this.buttonText = this.buttonText.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
     this.createMovie = this.createMovie.bind(this);
+    this.hideForm = this.hideForm.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.updateForm = this.updateForm.bind(this);
   }
@@ -75,6 +76,13 @@ class MovieCreation extends React.Component {
     }
   }
   
+  hideForm() {
+    // Hides manual entry form, runs when user submits the TMDb search bar
+    this.setState({
+      renderForm: false,
+    });
+  }
+
   toggleForm() {
     // Toggles whether manual entry form should be rendered
     let newState = true;
@@ -86,12 +94,20 @@ class MovieCreation extends React.Component {
 
   updateForm(movie) {
     // Updates the form fields when a movie is selected from TMDb results
-
+    this.setState({
+      title: movie.title,
+      releaseYear: movie.release_year,
+      mpaaRating: movie.mpaa_rating,
+      runtimeMinutes: movie.runtime_minutes,
+      imageLink: movie.image_link,
+      tmdbPageLink: movie.tmdb_page_link,
+      renderForm: true,
+    });
 
   }
 
   render() {
-    return (<>
+    return (<div className="movie-creation">
       {/* Redirect once a movie has been submitted */}
       { this.state.formSubmitted ? 
         <Redirect to={`/movies/detail/${this.state.id}`} /> :
@@ -102,6 +118,7 @@ class MovieCreation extends React.Component {
       <TMDbSearch
         accessToken={this.props.accessToken} 
         updateForm={this.updateForm}
+        hideForm={this.hideForm}
       />
       <button onClick={this.toggleForm}>{this.buttonText()}</button>
       
@@ -114,14 +131,18 @@ class MovieCreation extends React.Component {
         /> :
         false
       }
-    </>);
+    </div>);
   }
 }
 
 
 class MovieForm extends React.Component {
   render() {
-    return (<>
+    return (<div className="movie-form">
+      <img 
+        src={this.props.fields.imageLink} 
+        alt={this.props.fields.title}
+      />
       <form onSubmit={this.props.onSubmit}>
         <input 
           name="title" 
@@ -170,7 +191,7 @@ class MovieForm extends React.Component {
           value="Add Movie"
         />
       </form>
-    </>);
+    </div>);
   }
 }
 
