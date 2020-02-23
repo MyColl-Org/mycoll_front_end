@@ -2,21 +2,23 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
+import TMDbSearch from './TMDbSearch';
+
 
 class MovieCreation extends React.Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      title: '',
-      releaseYear: '',
-      mpaaRating: '',
-      runtimeMinutes: '',
-      imageLink: '',
-      tmdbPageLink: '',
-      renderForm: false,
       formSubmitted: false,
       id: 0,
+      imageLink: '',
+      mpaaRating: '',
+      releaseYear: '',
+      renderForm: false,
+      runtimeMinutes: '',
+      title: '',
+      tmdbPageLink: '',
     };
 
     this.buttonText = this.buttonText.bind(this);
@@ -90,6 +92,10 @@ class MovieCreation extends React.Component {
       }
       {/* Initial content */}
       <h1>Movie Creation Page</h1>
+      <TMDbSearch
+        accessToken={this.props.accessToken} 
+        // TODO: Add onSelection function
+      />
       <button onClick={this.toggleForm}>{this.buttonText()}</button>
       
       {/* Render Manual Entry Form */}
