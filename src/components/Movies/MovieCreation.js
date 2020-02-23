@@ -25,6 +25,7 @@ class MovieCreation extends React.Component {
     this.changeHandler = this.changeHandler.bind(this);
     this.createMovie = this.createMovie.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
+    this.updateForm = this.updateForm.bind(this);
   }
 
   buttonText() {
@@ -83,6 +84,12 @@ class MovieCreation extends React.Component {
     });
   }
 
+  updateForm(movie) {
+    // Updates the form fields when a movie is selected from TMDb results
+
+
+  }
+
   render() {
     return (<>
       {/* Redirect once a movie has been submitted */}
@@ -94,7 +101,7 @@ class MovieCreation extends React.Component {
       <h1>Movie Creation Page</h1>
       <TMDbSearch
         accessToken={this.props.accessToken} 
-        // TODO: Add onSelection function
+        updateForm={this.updateForm}
       />
       <button onClick={this.toggleForm}>{this.buttonText()}</button>
       

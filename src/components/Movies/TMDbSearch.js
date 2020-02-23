@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+import defaultImage from './img/default_movie_cover.png';
 
 
 class TMDbSearch extends React.Component {
@@ -13,6 +14,7 @@ class TMDbSearch extends React.Component {
     };
 
     this.changeHandler = this.changeHandler.bind(this);
+    this.onSelect = this.onSelect.bind(this);
     this.requestResults = this.requestResults.bind(this);
   }
 
@@ -21,6 +23,30 @@ class TMDbSearch extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
+  }
+
+  async onSelect(event) {
+    event.preventDefault();
+    const movie_id = event.target.value;
+    console.log("MOVIE ID", movie_id);
+    const URL = `http://127.0.0.1:8000/api/v1/movies/search/details?query=${movie_id}`;
+
+    let axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${this.props.accessToken}`
+      }
+    };
+    
+    try {
+      const response = await axios.get(URL, axiosConfig);
+      // TODO: Choose something to happen on success
+      console.log("DETAILS RESPONSE", response.data)
+      this.props.updateForm(response.data);
+    } 
+    catch(error) {
+      console.log("Error while trying to request details from TMDb.");
+      console.error(error);
+    }
   }
 
   async requestResults(event) {
@@ -36,18 +62,15 @@ class TMDbSearch extends React.Component {
     
     try {
       const response = await axios.get(URL, axiosConfig);
-      // TODO: Choose something to happen on sucessful 
       this.setState({
         results: [...response.data],
       });
       console.log(response.data);
-      // this.props.onSuccess(response.data);
     } 
     catch(error) {
       console.log("Error while trying to search TMDb.");
       console.error(error);
     }
-
   }
 
   render() {
@@ -67,7 +90,7 @@ class TMDbSearch extends React.Component {
 
       {/* Render search results if present in state */}
       { this.state.results ?
-        this.state.results.map( movie => <TMDbItem movie={movie}/>) :
+        this.state.results.map( movie => <TMDbItem movie={movie} key={movie.id} onSelect={this.onSelect} />) :
         false
       }
     </>)
@@ -80,15 +103,18 @@ const TMDbItem = (props) => {
   const movieTitle = `${props.movie.title} (${props.movie.release_year})`
   return (
     <li className="tmdb-item">
-      { props.movie.poster_path ?
-        <img 
-          src={props.movie.poster_path}
-          title={props.movie.overview}
-        /> :
-        <p>No Image</p>
-      }
+      <img 
+        src={
+          props.movie.poster_path ?
+          props.movie.poster_path :
+          defaultImage
+        }
+        alt={props.movie.title}
+        title={props.movie.overview}
+      /> 
       <p>{ movieTitle }</p>
       <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a>
+      <button value={props.movie.id} onClick={props.onSelect}>Select</button>
     </li>
   );
 }
