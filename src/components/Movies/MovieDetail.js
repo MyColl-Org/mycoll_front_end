@@ -78,16 +78,12 @@ class MovieDetail extends React.Component {
 
 
   render() {
-    let movieTitle, movieRating, movieRuntime;
+    let movieTitle;
 
     if (this.props.movie) {
       // Pre-assemble text content for clarity
       movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`;
-      movieRating = `MPAA Rating: ${this.props.movie.mpaa_rating}`;
-      movieRuntime = `Runtime (mins): ${this.props.movie.runtime_minutes}`;
     }
-
-    console.log(this.props.movie)
     
     return (<>
       {/* Movie Info OR <Redirect> */}
@@ -114,8 +110,9 @@ class MovieDetail extends React.Component {
                 alt={`${this.props.movie.title} cover art`}
                 title={this.props.movie.title} 
               />
-              <p>{ movieRating }</p>
-              <p>{ movieRuntime }</p>
+              <p><span className="detail-heading">Overview: </span>{ this.props.movie.overview }</p>
+              <p><span className="detail-heading">Rating: </span>{ this.props.movie.mpaa_rating }</p>
+              <p><span className="detail-heading">Runtime: </span>{ this.props.movie.runtime_minutes }</p>
               {/* Render link to The Movie Database if present */}
               { this.props.movie.tmdb_page_link !== '' ?
                 <a 

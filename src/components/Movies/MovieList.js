@@ -9,7 +9,7 @@ class MovieList extends React.Component {
     super(props);
     
     this.state = {
-      sortFunction: this.runtimeSort,
+      sortFunction: this.titleAlphaSort,
       orderAscending: true, 
     }
 
@@ -56,29 +56,24 @@ class MovieList extends React.Component {
 }
 
 
-// <MovieItem /> Component
-const MovieItem = props => {
-  // Returns representation of a single movie
-  
-  // Pre-assemble text content for clarity
-  const movieTitle = `${props.movie.title} (${props.movie.release_year})`;
-  const movieRating = `MPAA Rating: ${props.movie.mpaa_rating}`;
-  const movieRuntime = `Runtime (mins): ${props.movie.runtime_minutes}`;
-  
-  return (
-    <li className="movie-item">
-      <Link to={{pathname: `movies/detail/${props.movie.id}`, state: props.movie}} replace >
+class MovieItem extends React.Component{
+  render() {
+    const movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`;
+    return (
+      <li className="movie-item">
+      <Link to={{pathname: `movies/detail/${this.props.movie.id}`, state: this.props.movie}} replace >
         <h3>{ movieTitle }</h3>
       </Link>
       <img 
-        src={props.movie.image_link} 
-        alt={`${props.movie.title} cover art`}
-        title={props.movie.title} 
+        src={this.props.movie.image_link} 
+        alt={`${this.props.movie.title} cover art`}
+        title={this.props.movie.title} 
       />
-      <p>{ movieRating }</p>
-      <p>{ movieRuntime }</p>
+      <p><span className="detail-heading">Rating: </span>{ this.props.movie.mpaa_rating }</p>
+      <p><span className="detail-heading">Runtime: </span>{ this.props.movie.runtime_minutes }</p>
     </li>
-  );
+    )
+  }
 }
 
 export default MovieList;
