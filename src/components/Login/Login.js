@@ -42,7 +42,7 @@ class Login extends React.Component {
 
   render() {
     return (<>
-      <form onSubmit={this.obtainTokens}>
+      <form onSubmit={this.obtainTokens} className="login-form">
         <input
           name='username'
           type='text'

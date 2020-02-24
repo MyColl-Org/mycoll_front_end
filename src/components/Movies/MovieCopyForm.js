@@ -55,7 +55,7 @@ class MovieCopyForm extends React.Component {
 
   render() {
     return (<>
-      <form onSubmit={this.createCopy}>
+      <form onSubmit={this.createCopy} className="movie-copy-form">
         <input 
           name="platform" 
           type="text"

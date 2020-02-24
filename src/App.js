@@ -53,42 +53,44 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <Header />
-        <Switch>
-          <Route path='/' exact>
-            {/* Render collections or login/signup depending on presence of tokens */}
-            { this.state.accessToken ?
-              <Collections /> :
-              <>
-                { this.state.newUser ?
-                  <>
-                    <h2>Welcome {this.state.newUser}, We Have Such Sights To Show You!</h2>
-                    <p>Please Login to Your New Account</p> 
-                  </> :
-                  <>
-                    <h2>Welcome, We Have Such Sights To Show You!</h2>
-                    <p>Please Login</p>
-                  </>
-                }
-                <Login storeTokens={this.storeTokens} />
-                <p>OR</p>
-                { this.state.renderSignUp ?
-                  <SignUp onSuccess={this.greetNewUser} /> :
-                  <button onClick={this.toggleSignUp}>Sign Up</button>
-                }
-              </>
-            }
-          </Route>
-          <Route path='/movies'>
-            <Movies 
-              accessToken={this.state.accessToken}
-              refreshToken={this.state.refreshToken} 
-            />
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
+      <div className="app">
+        <Router>
+          <Header />
+          <Switch>
+            <Route path='/' exact>
+              {/* Render collections or login/signup depending on presence of tokens */}
+              { this.state.accessToken ?
+                <Collections /> :
+                <>
+                  { this.state.newUser ?
+                    <div className="login">
+                      <h2>Welcome {this.state.newUser}, We Have Such Sights To Show You!</h2>
+                      <p>Please Login to Your New Account</p>
+                      <Login storeTokens={this.storeTokens} /> 
+                    </div> :
+                    <div className="login">
+                      <h2>Welcome, We Have Such Sights To Show You!</h2>
+                      <p>Please Login</p>
+                      <Login storeTokens={this.storeTokens} />
+                    </div>
+                  }
+                  { this.state.renderSignUp ?
+                    <SignUp onSuccess={this.greetNewUser} /> :
+                    <button onClick={this.toggleSignUp}>Sign Up</button>
+                  }
+                </>
+              }
+            </Route>
+            <Route path='/movies'>
+              <Movies 
+                accessToken={this.state.accessToken}
+                refreshToken={this.state.refreshToken} 
+              />
+            </Route>
+          </Switch>
+          <Footer />
+        </Router>
+      </div>
     );
   }
 }

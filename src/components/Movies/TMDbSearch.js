@@ -78,7 +78,7 @@ class TMDbSearch extends React.Component {
   render() {
     return (<div className="tmdb-search">
       <h2>Search Form</h2>
-      <form onSubmit={this.requestResults}>
+      <form onSubmit={this.requestResults} className="tmdb-search-form">
         <input
           name="query"
           type="text"
@@ -91,13 +91,15 @@ class TMDbSearch extends React.Component {
 
       {/* Render search results if present in state */}
       { this.state.results ?
-        this.state.results.map( movie => 
-          <TMDbItem 
-            movie={movie} 
-            key={movie.id} 
-            onSelect={this.onSelect} 
-          />
-        ) :
+        <ul className="tmdb-search-results">
+          {this.state.results.map( movie => 
+            <TMDbItem 
+              movie={movie} 
+              key={movie.id} 
+              onSelect={this.onSelect} 
+            />
+          )}
+        </ul> :
         false
       }
     </div>);
