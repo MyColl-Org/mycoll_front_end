@@ -43,11 +43,11 @@ class MovieList extends React.Component {
       <>
         {/* Render movies if there are any in state, or redirect to root */}
         { this.props.movies ?
-
-          movies.map(movie_data => (
-            <MovieItem movie={movie_data} key={movie_data.id}/>
-          )) :
-
+          <ul className="movie-list">
+            {movies.map(movie_data => (
+              <MovieItem movie={movie_data} key={movie_data.id}/>
+            ))}
+          </ul> :
           <Redirect to="/" />
       }
       </>
@@ -66,14 +66,18 @@ const MovieItem = props => {
   const movieRuntime = `Runtime (mins): ${props.movie.runtime_minutes}`;
   
   return (
-    <div className="movie-item">
+    <li className="movie-item">
       <Link to={{pathname: `movies/detail/${props.movie.id}`, state: props.movie}} replace >
         <h3>{ movieTitle }</h3>
       </Link>
-      <img src={props.movie.image_link} alt={`${props.movie.title} cover art`} />
+      <img 
+        src={props.movie.image_link} 
+        alt={`${props.movie.title} cover art`}
+        title={props.movie.title} 
+      />
       <p>{ movieRating }</p>
       <p>{ movieRuntime }</p>
-    </div>
+    </li>
   );
 }
 

@@ -68,7 +68,7 @@ class MovieForm extends React.Component {
 
   render() {
     return (<>
-      <form onSubmit={this.updateMovie}>
+      <form onSubmit={this.updateMovie} className="movie-update-form">
         <input
           name="title"
           type="text"

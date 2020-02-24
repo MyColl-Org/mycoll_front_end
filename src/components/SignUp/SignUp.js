@@ -43,7 +43,7 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.createUser} >
+      <form onSubmit={this.createUser} className="signup-form">
         <input
           name='username'
           type='text'
