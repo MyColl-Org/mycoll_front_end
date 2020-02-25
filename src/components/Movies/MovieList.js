@@ -18,6 +18,7 @@ class MovieList extends React.Component {
   }
 
   titleAlphaSort(a, b) {
+    // Sorts movies based on their title
     let sortIndicator = 0;
     const ascending = this.state.orderAscending;
     if (a.title < b.title) ascending ? sortIndicator = -1 : sortIndicator = 1;
@@ -26,6 +27,7 @@ class MovieList extends React.Component {
   }
 
   runtimeSort(a, b) {
+    // Sorts movies based on length of their runtime
     let sortIndicator = 0;
     const ascending = this.state.orderAscending;
     const runtime_a = parseInt(a.runtime_minutes);
@@ -36,21 +38,16 @@ class MovieList extends React.Component {
   }
 
   render () {
-  
     const movies = this.props.movies.sort(this.state.sortFunction.bind(this));
+    // Redirect to home page if there are no movies in state
+    if (!this.props.movies) return <Redirect to="/" />
 
     return (
-      <>
-        {/* Render movies if there are any in state, or redirect to root */}
-        { this.props.movies ?
-          <ul className="movie-list">
-            {movies.map(movie_data => (
-              <MovieItem movie={movie_data} key={movie_data.id}/>
-            ))}
-          </ul> :
-          <Redirect to="/" />
-      }
-      </>
+      <ul className="movie-list">
+        {movies.map(movie_data => (
+          <MovieItem movie={movie_data} key={movie_data.id}/>
+        ))}
+      </ul> 
     );
   }
 }
@@ -61,17 +58,17 @@ class MovieItem extends React.Component{
     const movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`;
     return (
       <li className="movie-item">
-      <Link to={{pathname: `movies/detail/${this.props.movie.id}`, state: this.props.movie}} replace >
-        <h3>{ movieTitle }</h3>
-      </Link>
-      <img 
-        src={this.props.movie.image_link} 
-        alt={`${this.props.movie.title} cover art`}
-        title={this.props.movie.title} 
-      />
-      <p><span className="detail-heading">Rating: </span>{ this.props.movie.mpaa_rating }</p>
-      <p><span className="detail-heading">Runtime: </span>{ this.props.movie.runtime_minutes }</p>
-    </li>
+        <Link to={{pathname: `movies/detail/${this.props.movie.id}`, state: this.props.movie}} replace >
+          <h3>{ movieTitle }</h3>
+        </Link>
+        <img 
+          src={this.props.movie.image_link} 
+          alt={`${this.props.movie.title} cover art`}
+          title={this.props.movie.title} 
+        />
+        <p><span className="detail-heading">Rating: </span>{ this.props.movie.mpaa_rating }</p>
+        <p><span className="detail-heading">Runtime: </span>{ this.props.movie.runtime_minutes }</p>
+      </li>
     )
   }
 }
