@@ -8,21 +8,8 @@ class TMDbSearch extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      query: '',
-      results: [],
-    };
-
-    this.changeHandler = this.changeHandler.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.requestResults = this.requestResults.bind(this);
-  }
-
-  changeHandler(event) {
-    // Handles updating of state and form fields upon user input
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
   }
 
   async onSelect(event) {
@@ -31,7 +18,7 @@ class TMDbSearch extends React.Component {
     const movie_id = event.target.value;
     const URL = `http://127.0.0.1:8000/api/v1/movies/search/details?query=${movie_id}`;
 
-    let axiosConfig = {
+    const axiosConfig = {
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
       }
@@ -40,9 +27,6 @@ class TMDbSearch extends React.Component {
     try {
       const response = await axios.get(URL, axiosConfig);
       this.props.updateForm(response.data);
-      this.setState({
-        results: [],
-      });
     } 
     catch(error) {
       console.log("Error while trying to request details from TMDb.");
@@ -51,12 +35,11 @@ class TMDbSearch extends React.Component {
   }
 
   async requestResults(event) {
-    // Requests search results from TMDb and updates <TMDbSearch> state to render results
+    // Requests search results from TMDb and updates <MovieCreation> state to render results
     event.preventDefault();
 
-    const URL = `http://127.0.0.1:8000/api/v1/movies/search?query=${this.state.query}`;
-
-    let axiosConfig = {
+    const URL = `http://127.0.0.1:8000/api/v1/movies/search?query=${this.props.query}`;
+    const axiosConfig = {
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
       }
@@ -64,10 +47,7 @@ class TMDbSearch extends React.Component {
     
     try {
       const response = await axios.get(URL, axiosConfig);
-      this.setState({
-        results: [...response.data],
-      });
-      this.props.hideForm();
+      this.props.updateResults(response.data);
     } 
     catch(error) {
       console.log("Error while trying to search TMDb.");
@@ -82,17 +62,17 @@ class TMDbSearch extends React.Component {
         <input
           name="query"
           type="text"
-          value={this.state.query}
+          value={this.props.query}
           placeholder='Movie Title'
-          onChange={this.changeHandler}
+          onChange={this.props.changeHandler}
         />
         <button type="submit">Submit</button>
       </form>
 
       {/* Render search results if present in state */}
-      { this.state.results ?
+      { this.props.results ?
         <ul className="tmdb-search-results">
-          {this.state.results.map( movie => 
+          {this.props.results.map( movie => 
             <TMDbItem 
               movie={movie} 
               key={movie.id} 

@@ -11,6 +11,7 @@ class MovieForm extends React.Component {
       title: '',
       releaseYear: '',
       mpaaRating: '',
+      overview: '',
       runtimeMinutes: '',
       imageLink: '',
       tmdbPageLink: '',
@@ -26,6 +27,7 @@ class MovieForm extends React.Component {
       title: this.props.movie.title,
       releaseYear: this.props.movie.release_year,
       mpaaRating: this.props.movie.mpaa_rating,
+      overview: this.props.movie.overview,
       runtimeMinutes: this.props.movie.runtime_minutes,
       imageLink: this.props.movie.image_link,
       tmdbPageLink: this.props.movie.tmdb_page_link,
@@ -40,6 +42,7 @@ class MovieForm extends React.Component {
       title: this.state.title,
       release_year: this.state.releaseYear,
       mpaa_rating: this.state.mpaaRating,
+      overview: this.state.overview,
       runtime_minutes: this.state.runtimeMinutes,
       image_link: this.state.imageLink,
       tmdb_page_link: this.state.tmdbPageLink,
@@ -88,6 +91,13 @@ class MovieForm extends React.Component {
           type="text"
           value={this.state.mpaaRating}
           placeholder='MPAA Rating'
+          onChange={this.changeHandler}
+        />
+        <textarea
+          name="overview"
+          type="text"
+          value={this.state.overview}
+          placeholder='Overview'
           onChange={this.changeHandler}
         />
         <input

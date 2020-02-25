@@ -2,6 +2,62 @@ import React from 'react';
 import axios from 'axios';
 
 
+class MovieCopies extends React.Component {
+  render() {
+    return (
+      <div className="copies">
+        {/* Copies List */}
+        { this.props.movie.copies.length > 0 ?
+          <>
+            <h3>Copies:</h3>
+            <ul className="copies-list">
+              { this.props.movie.copies.map( copy => (
+                  <MovieCopyItem key={copy.id.toString()} copy={copy} />)
+                ) 
+              }
+            </ul>
+          </> :
+          false
+        }
+
+        {/* New Copy Form */}
+        { this.props.renderCopyForm ?
+          <MovieCopyForm 
+            movieID={this.props.movie.id} 
+            accessToken={this.props.accessToken}
+            onSuccess={this.props.copyCreated}
+          /> :
+          <>
+            <button >Edit Copies</button>
+            <button onClick={this.props.toggleCopyForm}>Add Copy</button>
+          </>
+        }
+      </div>      
+    );
+  }
+}
+
+
+class MovieCopyItem extends React.Component {
+  render() {
+    const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
+
+    return (<>
+      { this.props.copy.vod_link ?
+
+        <li>
+          <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
+            { copyText }
+          </a>
+        </li> :
+        
+        <li>{ copyText }</li>
+      }
+    </>);
+  }
+}
+
+
 class MovieCopyForm extends React.Component {
   constructor(props) {
     super(props);
@@ -86,4 +142,4 @@ class MovieCopyForm extends React.Component {
   }
 }
 
-export default MovieCopyForm;
+export default MovieCopies;

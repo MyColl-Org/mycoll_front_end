@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-import MovieCopyForm from './MovieCopyForm';
+import MovieCopies from './MovieCopies';
 import MovieUpdateForm from './MovieUpdateForm';
 
 
@@ -12,6 +12,7 @@ class MovieDetail extends React.Component {
 
     this.state = {
       confirmDelete: false,
+      renderCopyEdit: false,
       renderCopyForm: false,
       renderUpdateForm: false,
     }
@@ -78,16 +79,12 @@ class MovieDetail extends React.Component {
 
 
   render() {
-    let movieTitle, movieRating, movieRuntime;
+    let movieTitle;
 
     if (this.props.movie) {
       // Pre-assemble text content for clarity
       movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`;
-      movieRating = `MPAA Rating: ${this.props.movie.mpaa_rating}`;
-      movieRuntime = `Runtime (mins): ${this.props.movie.runtime_minutes}`;
     }
-
-    console.log(this.props.movie)
     
     return (<>
       {/* Movie Info OR <Redirect> */}
@@ -114,8 +111,9 @@ class MovieDetail extends React.Component {
                 alt={`${this.props.movie.title} cover art`}
                 title={this.props.movie.title} 
               />
-              <p>{ movieRating }</p>
-              <p>{ movieRuntime }</p>
+              <p><span className="detail-heading">Overview: </span>{ this.props.movie.overview }</p>
+              <p><span className="detail-heading">Rating: </span>{ this.props.movie.mpaa_rating }</p>
+              <p><span className="detail-heading">Runtime: </span>{ this.props.movie.runtime_minutes }</p>
               {/* Render link to The Movie Database if present */}
               { this.props.movie.tmdb_page_link !== '' ?
                 <a 
@@ -139,58 +137,19 @@ class MovieDetail extends React.Component {
               <button onClick={this.deleteMovie}>CONFIRM DELETE</button>
             </> :
 
-            <button onClick={this.toggleConfirmDelete}>Delete Movie</button>
+            <button onClick={this.toggleConfirmDelete}>DELETE</button>
           }
 
-          {/* Copies List */}
-          { this.props.movie.copies.length > 0 ?
-
-            <>
-              <h3>Copies:</h3>
-              <ul>
-                { this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)) }
-              </ul>
-            </> :
-
-            // false here renders nothing rather than insert an empty tag
-            false
-          }
-
-          {/* New Copy Form */}
-          { this.state.renderCopyForm ?
-          
-            <MovieCopyForm 
-              movieID={this.props.movie.id} 
-              accessToken={this.props.accessToken}
-              onSuccess={this.copyCreated}
-            /> :
-
-            <button onClick={this.toggleCopyForm}>Add Copy</button>
-          }
+          <MovieCopies 
+            movie={this.props.movie}
+            accessToken={this.props.accessToken}
+            copyCreated={this.copyCreated}
+            renderCopyForm={this.state.renderCopyForm}
+            toggleCopyForm={this.toggleCopyForm}
+          />
         </div> :
 
         <Redirect to='/movies' />
-      }
-
-    </>);
-  }
-}
-
-
-class MovieCopy extends React.Component {
-  render() {
-    const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
-
-    return (<>
-      { this.props.copy.vod_link ?
-
-        <li>
-          <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
-            { copyText }
-          </a>
-        </li> :
-        
-        <li>{ copyText }</li>
       }
     </>);
   }
