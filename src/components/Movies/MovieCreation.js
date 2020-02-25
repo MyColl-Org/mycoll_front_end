@@ -154,55 +154,76 @@ class MovieForm extends React.Component {
           alt={this.props.fields.title}
         />
         <form onSubmit={this.props.onSubmit}>
-          <input 
-            name="title" 
-            type="text"
-            value={this.props.fields.title}
-            placeholder="Title"
-            onChange={this.props.changeHandler}
-          />
-          <input 
-            name="releaseYear" 
-            type="text"
-            value={this.props.fields.releaseYear}
-            placeholder="Release Year"
-            onChange={this.props.changeHandler}
-          />
-          <input 
-            name="mpaaRating" 
-            type="text"
-            value={this.props.fields.mpaaRating}
-            placeholder="MPAA Rating"
-            onChange={this.props.changeHandler}
-          />
-          <textarea 
-            name="overview" 
-            type="text"
-            value={this.props.fields.overview}
-            placeholder="Overview"
-            onChange={this.props.changeHandler}
-          />
-          <input 
-            name="runtimeMinutes" 
-            type="text"
-            value={this.props.fields.runtimeMinutes}
-            placeholder="Runtime (mins)"
-            onChange={this.props.changeHandler}
-          />
-          <input 
-            name="imageLink" 
-            type="text"
-            value={this.props.fields.imageLink}
-            placeholder="Image Link (optional)"
-            onChange={this.props.changeHandler}
-          />
-          <input 
-            name="tmdbPageLink" 
-            type="text"
-            value={this.props.fields.tmdbPageLink}
-            placeholder="TMDB Page Link (optional)"
-            onChange={this.props.changeHandler}
-          />
+          <label>
+            Title
+            <input 
+              name="title" 
+              type="text"
+              value={this.props.fields.title}
+              placeholder="Title"
+              onChange={this.props.changeHandler}
+            />
+          </label>
+          <label>
+            Release Year
+            <input 
+              name="releaseYear" 
+              type="text"
+              value={this.props.fields.releaseYear}
+              placeholder="Release Year"
+              onChange={this.props.changeHandler}
+            />
+          </label>
+          <label>
+            MPAA Rating
+            <input 
+              name="mpaaRating" 
+              type="text"
+              value={this.props.fields.mpaaRating}
+              placeholder="MPAA Rating"
+              onChange={this.props.changeHandler}
+            />
+          </label>
+          <label>
+            Overview
+            <textarea 
+              name="overview" 
+              type="text"
+              value={this.props.fields.overview}
+              placeholder="Overview"
+              onChange={this.props.changeHandler}
+            />
+          </label>
+          <label>
+            Runtime (mins)
+            <input 
+              name="runtimeMinutes" 
+              type="text"
+              value={this.props.fields.runtimeMinutes}
+              placeholder="Runtime (mins)"
+              onChange={this.props.changeHandler}
+            />
+          </label>
+          <label>
+            Image Link
+            <input 
+              name="imageLink" 
+              type="text"
+              value={this.props.fields.imageLink}
+              placeholder="Image Link (optional)"
+              onChange={this.props.changeHandler}
+            />
+          </label>
+          <label>
+            TMDb Page Link
+            <input 
+              name="tmdbPageLink" 
+              type="text"
+              value={this.props.fields.tmdbPageLink}
+              placeholder="TMDB Page Link (optional)"
+              onChange={this.props.changeHandler}
+            />
+          </label>
           <input
             type="submit"
             value="Add Movie"
