@@ -12,6 +12,7 @@ class MovieDetail extends React.Component {
 
     this.state = {
       confirmDelete: false,
+      renderCopyEdit: false,
       renderCopyForm: false,
       renderUpdateForm: false,
     }
@@ -136,7 +137,7 @@ class MovieDetail extends React.Component {
               <button onClick={this.deleteMovie}>CONFIRM DELETE</button>
             </> :
 
-            <button onClick={this.toggleConfirmDelete}>Delete Movie</button>
+            <button onClick={this.toggleConfirmDelete}>DELETE</button>
           }
 
           <MovieCopies 
@@ -150,10 +151,8 @@ class MovieDetail extends React.Component {
 
         <Redirect to='/movies' />
       }
-
     </>);
   }
 }
-
 
 export default MovieDetail;

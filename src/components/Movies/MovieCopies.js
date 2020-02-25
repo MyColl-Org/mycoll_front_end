@@ -11,7 +11,10 @@ class MovieCopies extends React.Component {
           <>
             <h3>Copies:</h3>
             <ul className="copies-list">
-              { this.props.movie.copies.map( copy => (<MovieCopyItem key={copy.id.toString()} copy={copy} />)) }
+              { this.props.movie.copies.map( copy => (
+                  <MovieCopyItem key={copy.id.toString()} copy={copy} />)
+                ) 
+              }
             </ul>
           </> :
           false
