@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-import MovieCopyForm from './MovieCopyForm';
+import MovieCopies from './MovieCopies';
 import MovieUpdateForm from './MovieUpdateForm';
 
 
@@ -139,31 +139,13 @@ class MovieDetail extends React.Component {
             <button onClick={this.toggleConfirmDelete}>Delete Movie</button>
           }
 
-          {/* Copies List */}
-          { this.props.movie.copies.length > 0 ?
-
-            <>
-              <h3>Copies:</h3>
-              <ul className="copies-list">
-                { this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)) }
-              </ul>
-            </> :
-
-            // false here renders nothing rather than insert an empty tag
-            false
-          }
-
-          {/* New Copy Form */}
-          { this.state.renderCopyForm ?
-          
-            <MovieCopyForm 
-              movieID={this.props.movie.id} 
-              accessToken={this.props.accessToken}
-              onSuccess={this.copyCreated}
-            /> :
-
-            <button onClick={this.toggleCopyForm}>Add Copy</button>
-          }
+          <MovieCopies 
+            movie={this.props.movie}
+            accessToken={this.props.accessToken}
+            copyCreated={this.copyCreated}
+            renderCopyForm={this.state.renderCopyForm}
+            toggleCopyForm={this.toggleCopyForm}
+          />
         </div> :
 
         <Redirect to='/movies' />
@@ -173,24 +155,5 @@ class MovieDetail extends React.Component {
   }
 }
 
-
-class MovieCopy extends React.Component {
-  render() {
-    const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
-
-    return (<>
-      { this.props.copy.vod_link ?
-
-        <li>
-          <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
-            { copyText }
-          </a>
-        </li> :
-        
-        <li>{ copyText }</li>
-      }
-    </>);
-  }
-}
 
 export default MovieDetail;
