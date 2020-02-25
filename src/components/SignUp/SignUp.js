@@ -44,27 +44,36 @@ class SignUp extends React.Component {
   render() {
     return (
       <form onSubmit={this.createUser} className="signup-form">
-        <input
-          name='username'
-          type='text'
-          value={this.state.username}
-          placeholder='username'
-          onChange={this.changeHandler}
-        />
-        <input
-          name='password'
-          type='password'
-          value={this.state.password}
-          placeholder='password'
-          onChange={this.changeHandler}
-        />
-        <input
-          name='email'
-          type='email'
-          value={this.state.email}
-          placeholder='email'
-          onChange={this.changeHandler}
-        />
+        <label>
+          Username
+          <input
+            name='username'
+            type='text'
+            value={this.state.username}
+            placeholder='username'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          Password (min 8 characters)
+          <input
+            name='password'
+            type='password'
+            value={this.state.password}
+            placeholder='password'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          Email Address
+          <input
+            name='email'
+            type='email'
+            value={this.state.email}
+            placeholder='email'
+            onChange={this.changeHandler}
+          />
+        </label>
         <button>Create Account</button>
       </form>
     )
