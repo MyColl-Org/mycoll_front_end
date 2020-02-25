@@ -144,7 +144,7 @@ class MovieDetail extends React.Component {
 
             <>
               <h3>Copies:</h3>
-              <ul>
+              <ul className="copies-list">
                 { this.props.movie.copies.map( copy => (<MovieCopy key={copy.id.toString()} copy={copy} />)) }
               </ul>
             </> :
