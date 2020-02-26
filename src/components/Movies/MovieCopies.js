@@ -65,21 +65,17 @@ class MovieCopies extends React.Component {
 class MovieCopyItem extends React.Component {
   render() {
     const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
+    const copyContent = this.props.copy.vod_link ?
+      <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
+        { copyText }
+      </a> :
+      `${ copyText }`;
+    const editOptions = this.props.renderOptions ? <button>DELETE</button> : false;
 
     return (
       <li className="movie-copy-item">
-        {/* MovieCopy Content */}
-        { this.props.copy.vod_link ?
-          <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
-            { copyText }
-          </a> :
-          `${copyText}`
-        }
-        {/* Edit Options */}
-        { this.props.renderOptions ?
-          <button>DELETE</button> :
-          false
-        }
+        { copyContent }
+        { editOptions }
       </li>
     );
   }
@@ -133,9 +129,7 @@ class MovieCopyForm extends React.Component {
 
   changeHandler(event) {
     // Handles updates of state and inputs fields for <MovieCopyForm>
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {

@@ -39,9 +39,7 @@ class MovieCreation extends React.Component {
   
   changeHandler(event) {
     // Handles updating of state and form fields upon user input
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   async createMovie(event) {
