@@ -14,7 +14,7 @@ import Movies from './components/Movies/Movies';
 import Nav from './components/Nav/Nav';
 import SignUp from './components/SignUp/SignUp';
 
-import './App.scss'
+import './App.scss';
 
 
 class App extends React.Component {
