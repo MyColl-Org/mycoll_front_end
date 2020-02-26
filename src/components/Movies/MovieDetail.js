@@ -51,7 +51,7 @@ class MovieDetail extends React.Component {
     }
 
     if (response.status === 204 ) {
-      this.props.onDeleteMovieSuccess(this.props.movie.id);
+      this.props.removeMovie(this.props.movie.id);
     }
     
   }
@@ -114,7 +114,7 @@ class MovieDetail extends React.Component {
           accessToken={this.props.accessToken}
           addCopy={this.props.addCopy}
           copyCreated={this.copyCreated}
-          copyDeleted={this.props.onDeleteMovieCopySuccess}
+          deleteCopy={this.props.deleteCopy}
         />
       </div>
     );

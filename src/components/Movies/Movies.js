@@ -18,7 +18,7 @@ class Movies extends React.Component {
       movies: [],
     };
 
-    this.addCreatedMovie = this.addCreatedMovie.bind(this);
+    this.addMovie = this.addMovie.bind(this);
     this.addCreatedMovieCopy = this.addCreatedMovieCopy.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
     this.removeMovie = this.removeMovie.bind(this);
@@ -50,8 +50,9 @@ class Movies extends React.Component {
     }
   }
 
-  addCreatedMovie(newMovie) {
+  addMovie(newMovie) {
     // Adds new Movie to state after being added to the DB
+    console.log('adding new movie in Movies')
     this.setState({ movies: this.state.movies.concat([newMovie]) });
   }
 
@@ -117,7 +118,7 @@ class Movies extends React.Component {
           <Route path='/movies/new' exact >
             <MovieCreation
               accessToken={this.props.accessToken}
-              onSuccess={this.addCreatedMovie} />
+              addMovie={this.addMovie} />
           </Route>
           <Route 
             path='/movies/detail/:movieID' 
@@ -130,8 +131,8 @@ class Movies extends React.Component {
                 return  <MovieDetail 
                           accessToken={this.props.accessToken}
                           addCopy={this.addCreatedMovieCopy}
-                          onDeleteMovieSuccess={this.removeMovie}
-                          onDeleteMovieCopySuccess={this.removeMovieCopy}
+                          removeMovie={this.removeMovie}
+                          removeMovieCopy={this.removeMovieCopy}
                           onUpdateMovieSuccess={this.updateMovie}
                           movie={movie} 
                         /> 

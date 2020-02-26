@@ -11,7 +11,7 @@ class MovieCreation extends React.Component {
     
     this.state = {
       formSubmitted: false,
-      id: 0,
+      movieID: 0,
       imageLink: '',
       mpaaRating: '',
       overview: '',
@@ -24,12 +24,19 @@ class MovieCreation extends React.Component {
       tmdbPageLink: '',
     };
 
+    this.addMovie = this.addMovie.bind(this);
     this.buttonText = this.buttonText.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
-    this.createMovie = this.createMovie.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.updateForm = this.updateForm.bind(this);
     this.updateResults = this.updateResults.bind(this);
+  }
+
+  addMovie(newMovie, movieID) {
+    // Extends addMovie() from <Movies>
+    console.log("adding movie in MovieCreation")
+    this.props.addMovie(newMovie);
+    this.setState({ formSubmitted: true, id: movieID });
   }
 
   buttonText() {
@@ -40,42 +47,6 @@ class MovieCreation extends React.Component {
   changeHandler(event) {
     // Handles updating of state and form fields upon user input
     this.setState({ [event.target.name]: event.target.value });
-  }
-
-  async createMovie(event) {
-    // POSTS movie to DB and updated state in <Movies> on success
-    event.preventDefault();
-    
-    const URL = "http://127.0.0.1:8000/api/v1/movies/";
-    let formData = {
-      title: this.state.title,
-      release_year: this.state.releaseYear,
-      mpaa_rating: this.state.mpaaRating,
-      overview: this.state.overview,
-      runtime_minutes: this.state.runtimeMinutes,
-      image_link: this.state.imageLink,
-      tmdb_page_link: this.state.tmdbPageLink,
-    };
-    let axiosConfig = {
-      headers: {
-        Authorization: `Bearer ${this.props.accessToken}`
-      }
-    };
-    
-    try {
-      const response = await axios.post(URL, formData, axiosConfig);
-      const id = response.data.id.toString();
-      this.props.onSuccess(response.data);
-      
-      this.setState({
-        id: id,
-        formSubmitted: true,
-      });
-    } 
-    catch(error) {
-      console.log("Error while trying to POST new movie.");
-      console.error(error);
-    }
   }
 
   toggleForm() {
@@ -114,7 +85,7 @@ class MovieCreation extends React.Component {
     return (<div className="movie-creation">
       {/* Redirect once a movie has been submitted */}
       { this.state.formSubmitted ? 
-        <Redirect to={`/movies/detail/${this.state.id}`} /> :
+        <Redirect to={`/movies/detail/${this.state.movieID}`} /> :
         false
       }
       {/* Initial content */}
@@ -132,8 +103,9 @@ class MovieCreation extends React.Component {
       {/* Render Manual Entry Form */}
       { this.state.renderForm ?
         <MovieForm 
+          accessToken={this.props.accessToken}
+          addMovie={this.addMovie}
           changeHandler={this.changeHandler}
-          onSubmit={this.createMovie}
           fields={this.state}
         /> :
         false
@@ -144,6 +116,42 @@ class MovieCreation extends React.Component {
 
 
 class MovieForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.putMovie = this.putMovie.bind(this);
+  }
+
+  async putMovie(event) {
+    // POSTS movie to DB and updated state in <Movies> on success
+    event.preventDefault();
+    
+    const URL = "http://127.0.0.1:8000/api/v1/movies/";
+    let formData = {
+      title: this.props.fields.title,
+      release_year: this.props.fields.releaseYear,
+      mpaa_rating: this.props.fields.mpaaRating,
+      overview: this.props.fields.overview,
+      runtime_minutes: this.props.fields.runtimeMinutes,
+      image_link: this.props.fields.imageLink,
+      tmdb_page_link: this.props.fields.tmdbPageLink,
+    };
+    let axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${this.props.accessToken}`
+      }
+    };
+    
+    try {
+      const response = await axios.post(URL, formData, axiosConfig);
+      const movieID = response.data.id.toString();
+      this.props.addMovie(response.data, movieID);
+    } 
+    catch(error) {
+      console.log("Error while trying to POST new movie.");
+      console.error(error);
+    }
+  }
+
   render() {
     return (
       <div className="movie-form">
@@ -151,7 +159,7 @@ class MovieForm extends React.Component {
           src={this.props.fields.imageLink} 
           alt={this.props.fields.title}
         />
-        <form onSubmit={this.props.onSubmit}>
+        <form onSubmit={this.putMovie}>
           <label>
             Title
             <input 

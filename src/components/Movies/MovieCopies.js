@@ -12,12 +12,12 @@ class MovieCopies extends React.Component {
       renderEditOptions: false,
     };
 
-    this.copyCreated = this.copyCreated.bind(this);
+    this.addMovieCopy = this.addMovieCopy.bind(this);
     this.toggleCopyForm = this.toggleCopyForm.bind(this);
     this.toggleEditOptions = this.toggleEditOptions.bind(this);
   }
 
-  copyCreated(newCopy) {
+  addMovieCopy(newCopy) {
     // Hides <CopyForm> and updates state in <Movies> with the new MovieCopy
     this.toggleCopyForm();
     this.props.addCopy(newCopy);
@@ -63,7 +63,7 @@ class MovieCopies extends React.Component {
           <MovieCopyForm 
             movieID={this.props.movie.id} 
             accessToken={this.props.accessToken}
-            onSuccess={this.copyCreated}
+            addMovieCopy={this.addMovieCopy}
           /> :
           <>
             <button onClick={this.toggleEditOptions}>
@@ -84,11 +84,11 @@ class MovieCopies extends React.Component {
 class MovieCopyItem extends React.Component {
   constructor(props) {
     super(props);
-    this.deleteCopy = this.deleteCopy.bind(this);
+    this.deleteMovieCopy = this.deleteMovieCopy.bind(this);
   }
 
-  deleteCopy() {
-    this.props.copyDeleted({movieID: this.props.movieID, copyID: this.props.copyID});
+  deleteMovieCopy() {
+    this.props.deleteCopy({movieID: this.props.movieID, copyID: this.props.copyID});
   }
 
   render() {
@@ -99,7 +99,7 @@ class MovieCopyItem extends React.Component {
       </a> :
       `${ copyText }`;
     const editOptions = this.props.renderOptions ? 
-      <button onClick={this.deleteCopy}>DELETE</button> : 
+      <button onClick={this.deleteMovieCopy}>DELETE</button> : 
       false;
 
     return (
@@ -124,7 +124,7 @@ class MovieCopyForm extends React.Component {
     }
 
     this.changeHandler = this.changeHandler.bind(this);
-    this.putMovieCopy = this.createCopy.bind(this);
+    this.putMovieCopy = this.putMovieCopy.bind(this);
   }
 
   componentDidMount() {
@@ -151,7 +151,7 @@ class MovieCopyForm extends React.Component {
 
     try {
       const response = await axios.post(URL, formData, axiosConfig);
-      this.props.onSuccess(response.data);
+      this.props.addMovieCopy(response.data);
     } catch(error) {
       console.error(error);
     }
