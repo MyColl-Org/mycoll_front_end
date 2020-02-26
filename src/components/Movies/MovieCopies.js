@@ -3,6 +3,22 @@ import axios from 'axios';
 
 
 class MovieCopies extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      renderEditOptions: false,
+    };
+
+    this.toggleEditOptions = this.toggleEditOptions.bind(this);
+  }
+
+  toggleEditOptions() {
+    // Toggles edit options buttons in list of MovieCopies
+    const newState = this.state.renderEditOptions ? false : true;
+    this.setState({ renderEditOptions: newState})
+  }
+
   render() {
     return (
       <div className="copies">
@@ -12,14 +28,20 @@ class MovieCopies extends React.Component {
             <h3>Copies:</h3>
             <ul className="copies-list">
               { this.props.movie.copies.map( copy => (
-                  <MovieCopyItem key={copy.id.toString()} copy={copy} />)
-                ) 
+                  <MovieCopyItem 
+                    key={copy.id.toString()} 
+                    copy={copy}
+                    copyDeleted={this.props.copyDeleted}
+                    copyID={copy.id}
+                    movieID={this.props.movie.id}
+                    renderOptions={this.state.renderEditOptions} 
+                  />
+                )) 
               }
             </ul>
           </> :
           false
         }
-
         {/* New Copy Form */}
         { this.props.renderCopyForm ?
           <MovieCopyForm 
@@ -28,7 +50,12 @@ class MovieCopies extends React.Component {
             onSuccess={this.props.copyCreated}
           /> :
           <>
-            <button >Edit Copies</button>
+            <button onClick={this.toggleEditOptions}>
+              { this.state.renderEditOptions ? 
+                "Done Editing" :
+                "Edit Copies"
+              }
+            </button>
             <button onClick={this.props.toggleCopyForm}>Add Copy</button>
           </>
         }
@@ -39,21 +66,32 @@ class MovieCopies extends React.Component {
 
 
 class MovieCopyItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.deleteCopy = this.deleteCopy.bind(this);
+  }
+
+  deleteCopy() {
+    this.props.copyDeleted({movieID: this.props.movieID, copyID: this.props.copyID});
+  }
+
   render() {
     const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
+    const copyContent = this.props.copy.vod_link ?
+      <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
+        { copyText }
+      </a> :
+      `${ copyText }`;
+    const editOptions = this.props.renderOptions ? 
+      <button onClick={this.deleteCopy}>DELETE</button> : 
+      false;
 
-    return (<>
-      { this.props.copy.vod_link ?
-
-        <li>
-          <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
-            { copyText }
-          </a>
-        </li> :
-        
-        <li>{ copyText }</li>
-      }
-    </>);
+    return (
+      <li className="movie-copy-item">
+        { copyContent }
+        { editOptions }
+      </li>
+    );
   }
 }
 
@@ -74,12 +112,12 @@ class MovieCopyForm extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      movie: this.props.movieID,
-    });
+    // Populate state with ID of current movie
+    this.setState({ movie: this.props.movieID });
   }
 
   async createCopy(event) {
+    // Makes POST request to DB to add new MovieCopy then updates state in <Movies>
     event.preventDefault();
 
     const URL = "http://127.0.0.1:8000/api/v1/movies/copies/"
@@ -104,13 +142,12 @@ class MovieCopyForm extends React.Component {
   }
 
   changeHandler(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    // Handles updates of state and inputs fields for <MovieCopyForm>
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
-    return (<>
+    return (
       <form onSubmit={this.createCopy} className="movie-copy-form">
         <input 
           name="platform" 
@@ -138,7 +175,7 @@ class MovieCopyForm extends React.Component {
           value="Add Copy"
         />
       </form>
-    </>)
+    )
   }
 }
 

@@ -7,6 +7,8 @@ import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
 import Nav from '../Nav/Nav';
 
+import './Movies.css';
+
 
 class Movies extends React.Component {
   constructor(props) {
@@ -20,14 +22,17 @@ class Movies extends React.Component {
     this.addCreatedMovieCopy = this.addCreatedMovieCopy.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
     this.removeMovie = this.removeMovie.bind(this);
+    this.removeMovieCopy = this.removeMovieCopy.bind(this);
     this.updateMovie = this.updateMovie.bind(this);
   }
 
   componentDidMount() {
+    // Populate state with all Movies in user's collection from the DB
     this.fetchMovies();
   }
 
   async fetchMovies() {
+    // Gathers all Movies in user's collection from the DB and updates state
     const URL = "http://127.0.0.1:8000/api/v1/movies/";
     const headers = {
       headers: {
@@ -46,12 +51,12 @@ class Movies extends React.Component {
   }
 
   addCreatedMovie(newMovie) {
-    this.setState({
-      movies: this.state.movies.concat([newMovie])
-    });
+    // Adds new Movie to state after being added to the DB
+    this.setState({ movies: this.state.movies.concat([newMovie]) });
   }
 
   addCreatedMovieCopy(newCopy) {
+    // Adds new MovieCopy to state after being added to the DB
     const id = newCopy.movie;
     
     // Inspiration: https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
@@ -68,13 +73,28 @@ class Movies extends React.Component {
   }
 
   removeMovie(id) {
-    // Filter out the movie that was just deleted from the database
+    // Filters out the Movie that was just deleted from the DB
     this.setState( prevState => ({
       movies: prevState.movies.filter( movie => (movie.id !== id))
     }));
   };
 
+  removeMovieCopy({ movieID, copyID }) {
+    // Filters out the MovieCopy that was just deleted from the DB
+    this.setState( prevState => ({
+      movies: prevState.movies.map( movie => (
+        movie.id === movieID ?
+        {
+          ...movie,
+          copies: movie.copies.filter( copy => (copy.id !== copyID))
+        } :
+        movie
+      ))
+    }));
+  }
+
   updateMovie(updatedMovie) {
+    // Updates Movie in state after updating the DB
     this.setState( prevState => ({
       movies: prevState.movies.map( movie => (
         movie.id === updatedMovie.id ?
@@ -110,8 +130,9 @@ class Movies extends React.Component {
                 return  <MovieDetail 
                           accessToken={this.props.accessToken}
                           addCopy={this.addCreatedMovieCopy}
-                          onDeleteSuccess={this.removeMovie}
-                          onUpdateSuccess={this.updateMovie}
+                          onDeleteMovieSuccess={this.removeMovie}
+                          onDeleteMovieCopySuccess={this.removeMovieCopy}
+                          onUpdateMovieSuccess={this.updateMovie}
                           movie={movie} 
                         /> 
               }

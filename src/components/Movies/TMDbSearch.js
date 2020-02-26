@@ -56,33 +56,34 @@ class TMDbSearch extends React.Component {
   }
 
   render() {
-    return (<div className="tmdb-search">
-      <h2>Search Form</h2>
-      <form onSubmit={this.requestResults} className="tmdb-search-form">
-        <input
-          name="query"
-          type="text"
-          value={this.props.query}
-          placeholder='Movie Title'
-          onChange={this.props.changeHandler}
-        />
-        <button type="submit">Submit</button>
-      </form>
-
-      {/* Render search results if present in state */}
-      { this.props.results ?
-        <ul className="tmdb-search-results">
-          {this.props.results.map( movie => 
-            <TMDbItem 
-              movie={movie} 
-              key={movie.id} 
-              onSelect={this.onSelect} 
-            />
-          )}
-        </ul> :
-        false
-      }
-    </div>);
+    return (
+      <div className="tmdb-search">
+        <h2>Search Form</h2>
+        <form onSubmit={this.requestResults} className="tmdb-search-form">
+          <input
+            name="query"
+            type="text"
+            value={this.props.query}
+            placeholder='Movie Title'
+            onChange={this.props.changeHandler}
+          />
+          <button type="submit">Submit</button>
+        </form>
+        {/* Render search results if present in state */}
+        { this.props.results ?
+          <ul className="tmdb-search-results">
+            {this.props.results.map( movie => 
+              <TMDbItem 
+                movie={movie} 
+                key={movie.id} 
+                onSelect={this.onSelect} 
+              />
+            )}
+          </ul> :
+          false
+        }
+      </div>
+    );
   }
 }
 
@@ -93,19 +94,19 @@ class TMDbItem extends React.Component {
     const movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`
     return (
       <li className="tmdb-item">
-      <img 
-        src={
-          this.props.movie.poster_path ?
-          this.props.movie.poster_path :
-          defaultImage
-        }
-        alt={this.props.movie.title}
-        title={this.props.movie.overview}
-      /> 
-      <p>{ movieTitle }</p>
-      <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a>
-      <button value={this.props.movie.id} onClick={this.props.onSelect}>Select</button>
-    </li>
+        <img 
+          src={
+            this.props.movie.poster_path ?
+            this.props.movie.poster_path :
+            defaultImage
+          }
+          alt={this.props.movie.title}
+          title={this.props.movie.overview}
+        /> 
+        <p>{ movieTitle }</p>
+        <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a>
+        <button value={this.props.movie.id} onClick={this.props.onSelect}>Select</button>
+      </li>
     );
   }
 }

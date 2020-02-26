@@ -72,55 +72,76 @@ class MovieForm extends React.Component {
   render() {
     return (<>
       <form onSubmit={this.updateMovie} className="movie-update-form">
-        <input
-          name="title"
-          type="text"
-          value={this.state.title}
-          placeholder='Title'
-          onChange={this.changeHandler}
-        />
-        <input
-          name="releaseYear"
-          type="text"
-          value={this.state.releaseYear}
-          placeholder='Release Year'
-          onChange={this.changeHandler}
-        />
-        <input
-          name="mpaaRating"
-          type="text"
-          value={this.state.mpaaRating}
-          placeholder='MPAA Rating'
-          onChange={this.changeHandler}
-        />
-        <textarea
-          name="overview"
-          type="text"
-          value={this.state.overview}
-          placeholder='Overview'
-          onChange={this.changeHandler}
-        />
-        <input
-          name="runtimeMinutes"
-          type="text"
-          value={this.state.runtimeMinutes}
-          placeholder='Runtime (mins)'
-          onChange={this.changeHandler}
-        />
-        <input
-          name="imageLink"
-          type="text"
-          value={this.state.imageLink}
-          placeholder='Image Link'
-          onChange={this.changeHandler}
-        />
-        <input
-          name="tmdbPageLink"
-          type="text"
-          value={this.state.tmdbPageLink}
-          placeholder='TMDb Page Link'
-          onChange={this.changeHandler}
-        />
+        <label>
+          Title
+          <input
+            name="title"
+            type="text"
+            value={this.state.title}
+            placeholder='Title'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          Release Year
+          <input
+            name="releaseYear"
+            type="text"
+            value={this.state.releaseYear}
+            placeholder='Release Year'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          MPAA Rating
+          <input
+            name="mpaaRating"
+            type="text"
+            value={this.state.mpaaRating}
+            placeholder='MPAA Rating'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          Overview
+          <textarea
+            name="overview"
+            type="text"
+            value={this.state.overview}
+            placeholder='Overview'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          Runtime (mins)
+          <input
+            name="runtimeMinutes"
+            type="text"
+            value={this.state.runtimeMinutes}
+            placeholder='Runtime (mins)'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          Image Link
+          <input
+            name="imageLink"
+            type="text"
+            value={this.state.imageLink}
+            placeholder='Image Link'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          TMDb Page Link
+          <input
+            name="tmdbPageLink"
+            type="text"
+            value={this.state.tmdbPageLink}
+            placeholder='TMDb Page Link'
+            onChange={this.changeHandler}
+          />
+        </label>
         <input
           type="submit"
           value="Update Movie"

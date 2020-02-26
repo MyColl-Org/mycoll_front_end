@@ -43,20 +43,26 @@ class Login extends React.Component {
   render() {
     return (<>
       <form onSubmit={this.obtainTokens} className="login-form">
-        <input
-          name='username'
-          type='text'
-          value={this.state.username}
-          placeholder='username'
-          onChange={this.changeHandler}
-        />
-        <input
-          name='password'
-          type='password'
-          value={this.state.password}
-          placeholder='password'
-          onChange={this.changeHandler}
-        />
+        <label>
+          Username
+          <input
+            name='username'
+            type='text'
+            value={this.state.username}
+            placeholder='username'
+            onChange={this.changeHandler}
+          />
+        </label>
+        <label>
+          Password
+          <input
+            name='password'
+            type='password'
+            value={this.state.password}
+            placeholder='password'
+            onChange={this.changeHandler}
+          />
+        </label>
         <button>Login</button>
 
       </form>
