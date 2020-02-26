@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import MovieCreation from './MovieCreation';
+import AddMovie from './AddMovie';
 import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
 import Nav from '../Nav/Nav';
@@ -19,8 +19,8 @@ class Movies extends React.Component {
     };
 
     this.addMovie = this.addMovie.bind(this);
-    this.addCreatedMovieCopy = this.addCreatedMovieCopy.bind(this);
-    this.fetchMovies = this.fetchMovies.bind(this);
+    this.addMovieCopy = this.addMovieCopy.bind(this);
+    this.getMovies = this.getMovies.bind(this);
     this.removeMovie = this.removeMovie.bind(this);
     this.removeMovieCopy = this.removeMovieCopy.bind(this);
     this.updateMovie = this.updateMovie.bind(this);
@@ -28,10 +28,10 @@ class Movies extends React.Component {
 
   componentDidMount() {
     // Populate state with all Movies in user's collection from the DB
-    this.fetchMovies();
+    this.getMovies();
   }
 
-  async fetchMovies() {
+  async getMovies() {
     // Gathers all Movies in user's collection from the DB and updates state
     const URL = "http://127.0.0.1:8000/api/v1/movies/";
     const headers = {
@@ -52,11 +52,10 @@ class Movies extends React.Component {
 
   addMovie(newMovie) {
     // Adds new Movie to state after being added to the DB
-    console.log('adding new movie in Movies')
     this.setState({ movies: this.state.movies.concat([newMovie]) });
   }
 
-  addCreatedMovieCopy(newCopy) {
+  addMovieCopy(newCopy) {
     // Adds new MovieCopy to state after being added to the DB
     const id = newCopy.movie;
     
@@ -116,7 +115,7 @@ class Movies extends React.Component {
             <MovieList movies={this.state.movies} />
           </Route>
           <Route path='/movies/new' exact >
-            <MovieCreation
+            <AddMovie
               accessToken={this.props.accessToken}
               addMovie={this.addMovie} />
           </Route>
@@ -130,10 +129,10 @@ class Movies extends React.Component {
                 const movie = this.state.movies.find( movie => (movie.id === id));
                 return  <MovieDetail 
                           accessToken={this.props.accessToken}
-                          addCopy={this.addCreatedMovieCopy}
+                          addMovieCopy={this.addMovieCopy}
                           removeMovie={this.removeMovie}
                           removeMovieCopy={this.removeMovieCopy}
-                          onUpdateMovieSuccess={this.updateMovie}
+                          updateMovie={this.updateMovie}
                           movie={movie} 
                         /> 
               }
