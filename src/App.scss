@@ -1,6 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Lato|Major+Mono+Display&display=swap');
 
 html, body {
-    background-color: rgb(175, 175, 175);
-    font-family: "Lato", sans-serif;
+  background-color: rgb(175, 175, 175);
+  font-family: "Lato", sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.footer {
+  padding: 20px;
 }

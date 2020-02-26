@@ -27,7 +27,7 @@ class App extends React.Component {
       newUser: '',
     };
 
-    this.greetNewUser = this.greetNewUser.bind(this);
+    this.addNewUser = this.addNewUser.bind(this);
     this.storeTokens = this.storeTokens.bind(this);
   }
 
@@ -50,37 +50,39 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <Router>
-          <Header />
-          { this.state.accessToken ? <Nav /> : false }
-          <Switch>
-            <Route path="/" exact>
-              {/* Render collections or login/signup depending on presence of tokens */}
-              { this.state.accessToken ?
-                  <Collections /> :
-                <>
-                  <Login 
-                    newUser={this.state.newUser}
-                    storeTokens={this.storeTokens} 
-                  />
-                  <SignUp 
-                    addNewUser={this.addNewUser} 
-                  /> 
-                </>
-              }
-            </Route>
-            <Route path='/about' exact>
-              <About />
-            </Route>
-            <Route path='/movies'>
-              <Movies 
-                accessToken={this.state.accessToken}
-                refreshToken={this.state.refreshToken} 
-              />
-            </Route>
-          </Switch>
-          <Footer />
-        </Router>
+        <Header />
+        { this.state.accessToken ? <Nav /> : false }
+        <div className="content">
+          <Router>
+            <Switch>
+              <Route path="/" exact>
+                {/* Render collections or login/signup depending on presence of tokens */}
+                { this.state.accessToken ?
+                    <Collections /> :
+                  <>
+                    <Login 
+                      newUser={this.state.newUser}
+                      storeTokens={this.storeTokens} 
+                    />
+                    <SignUp 
+                      addNewUser={this.addNewUser} 
+                    /> 
+                  </>
+                }
+              </Route>
+              <Route path='/about' exact>
+                <About />
+              </Route>
+              <Route path='/movies'>
+                <Movies 
+                  accessToken={this.state.accessToken}
+                  refreshToken={this.state.refreshToken} 
+                />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+        <Footer />
       </div>
     );
   }
