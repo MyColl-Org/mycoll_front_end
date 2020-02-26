@@ -5,11 +5,13 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import About from './components/About/About';
 import Collections from './components/Collections/Collections';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 import Movies from './components/Movies/Movies';
+import Nav from './components/Nav/Nav';
 import SignUp from './components/SignUp/SignUp';
 
 import './App.scss'
@@ -63,11 +65,12 @@ class App extends React.Component {
       <div className="app">
         <Router>
           <Header />
+          { this.state.accessToken ? <Nav /> : false }
           <Switch>
             <Route path="/" exact>
               {/* Render collections or login/signup depending on presence of tokens */}
               { this.state.accessToken ?
-                <Collections /> :
+                  <Collections /> :
                 <>
                   <div className="login">
                     <h2>{ welcomeMessage }</h2>
@@ -82,6 +85,9 @@ class App extends React.Component {
                   </div>
                 </>
               }
+            </Route>
+            <Route path='/about' exact>
+              <About />
             </Route>
             <Route path='/movies'>
               <Movies 

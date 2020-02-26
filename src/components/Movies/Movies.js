@@ -5,7 +5,6 @@ import axios from 'axios';
 import AddMovie from './AddMovie';
 import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
-import Nav from '../Nav/Nav';
 
 import './Movies.css';
 
@@ -106,7 +105,6 @@ class Movies extends React.Component {
 
   render() {
     return (<>
-      <Nav />
       <div className="movies">
         <Switch>
           <Route path='/movies' exact >
