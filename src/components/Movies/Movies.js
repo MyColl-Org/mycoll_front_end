@@ -7,6 +7,8 @@ import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
 import Nav from '../Nav/Nav';
 
+import './Movies.css';
+
 
 class Movies extends React.Component {
   constructor(props) {

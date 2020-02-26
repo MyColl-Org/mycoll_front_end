@@ -1,8 +1,6 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
-import './movies.css';
-
 
 class MovieList extends React.Component {
   constructor(props) {

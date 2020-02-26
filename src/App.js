@@ -12,6 +12,8 @@ import Login from './components/Login/Login';
 import Movies from './components/Movies/Movies';
 import SignUp from './components/SignUp/SignUp';
 
+import './App.scss'
+
 
 class App extends React.Component {
   constructor(props) {
