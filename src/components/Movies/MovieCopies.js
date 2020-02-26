@@ -3,6 +3,38 @@ import axios from 'axios';
 
 
 class MovieCopies extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      renderCopyEdit: false,
+      renderCopyForm: false,
+      renderEditOptions: false,
+    };
+
+    this.addMovieCopy = this.addMovieCopy.bind(this);
+    this.toggleCopyForm = this.toggleCopyForm.bind(this);
+    this.toggleEditOptions = this.toggleEditOptions.bind(this);
+  }
+
+  addMovieCopy(newCopy) {
+    // Hides <CopyForm> and updates state in <Movies> with the new MovieCopy
+    this.toggleCopyForm();
+    this.props.addCopy(newCopy);
+  }
+
+  toggleCopyForm() {
+    // Toggle the form for creating copies of movies
+    const newState = this.state.renderCopyForm ? false : true;
+    this.setState({ renderCopyForm: newState });
+  }
+
+  toggleEditOptions() {
+    // Toggles edit options buttons in list of MovieCopies
+    const newState = this.state.renderEditOptions ? false : true;
+    this.setState({ renderEditOptions: newState})
+  }
+
   render() {
     return (
       <div className="copies">
@@ -12,24 +44,35 @@ class MovieCopies extends React.Component {
             <h3>Copies:</h3>
             <ul className="copies-list">
               { this.props.movie.copies.map( copy => (
-                  <MovieCopyItem key={copy.id.toString()} copy={copy} />)
-                ) 
+                  <MovieCopyItem 
+                    key={copy.id.toString()} 
+                    copy={copy}
+                    copyDeleted={this.props.copyDeleted}
+                    copyID={copy.id}
+                    movieID={this.props.movie.id}
+                    renderOptions={this.state.renderEditOptions} 
+                  />
+                )) 
               }
             </ul>
           </> :
           false
         }
-
         {/* New Copy Form */}
-        { this.props.renderCopyForm ?
+        { this.state.renderCopyForm ?
           <MovieCopyForm 
             movieID={this.props.movie.id} 
             accessToken={this.props.accessToken}
-            onSuccess={this.props.copyCreated}
+            addMovieCopy={this.addMovieCopy}
           /> :
           <>
-            <button >Edit Copies</button>
-            <button onClick={this.props.toggleCopyForm}>Add Copy</button>
+            <button onClick={this.toggleEditOptions}>
+              { this.state.renderEditOptions ? 
+                "Done Editing" :
+                "Edit Copies"
+              }
+            </button>
+            <button onClick={this.toggleCopyForm}>Add Copy</button>
           </>
         }
       </div>      
@@ -39,21 +82,32 @@ class MovieCopies extends React.Component {
 
 
 class MovieCopyItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.deleteMovieCopy = this.deleteMovieCopy.bind(this);
+  }
+
+  deleteMovieCopy() {
+    this.props.deleteCopy({movieID: this.props.movieID, copyID: this.props.copyID});
+  }
+
   render() {
     const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
+    const copyContent = this.props.copy.vod_link ?
+      <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
+        { copyText }
+      </a> :
+      `${ copyText }`;
+    const editOptions = this.props.renderOptions ? 
+      <button onClick={this.deleteMovieCopy}>DELETE</button> : 
+      false;
 
-    return (<>
-      { this.props.copy.vod_link ?
-
-        <li>
-          <a href={this.props.copy.vod_link} target="_blank" rel="noopener noreferrer">
-            { copyText }
-          </a>
-        </li> :
-        
-        <li>{ copyText }</li>
-      }
-    </>);
+    return (
+      <li className="movie-copy-item">
+        { copyContent }
+        { editOptions }
+      </li>
+    );
   }
 }
 
@@ -70,16 +124,16 @@ class MovieCopyForm extends React.Component {
     }
 
     this.changeHandler = this.changeHandler.bind(this);
-    this.createCopy = this.createCopy.bind(this);
+    this.putMovieCopy = this.putMovieCopy.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      movie: this.props.movieID,
-    });
+    // Populate state with ID of current movie
+    this.setState({ movie: this.props.movieID });
   }
 
-  async createCopy(event) {
+  async putMovieCopy(event) {
+    // Makes POST request to DB to add new MovieCopy then updates state in <Movies>
     event.preventDefault();
 
     const URL = "http://127.0.0.1:8000/api/v1/movies/copies/"
@@ -97,21 +151,20 @@ class MovieCopyForm extends React.Component {
 
     try {
       const response = await axios.post(URL, formData, axiosConfig);
-      this.props.onSuccess(response.data);
+      this.props.addMovieCopy(response.data);
     } catch(error) {
       console.error(error);
     }
   }
 
   changeHandler(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    // Handles updates of state and inputs fields for <MovieCopyForm>
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
-    return (<>
-      <form onSubmit={this.createCopy} className="movie-copy-form">
+    return (
+      <form onSubmit={this.putMovieCopy} className="movie-copy-form">
         <input 
           name="platform" 
           type="text"
@@ -138,7 +191,7 @@ class MovieCopyForm extends React.Component {
           value="Add Copy"
         />
       </form>
-    </>)
+    )
   }
 }
 
