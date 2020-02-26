@@ -41,32 +41,40 @@ class Login extends React.Component {
   }
 
   render() {
-    return (<>
-      <form onSubmit={this.obtainTokens} className="login-form">
-        <label>
-          Username
-          <input
-            name='username'
-            type='text'
-            value={this.state.username}
-            placeholder='username'
-            onChange={this.changeHandler}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name='password'
-            type='password'
-            value={this.state.password}
-            placeholder='password'
-            onChange={this.changeHandler}
-          />
-        </label>
-        <button>Login</button>
+    const username = this.props.newUser ? ` ${this.props.newUser}` : '';
+    const welcomeMessage = `Welcome${username}, We Have Such Sights To Show You!`;
+    let loginMessage = 'Please Login';
+    if (this.props.newUser) loginMessage += " to Your New Account";
 
-      </form>
-    </>)
+    return (
+      <div className="login">
+        <h2>{ welcomeMessage }</h2>
+        <p>{ loginMessage }</p>
+        <form onSubmit={this.obtainTokens} className="login-form">
+          <label>
+            Username
+            <input
+              name='username'
+              type='text'
+              value={this.state.username}
+              placeholder='username'
+              onChange={this.changeHandler}
+            />
+          </label>
+          <label>
+            Password
+            <input
+              name='password'
+              type='password'
+              value={this.state.password}
+              placeholder='password'
+              onChange={this.changeHandler}
+            />
+          </label>
+          <button>Login</button>
+        </form>
+      </div>
+    )
   }
 }
 

@@ -24,13 +24,11 @@ class App extends React.Component {
     this.state = {
       accessToken: '',
       refreshToken: '',
-      renderSignUp: false,
       newUser: '',
     };
 
     this.greetNewUser = this.greetNewUser.bind(this);
     this.storeTokens = this.storeTokens.bind(this);
-    this.toggleSignUp = this.toggleSignUp.bind(this);
   }
 
   async storeTokens({ access, refresh }) {
@@ -41,13 +39,7 @@ class App extends React.Component {
     });
   }
 
-  toggleSignUp() {
-    // Toggles rendering of <SignUp>
-    let newState = this.state.renderSignUp ? false : true;
-    this.setState({ renderSignUp: newState });
-  }
-
-  greetNewUser(newUser) {
+  addNewUser(newUser) {
     // Stores new username to state to customize welcome and login messages
     this.setState({
       newUser: newUser.username,
@@ -56,11 +48,6 @@ class App extends React.Component {
   }
 
   render() {
-    const username = this.state.newUser ? ` ${this.state.newUser}` : '';
-    const welcomeMessage = `Welcome${username}, We Have Such Sights To Show You!`;
-    let loginMessage = 'Please Login';
-    if (this.state.newUser) loginMessage += " to Your New Account";
-
     return (
       <div className="app">
         <Router>
@@ -72,17 +59,13 @@ class App extends React.Component {
               { this.state.accessToken ?
                   <Collections /> :
                 <>
-                  <div className="login">
-                    <h2>{ welcomeMessage }</h2>
-                    <p>{ loginMessage }</p>
-                    <Login storeTokens={this.storeTokens} /> 
-                  </div> 
-                  <div className="signup">
-                    { this.state.renderSignUp ?
-                      <SignUp onSuccess={this.greetNewUser} /> :
-                      <button onClick={this.toggleSignUp}>Sign Up</button>
-                    }
-                  </div>
+                  <Login 
+                    newUser={this.state.newUser}
+                    storeTokens={this.storeTokens} 
+                  />
+                  <SignUp 
+                    addNewUser={this.addNewUser} 
+                  /> 
                 </>
               }
             </Route>
