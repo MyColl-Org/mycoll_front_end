@@ -18,9 +18,10 @@ class MovieCopies extends React.Component {
   }
 
   addMovieCopy(newCopy) {
+    // Extends addMovieCopy() from <Movies>
     // Hides <CopyForm> and updates state in <Movies> with the new MovieCopy
     this.toggleCopyForm();
-    this.props.addCopy(newCopy);
+    this.props.addMovieCopy(newCopy);
   }
 
   toggleCopyForm() {
@@ -44,12 +45,13 @@ class MovieCopies extends React.Component {
             <h3>Copies:</h3>
             <ul className="copies-list">
               { this.props.movie.copies.map( copy => (
-                  <MovieCopyItem 
+                  <MovieCopyItem
+                    accessToken={this.props.accessToken} 
                     key={copy.id.toString()} 
                     copy={copy}
-                    copyDeleted={this.props.copyDeleted}
                     copyID={copy.id}
                     movieID={this.props.movie.id}
+                    removeMovieCopy={this.props.removeMovieCopy}
                     renderOptions={this.state.renderEditOptions} 
                   />
                 )) 
@@ -85,10 +87,31 @@ class MovieCopyItem extends React.Component {
   constructor(props) {
     super(props);
     this.deleteMovieCopy = this.deleteMovieCopy.bind(this);
+    this.removeMovieCopy = this.removeMovieCopy.bind(this);
   }
 
-  deleteMovieCopy() {
-    this.props.deleteCopy({movieID: this.props.movieID, copyID: this.props.copyID});
+  removeMovieCopy() {
+    this.props.removeMovieCopy({movieID: this.props.movieID, copyID: this.props.copyID});
+  }
+
+  async deleteMovieCopy() {
+    // Makes DELETE request to DB to remove MovieCopy instnace
+    // Updates state in <Movies> through removeMovieCopy() chain
+    const URL = `http://127.0.0.1:8000/api/v1/movies/copies/${this.props.copyID}`;
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${this.props.accessToken}`
+      }
+    };
+    let response;
+    try {
+      response = await axios.delete(URL, axiosConfig);
+    } catch(error) {
+      console.error(error);
+    }
+    response.status === 204 ? 
+      this.removeMovieCopy() : 
+      console.error('Error deleting movie copy.');
   }
 
   render() {

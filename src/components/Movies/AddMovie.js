@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import TMDbSearch from './TMDbSearch';
 
 
-class MovieCreation extends React.Component {
+class AddMovie extends React.Component {
   constructor(props) {
     super(props);
     
@@ -34,7 +34,6 @@ class MovieCreation extends React.Component {
 
   addMovie(newMovie, movieID) {
     // Extends addMovie() from <Movies>
-    console.log("adding movie in MovieCreation")
     this.props.addMovie(newMovie);
     this.setState({ formSubmitted: true, id: movieID });
   }
@@ -240,4 +239,4 @@ class MovieForm extends React.Component {
   }
 }
 
-export default MovieCreation;
+export default AddMovie;

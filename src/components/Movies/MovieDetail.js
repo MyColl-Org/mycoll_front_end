@@ -72,7 +72,7 @@ class MovieDetail extends React.Component {
             <MovieUpdateForm 
               movie={this.props.movie}
               accessToken={this.props.accessToken}
-              onSuccess={this.props.onUpdateMovieSuccess}
+              updateMovie={this.props.updateMovie}
               toggleForm={this.toggleUpdateForm}
             />
             <button onClick={this.toggleUpdateForm}>CANCEL</button>
@@ -112,9 +112,9 @@ class MovieDetail extends React.Component {
         <MovieCopies 
           movie={this.props.movie}
           accessToken={this.props.accessToken}
-          addCopy={this.props.addCopy}
+          addMovieCopy={this.props.addMovieCopy}
           copyCreated={this.copyCreated}
-          deleteCopy={this.props.deleteCopy}
+          removeMovieCopy={this.props.removeMovieCopy}
         />
       </div>
     );

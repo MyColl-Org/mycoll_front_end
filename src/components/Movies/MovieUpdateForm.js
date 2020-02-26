@@ -18,7 +18,7 @@ class MovieForm extends React.Component {
     };
 
     this.changeHandler = this.changeHandler.bind(this);
-    this.updateMovie = this.updateMovie.bind(this);
+    this.putMovie = this.putMovie.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +34,7 @@ class MovieForm extends React.Component {
     });
   }
 
-  async updateMovie(event) {
+  async putMovie(event) {
     event.preventDefault();
 
     const URL = `http://127.0.0.1:8000/api/v1/movies/${this.state.id}`;
@@ -55,7 +55,7 @@ class MovieForm extends React.Component {
 
     try {
       const response = await axios.put(URL, formData, axiosConfig);
-      this.props.onSuccess(response.data);
+      this.props.updateMovie(response.data);
       this.props.toggleForm();
     } catch (error) {
       console.error("Error while updating movie:", error);
@@ -71,7 +71,7 @@ class MovieForm extends React.Component {
 
   render() {
     return (<>
-      <form onSubmit={this.updateMovie} className="movie-update-form">
+      <form onSubmit={this.putMovie} className="movie-update-form">
         <label>
           Title
           <input
