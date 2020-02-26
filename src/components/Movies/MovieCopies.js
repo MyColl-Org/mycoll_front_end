@@ -7,10 +7,26 @@ class MovieCopies extends React.Component {
     super(props);
 
     this.state = {
+      renderCopyEdit: false,
+      renderCopyForm: false,
       renderEditOptions: false,
     };
 
+    this.copyCreated = this.copyCreated.bind(this);
+    this.toggleCopyForm = this.toggleCopyForm.bind(this);
     this.toggleEditOptions = this.toggleEditOptions.bind(this);
+  }
+
+  copyCreated(newCopy) {
+    // Hides <CopyForm> and updates state in <Movies> with the new MovieCopy
+    this.toggleCopyForm();
+    this.props.addCopy(newCopy);
+  }
+
+  toggleCopyForm() {
+    // Toggle the form for creating copies of movies
+    const newState = this.state.renderCopyForm ? false : true;
+    this.setState({ renderCopyForm: newState });
   }
 
   toggleEditOptions() {
@@ -43,11 +59,11 @@ class MovieCopies extends React.Component {
           false
         }
         {/* New Copy Form */}
-        { this.props.renderCopyForm ?
+        { this.state.renderCopyForm ?
           <MovieCopyForm 
             movieID={this.props.movie.id} 
             accessToken={this.props.accessToken}
-            onSuccess={this.props.copyCreated}
+            onSuccess={this.copyCreated}
           /> :
           <>
             <button onClick={this.toggleEditOptions}>
@@ -56,7 +72,7 @@ class MovieCopies extends React.Component {
                 "Edit Copies"
               }
             </button>
-            <button onClick={this.props.toggleCopyForm}>Add Copy</button>
+            <button onClick={this.toggleCopyForm}>Add Copy</button>
           </>
         }
       </div>      
@@ -108,7 +124,7 @@ class MovieCopyForm extends React.Component {
     }
 
     this.changeHandler = this.changeHandler.bind(this);
-    this.createCopy = this.createCopy.bind(this);
+    this.putMovieCopy = this.createCopy.bind(this);
   }
 
   componentDidMount() {
@@ -116,7 +132,7 @@ class MovieCopyForm extends React.Component {
     this.setState({ movie: this.props.movieID });
   }
 
-  async createCopy(event) {
+  async putMovieCopy(event) {
     // Makes POST request to DB to add new MovieCopy then updates state in <Movies>
     event.preventDefault();
 
@@ -148,7 +164,7 @@ class MovieCopyForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.createCopy} className="movie-copy-form">
+      <form onSubmit={this.putMovieCopy} className="movie-copy-form">
         <input 
           name="platform" 
           type="text"

@@ -12,32 +12,12 @@ class MovieDetail extends React.Component {
 
     this.state = {
       confirmDelete: false,
-      // TODO: Move property to <MovieCopies>
-      renderCopyEdit: false,
-      // TODO: Move property to <MovieCopies>
-      renderCopyForm: false,
       renderUpdateForm: false,
     }
 
-    this.copyCreated = this.copyCreated.bind(this);
     this.deleteMovie = this.deleteMovie.bind(this);
     this.toggleConfirmDelete = this.toggleConfirmDelete.bind(this);
-    this.toggleCopyForm = this.toggleCopyForm.bind(this);
     this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
-  }
-
-  // TODO: Move method to <MovieCopies>
-  toggleCopyForm() {
-    // Toggle the form for creating copies of movies
-    const newState = this.state.renderCopyForm ? false : true;
-    this.setState({ renderCopyForm: newState });
-  }
-
-  // TODO: Move method to <MovieCopies>
-  copyCreated(newCopy) {
-    // Hides <CopyForm> and updates state in <Movies> with the new MovieCopy
-    this.toggleCopyForm();
-    this.props.addCopy(newCopy);
   }
 
   toggleConfirmDelete() {
@@ -132,10 +112,9 @@ class MovieDetail extends React.Component {
         <MovieCopies 
           movie={this.props.movie}
           accessToken={this.props.accessToken}
+          addCopy={this.props.addCopy}
           copyCreated={this.copyCreated}
           copyDeleted={this.props.onDeleteMovieCopySuccess}
-          renderCopyForm={this.state.renderCopyForm}
-          toggleCopyForm={this.toggleCopyForm}
         />
       </div>
     );
