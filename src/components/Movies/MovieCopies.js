@@ -31,6 +31,9 @@ class MovieCopies extends React.Component {
                   <MovieCopyItem 
                     key={copy.id.toString()} 
                     copy={copy}
+                    copyDeleted={this.props.copyDeleted}
+                    copyID={copy.id}
+                    movieID={this.props.movie.id}
                     renderOptions={this.state.renderEditOptions} 
                   />
                 )) 
@@ -63,6 +66,15 @@ class MovieCopies extends React.Component {
 
 
 class MovieCopyItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.deleteCopy = this.deleteCopy.bind(this);
+  }
+
+  deleteCopy() {
+    this.props.copyDeleted({movieID: this.props.movieID, copyID: this.props.copyID});
+  }
+
   render() {
     const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
     const copyContent = this.props.copy.vod_link ?
@@ -70,7 +82,9 @@ class MovieCopyItem extends React.Component {
         { copyText }
       </a> :
       `${ copyText }`;
-    const editOptions = this.props.renderOptions ? <button>DELETE</button> : false;
+    const editOptions = this.props.renderOptions ? 
+      <button onClick={this.deleteCopy}>DELETE</button> : 
+      false;
 
     return (
       <li className="movie-copy-item">

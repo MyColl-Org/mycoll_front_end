@@ -22,6 +22,7 @@ class Movies extends React.Component {
     this.addCreatedMovieCopy = this.addCreatedMovieCopy.bind(this);
     this.fetchMovies = this.fetchMovies.bind(this);
     this.removeMovie = this.removeMovie.bind(this);
+    this.removeMovieCopy = this.removeMovieCopy.bind(this);
     this.updateMovie = this.updateMovie.bind(this);
   }
 
@@ -72,11 +73,25 @@ class Movies extends React.Component {
   }
 
   removeMovie(id) {
-    // Filters out the movie that was just deleted from the DB
+    // Filters out the Movie that was just deleted from the DB
     this.setState( prevState => ({
       movies: prevState.movies.filter( movie => (movie.id !== id))
     }));
   };
+
+  removeMovieCopy({ movieID, copyID }) {
+    // Filters out the MovieCopy that was just deleted from the DB
+    this.setState( prevState => ({
+      movies: prevState.movies.map( movie => (
+        movie.id === movieID ?
+        {
+          ...movie,
+          copies: movie.copies.filter( copy => (copy.id !== copyID))
+        } :
+        movie
+      ))
+    }));
+  }
 
   updateMovie(updatedMovie) {
     // Updates Movie in state after updating the DB
@@ -116,6 +131,7 @@ class Movies extends React.Component {
                           accessToken={this.props.accessToken}
                           addCopy={this.addCreatedMovieCopy}
                           onDeleteMovieSuccess={this.removeMovie}
+                          onDeleteMovieCopySuccess={this.removeMovieCopy}
                           onUpdateMovieSuccess={this.updateMovie}
                           movie={movie} 
                         /> 
