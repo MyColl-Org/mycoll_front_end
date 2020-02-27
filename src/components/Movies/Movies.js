@@ -109,7 +109,7 @@ class Movies extends React.Component {
       <div className="movies">
         <Switch>
           <Route path='/movies' exact >
-            <h2>Your Movies:</h2>
+            <h2 className="movies-header">Your Movies:</h2>
             <Link to='/movies/new' className="add-movie">
               <img src={addButton} alt="Add Movie" />
             </Link>
