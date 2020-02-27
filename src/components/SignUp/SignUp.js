@@ -53,7 +53,7 @@ class SignUp extends React.Component {
         {/* Render form or button */}
         { this.props.renderSignUpForm ?
           <>
-            <h2>Please create an account below:</h2>
+            <h2>Create an Account:</h2>
             <form onSubmit={this.createUser} className="signup-form">
               <label for="username">Username:</label>
               <input

@@ -6,7 +6,8 @@ import AddMovie from './AddMovie';
 import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
 
-import './Movies.css';
+import './Movies.scss';
+import addButton from './img/add_button.png';
 
 
 class Movies extends React.Component {
@@ -109,7 +110,9 @@ class Movies extends React.Component {
         <Switch>
           <Route path='/movies' exact >
             <h2>Your Movies:</h2>
-            <Link to='/movies/new'>Add Movie</Link>
+            <Link to='/movies/new' className="add-movie">
+              <img src={addButton} alt="Add Movie" />
+            </Link>
             <MovieList movies={this.state.movies} />
           </Route>
           <Route path='/movies/new' exact >
