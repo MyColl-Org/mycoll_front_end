@@ -1,3 +1,23 @@
 .signup {
-    margin-top: 20px;
+  text-align: center;
+
+  h2 {
+      margin-bottom: 40px;
+      font-size: 20px;
+    }
+  
+  form {
+    label {
+      display: block;
+      margin-bottom: 10px;
+  
+    }
+    input {
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+    button {
+      margin-bottom: 10px;
+    }
+  }
 }

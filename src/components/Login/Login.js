@@ -42,36 +42,32 @@ class Login extends React.Component {
   }
 
   render() {
-    const username = this.props.newUser ? ` ${this.props.newUser}` : '';
-    const welcomeMessage = `Welcome${username}, We Have Such Sights To Show You!`;
-    let loginMessage = 'Please Login';
-    if (this.props.newUser) loginMessage += " to Your New Account";
+    if (this.props.renderSignUpForm) return <></>;
+    const userGreeting = this.props.newUser ? 
+      `Welcome ${this.props.newUser},` : 
+      false;
 
     return (
       <div className="login">
-        <h2>{ welcomeMessage }</h2>
-        <p>{ loginMessage }</p>
+        { userGreeting ? <h2>{ userGreeting }</h2> : false}
+        <h3>We Have Such Sights To Show You!</h3>
         <form onSubmit={this.obtainTokens} className="login-form">
-          <label>
-            Username
-            <input
-              name='username'
-              type='text'
-              value={this.state.username}
-              placeholder='username'
-              onChange={this.changeHandler}
-            />
-          </label>
-          <label>
-            Password
-            <input
-              name='password'
-              type='password'
-              value={this.state.password}
-              placeholder='password'
-              onChange={this.changeHandler}
-            />
-          </label>
+          <label for="username">Username</label>
+          <input
+            name="username"
+            type="text"
+            value={this.state.username}
+            placeholder="username"
+            onChange={this.changeHandler}
+          />
+          <label for="password">Password</label>
+          <input
+            name="password"
+            type="password"
+            value={this.state.password}
+            placeholder="password"
+            onChange={this.changeHandler}
+          />
           <button>Login</button>
         </form>
       </div>

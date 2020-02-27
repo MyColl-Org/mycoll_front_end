@@ -15,12 +15,10 @@ class SignUp extends React.Component {
       username: '',
       password: '',
       email: '',
-      renderSignUpForm: false,
     };
 
     this.changeHandler = this.changeHandler.bind(this);
     this.createUser = this.createUser.bind(this);
-    this.toggleSignUp = this.toggleSignUp.bind(this);
   }
 
   changeHandler(event) {
@@ -48,51 +46,44 @@ class SignUp extends React.Component {
     }
   }
 
-  toggleSignUp() {
-    // Toggles rendering of the signup form
-    let newState = this.state.renderSignUpForm ? false : true;
-    this.setState({ renderSignUpForm: newState });
-  }
-
   render() {
+    if (this.props.newUser) return <></>;
     return (
       <div className="signup">
         {/* Render form or button */}
-        { this.state.renderSignUpForm ?
-          <form onSubmit={this.createUser} className="signup-form">
-            <label>
-              Username
+        { this.props.renderSignUpForm ?
+          <>
+            <h2>Please create an account below:</h2>
+            <form onSubmit={this.createUser} className="signup-form">
+              <label for="username">Username</label>
               <input
-                name='username'
-                type='text'
+                name="username"
+                type="text"
                 value={this.state.username}
-                placeholder='username'
+                placeholder="username"
                 onChange={this.changeHandler}
               />
-            </label>
-            <label>
-              Password (min 8 characters)
+              <label for="password">Password (min 8 characters)</label>
               <input
-                name='password'
-                type='password'
+                name="password"
+                type="password"
                 value={this.state.password}
-                placeholder='password'
+                placeholder="password"
                 onChange={this.changeHandler}
               />
-            </label>
-            <label>
-              Email Address
+              <label for="email">Email Address</label>
               <input
-                name='email'
-                type='email'
+                name="email"
+                type="email"
                 value={this.state.email}
-                placeholder='email'
+                placeholder="email"
                 onChange={this.changeHandler}
               />
-            </label>
-            <button>Create Account</button>
-          </form> :
-          <button onClick={this.toggleSignUp}>Sign Up</button>
+              <button>Submit</button>
+            </form>
+            <button onClick={this.props.toggleSignUpForm}>Cancel</button> 
+          </>:
+          <button onClick={this.props.toggleSignUpForm}>Create Account</button>
         }
       </div>
     );

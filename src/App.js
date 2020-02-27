@@ -25,10 +25,20 @@ class App extends React.Component {
       accessToken: '',
       refreshToken: '',
       newUser: '',
+      renderSignUpForm: false,
     };
 
     this.addNewUser = this.addNewUser.bind(this);
     this.storeTokens = this.storeTokens.bind(this);
+    this.toggleSignUpForm = this.toggleSignUpForm.bind(this);
+  }
+
+  addNewUser(newUser) {
+    // Stores new username to state to customize welcome and login messages
+    this.setState({
+      newUser: newUser.username,
+      renderSignUpForm: false,
+    });
   }
 
   async storeTokens({ access, refresh }) {
@@ -39,49 +49,53 @@ class App extends React.Component {
     });
   }
 
-  addNewUser(newUser) {
-    // Stores new username to state to customize welcome and login messages
-    this.setState({
-      newUser: newUser.username,
-      renderSignUp: false,
-    });
+  toggleSignUpForm() {
+    // Toggles rendering of the signup form
+    let newState = this.state.renderSignUpForm ? false : true;
+    this.setState({ renderSignUpForm: newState });
   }
 
   render() {
     return (
       <div className="app">
-        <Header />
-        { this.state.accessToken ? <Nav /> : false }
-        <div className="content">
-          <Router>
-            <Switch>
-              <Route path="/" exact>
-                {/* Render collections or login/signup depending on presence of tokens */}
-                { this.state.accessToken ?
-                    <Collections /> :
-                  <>
-                    <Login 
-                      newUser={this.state.newUser}
-                      storeTokens={this.storeTokens} 
+          <div className="wrapper">
+            <Router>
+              <Header />
+              { this.state.accessToken ? <Nav /> : false }
+              <div className="content">
+                <Switch>
+                  <Route path="/" exact>
+                    {/* Render collections or login/signup depending on presence of tokens */}
+                    { this.state.accessToken ?
+                        <Collections /> :
+                      <>
+                        <Login 
+                          newUser={this.state.newUser}
+                          renderSignUpForm={this.state.renderSignUpForm}
+                          storeTokens={this.storeTokens} 
+                        />
+                        <SignUp 
+                          addNewUser={this.addNewUser}
+                          newUser={this.state.newUser}
+                          renderSignUpForm={this.state.renderSignUpForm}
+                          toggleSignUpForm={this.toggleSignUpForm} 
+                        /> 
+                      </>
+                    }
+                  </Route>
+                  <Route path='/about' exact>
+                    <About />
+                  </Route>
+                  <Route path='/movies'>
+                    <Movies 
+                      accessToken={this.state.accessToken}
+                      refreshToken={this.state.refreshToken} 
                     />
-                    <SignUp 
-                      addNewUser={this.addNewUser} 
-                    /> 
-                  </>
-                }
-              </Route>
-              <Route path='/about' exact>
-                <About />
-              </Route>
-              <Route path='/movies'>
-                <Movies 
-                  accessToken={this.state.accessToken}
-                  refreshToken={this.state.refreshToken} 
-                />
-              </Route>
-            </Switch>
-          </Router>
-        </div>
+                  </Route>
+                </Switch>
+              </div>
+            </Router>
+          </div>
         <Footer />
       </div>
     );
