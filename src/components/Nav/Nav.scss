@@ -1,0 +1,20 @@
+nav {
+    height: 26px;
+    border: black solid 1px;
+    background-color: rgb(225, 225, 225);
+    margin-bottom: 15px;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    li {
+        a {
+            display: block;
+            margin-top: 3px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    }
+}
