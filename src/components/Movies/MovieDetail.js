@@ -5,6 +5,8 @@ import axios from 'axios';
 import MovieCopies from './MovieCopies';
 import MovieUpdateForm from './MovieUpdateForm';
 
+import './MovieDetail.scss';
+
 
 class MovieDetail extends React.Component {
   constructor(props) {
@@ -12,10 +14,13 @@ class MovieDetail extends React.Component {
 
     this.state = {
       confirmDelete: false,
+      deleteButtonText: 'DELETE',
       renderUpdateForm: false,
+      updateButtonText: 'UPDATE',
     }
 
     this.deleteMovie = this.deleteMovie.bind(this);
+    this.generateTinyDetails = this.generateTinyDetails.bind(this);
     this.toggleConfirmDelete = this.toggleConfirmDelete.bind(this);
     this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
   }
@@ -23,13 +28,21 @@ class MovieDetail extends React.Component {
   toggleConfirmDelete() {
     // Toggles the 'Confirm Delete' button's text
     const newState = this.state.confirmDelete ? false : true;
-    this.setState({ confirmDelete: newState });
+    const newButtonText = this.state.confirmDelete ? 'DELETE' : 'CANCEL';
+    this.setState({ 
+      confirmDelete: newState,
+      deleteButtonText: newButtonText,
+    });
   }
 
   toggleUpdateForm() {
     // Toggles rendering of the <MovieUpdateForm>
-    const newState = this.state.renderUpdateForm ? false : true;
-    this.setState({ renderUpdateForm: newState });
+    const newRenderState = this.state.renderUpdateForm ? false : true;
+    const newButtonText = this.state.renderUpdateForm ?  'UPDATE' : 'CANCEL';
+    this.setState({ 
+      renderUpdateForm: newRenderState,
+      updateButtonText: newButtonText,
+    });
   }
 
   async deleteMovie() {
@@ -53,14 +66,25 @@ class MovieDetail extends React.Component {
     if (response.status === 204 ) {
       this.props.removeMovie(this.props.movie.id);
     }
-    
+  }
+
+  generateTinyDetails() {
+    const tmdbLink = this.props.movie.tmdb_page_link ?
+      <> 
+        <a href={this.props.movie.tmdb_page_link} target="_blank" rel="noopener noreferrer">
+          TMDb
+        </a>
+      </> :
+      '';
+    let tinyDetails = `${this.props.movie.release_year} `;
+    tinyDetails += `| ${this.props.movie.mpaa_rating} `;
+    tinyDetails += `| ${this.props.movie.runtime_minutes}mins`;
+    if (tmdbLink !== '') tinyDetails += ` | `;
+
+    return <p className="tiny-details">{ tinyDetails }{ tmdbLink }</p>;
   }
 
   render() {
-    const movieTitle = this.props.movie ? 
-      `${this.props.movie.title} (${this.props.movie.release_year})` : 
-      "";
-
     // Redirect to <Movies> if Movie has been deleted
     if (!this.props.movie) return <Redirect to="/movies" />
     
@@ -68,47 +92,32 @@ class MovieDetail extends React.Component {
       <div className="movie-detail">
         {/* Movie Details OR Movie Update Form */}
         { this.state.renderUpdateForm ?
+          <MovieUpdateForm 
+            movie={this.props.movie}
+            accessToken={this.props.accessToken}
+            updateMovie={this.props.updateMovie}
+            toggleForm={this.toggleUpdateForm}
+          /> :
           <>
-            <MovieUpdateForm 
-              movie={this.props.movie}
-              accessToken={this.props.accessToken}
-              updateMovie={this.props.updateMovie}
-              toggleForm={this.toggleUpdateForm}
-            />
-            <button onClick={this.toggleUpdateForm}>CANCEL</button>
-          </> :
-          <>
-            <h2>{ movieTitle }</h2>
             <img 
               src={this.props.movie.image_link} 
               alt={`${this.props.movie.title} cover art`}
               title={this.props.movie.title} 
-            />
-            <p><span className="detail-heading">Overview: </span>{ this.props.movie.overview }</p>
-            <p><span className="detail-heading">Rating: </span>{ this.props.movie.mpaa_rating }</p>
-            <p><span className="detail-heading">Runtime: </span>{ this.props.movie.runtime_minutes }</p>
-            {/* Render link to The Movie Database if present */}
-            { this.props.movie.tmdb_page_link !== '' ?
-              <a 
-                href={this.props.movie.tmdb_page_link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                TMDb Details
-              </a> :
-              false
-            }
-            <button onClick={this.toggleUpdateForm}>UPDATE</button>
+              />
+            <h2>{ this.props.movie.title }</h2>
+            { this.generateTinyDetails() }
+            <p className="overview">{ this.props.movie.overview }</p>
           </>
         }
         {/* Delete Buttons */}
+        <div className="movie-edit-buttons">
+          <button onClick={this.toggleUpdateForm}>{ this.state.updateButtonText }</button>
+          <button onClick={this.toggleConfirmDelete}>{ this.state.deleteButtonText }</button>
         { this.state.confirmDelete ?
-          <>
-            <button onClick={this.toggleConfirmDelete}>CANCEL</button>
-            <button onClick={this.deleteMovie}>CONFIRM DELETE</button>
-          </> :
-          <button onClick={this.toggleConfirmDelete}>DELETE</button>
+          <button onClick={this.deleteMovie}>CONFIRM DELETE</button> :
+          false
         }
+        </div> 
         <MovieCopies 
           movie={this.props.movie}
           accessToken={this.props.accessToken}

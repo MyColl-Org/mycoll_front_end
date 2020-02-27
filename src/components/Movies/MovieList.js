@@ -1,6 +1,8 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
+import './MovieList.scss';
+
 
 class MovieList extends React.Component {
   constructor(props) {
@@ -53,19 +55,21 @@ class MovieList extends React.Component {
 
 class MovieItem extends React.Component{
   render() {
-    const movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`;
     return (
       <li className="movie-item">
-        <Link to={{pathname: `movies/detail/${this.props.movie.id}`, state: this.props.movie}} replace >
-          <h3>{ movieTitle }</h3>
-        </Link>
         <img 
           src={this.props.movie.image_link} 
           alt={`${this.props.movie.title} cover art`}
           title={this.props.movie.title} 
         />
-        <p><span className="detail-heading">Rating: </span>{ this.props.movie.mpaa_rating }</p>
-        <p><span className="detail-heading">Runtime: </span>{ this.props.movie.runtime_minutes }</p>
+        <div className="item-details-outer">
+          <div className="item-details-inner">
+          <Link to={{pathname: `movies/detail/${this.props.movie.id}`, state: this.props.movie}} replace >
+            <h3>{ this.props.movie.title }</h3>
+          </Link>
+          <p>{this.props.movie.release_year} | {this.props.movie.mpaa_rating} | {this.props.movie.runtime_minutes}mins</p>
+          </div>
+        </div>
       </li>
     )
   }

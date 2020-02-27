@@ -44,13 +44,13 @@ class Login extends React.Component {
   render() {
     if (this.props.renderSignUpForm) return <></>;
     const userGreeting = this.props.newUser ? 
-      `Welcome ${this.props.newUser},` : 
+      `Welcome ${this.props.newUser}!` : 
       false;
 
     return (
       <div className="login">
         { userGreeting ? <h2>{ userGreeting }</h2> : false}
-        <h3>We Have Such Sights To Show You!</h3>
+        {/* <h3>We Have Such Sights To Show You!</h3> */}
         <form onSubmit={this.obtainTokens} className="login-form">
           <label for="username">Username:</label>
           <input

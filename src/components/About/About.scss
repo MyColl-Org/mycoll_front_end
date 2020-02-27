@@ -1,5 +1,4 @@
 .about {
-  padding: 0 30px;
   h2 {
     margin-bottom: 40px;
     font-size: 30px;
@@ -18,7 +17,7 @@
     margin-bottom: 1em;
     line-height: 1.2em;
   }
-  div.links {
+  .links {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -29,8 +28,11 @@
     img.social-logo {
       margin-right: 25px;
     }
+    img.tmdb-logo {
+      width: 200px;
+    }
     img.social-logo:first-child {
-      width: 50px;
+      width: 75px;
     }
   }
 }
