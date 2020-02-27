@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './About.scss';
 import tmdbLogo from './img/tmdb_logo_blue.png';
 import githubLogo from './img/github_logo.png';
 import linkedinLogo from './img/linkedin_logo.png';
@@ -39,12 +40,14 @@ class MyInfo extends React.Component {
       <div className="my-info">
         <h3>The Developer:</h3>
         <p>Skyler is a software developer with experience in developing Python and Javascript web applications. The idea for MyColl came to Skyler while shopping for DVDs at a thrift store. When digging through the movies he would often find himself struggling to remember which DVDs he already posessed and decided there was need for a solution that would put easy access to a catalog of his collection in his pocket.</p>
-        <a href="https://www.github.com/skylerburger" rel="noopener noreferrer" target="_blank">
-          <img src={githubLogo} alt="GitHub Logo" />
-        </a>
-        <a href="https://www.linkedin.com/in/skylerburger" rel="noopener noreferrer" target="_blank">
-          <img src={linkedinLogo} alt="LinkedIn Logo" />
-        </a>
+        <div className="links">
+          <a href="https://www.github.com/skylerburger" rel="noopener noreferrer" target="_blank">
+            <img src={githubLogo} alt="GitHub Logo" className="social-logo" />
+          </a>
+          <a href="https://www.linkedin.com/in/skylerburger" rel="noopener noreferrer" target="_blank">
+            <img src={linkedinLogo} alt="LinkedIn Logo" className="social-logo" />
+          </a>
+        </div>
       </div>
     );
   }
@@ -57,9 +60,11 @@ class DataSources extends React.Component {
       <div className="data-sources">
         <h3>Data Sources:</h3>
         <p>This product uses the TMDb API but is not endorsed or certified by TMDb. Data and images gathered through the search function are sourced from TMDb.</p>
-        <a href="https://www.themoviedb.org/documentation/api" rel="noopener noreferrer" target="_blank">
-          <img src={tmdbLogo} alt="The Movie Database Logo" />
-        </a>
+        <div className="links">
+          <a href="https://www.themoviedb.org/documentation/api" rel="noopener noreferrer" target="_blank">
+            <img src={tmdbLogo} alt="The Movie Database Logo" className="tmdb-logo" />
+          </a>
+        </div>
       </div>
     )
   }

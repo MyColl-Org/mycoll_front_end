@@ -52,7 +52,7 @@ class Login extends React.Component {
         { userGreeting ? <h2>{ userGreeting }</h2> : false}
         <h3>We Have Such Sights To Show You!</h3>
         <form onSubmit={this.obtainTokens} className="login-form">
-          <label for="username">Username</label>
+          <label for="username">Username:</label>
           <input
             name="username"
             type="text"
@@ -60,7 +60,7 @@ class Login extends React.Component {
             placeholder="username"
             onChange={this.changeHandler}
           />
-          <label for="password">Password</label>
+          <label for="password">Password:</label>
           <input
             name="password"
             type="password"

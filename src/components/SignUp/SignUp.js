@@ -55,7 +55,7 @@ class SignUp extends React.Component {
           <>
             <h2>Please create an account below:</h2>
             <form onSubmit={this.createUser} className="signup-form">
-              <label for="username">Username</label>
+              <label for="username">Username:</label>
               <input
                 name="username"
                 type="text"
@@ -63,7 +63,7 @@ class SignUp extends React.Component {
                 placeholder="username"
                 onChange={this.changeHandler}
               />
-              <label for="password">Password (min 8 characters)</label>
+              <label for="password">Password (min 8 characters):</label>
               <input
                 name="password"
                 type="password"
@@ -71,7 +71,7 @@ class SignUp extends React.Component {
                 placeholder="password"
                 onChange={this.changeHandler}
               />
-              <label for="email">Email Address</label>
+              <label for="email">Email Address:</label>
               <input
                 name="email"
                 type="email"
