@@ -7,7 +7,6 @@ import {
 
 import About from './components/About/About';
 import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 import Movies from './components/Movies/Movies';
 import Nav from './components/Nav/Nav';
@@ -57,13 +56,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
+        <Router>
           <div className="wrapper">
-            <Router>
-              <Header />
-              { this.state.accessToken ? <Nav /> : false }
-              <div className="content">
-                <Switch>
-                  <Route path="/" exact>
+            { this.state.accessToken ? <Nav /> : false }
+            <div className="content">
+              <Switch>
+                <Route path="/" exact>
+                  <div className="welcome">
+                    <h1>MyColl</h1>
                     {/* Render collections or login/signup depending on presence of tokens */}
                     { this.state.accessToken ?
                       false :
@@ -81,21 +81,22 @@ class App extends React.Component {
                         /> 
                       </>
                     }
-                  </Route>
-                  <Route path='/about' exact>
-                    <About />
-                  </Route>
-                  <Route path='/movies'>
-                    <Movies 
-                      accessToken={this.state.accessToken}
-                      refreshToken={this.state.refreshToken} 
-                    />
-                  </Route>
-                </Switch>
-              </div>
-            </Router>
+                  </div>
+                </Route>
+                <Route path='/about' exact>
+                  <About />
+                </Route>
+                <Route path='/movies'>
+                  <Movies 
+                    accessToken={this.state.accessToken}
+                    refreshToken={this.state.refreshToken} 
+                  />
+                </Route>
+              </Switch>
+            </div>
           </div>
-        <Footer />
+          <Footer />
+        </Router>
       </div>
     );
   }

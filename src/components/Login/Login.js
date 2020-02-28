@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import './Login.scss';
 
-const URL = 'http://127.0.0.1:8000/accounts/';
+const URL = 'http://104.248.238.221:8000/accounts/';
 
 
 class Login extends React.Component {
@@ -52,16 +52,18 @@ class Login extends React.Component {
         { userGreeting ? <h2>{ userGreeting }</h2> : false}
         {/* <h3>We Have Such Sights To Show You!</h3> */}
         <form onSubmit={this.obtainTokens} className="login-form">
-          <label for="username">Username:</label>
+          <label htmlFor="username">Username:</label>
           <input
+            id="username"
             name="username"
             type="text"
             value={this.state.username}
             placeholder="username"
             onChange={this.changeHandler}
           />
-          <label for="password">Password:</label>
+          <label htmlFor="password">Password:</label>
           <input
+            id="password"
             name="password"
             type="password"
             value={this.state.password}
