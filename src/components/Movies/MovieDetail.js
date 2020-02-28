@@ -49,7 +49,7 @@ class MovieDetail extends React.Component {
     // Makes a DELETE request to the DB then updates state in <Movies>
     const axiosConfig = {
       method: 'delete',
-      url: `http://127.0.0.1:8000/api/v1/movies/${this.props.movie.id}`,
+      url: `http://104.248.238.211:8000/api/v1/movies/${this.props.movie.id}`,
       data: null,
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`

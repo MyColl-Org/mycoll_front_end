@@ -4,7 +4,7 @@ import axios from 'axios';
 import './SignUp.scss';
 
 
-const URL = 'http://127.0.0.1:8000/accounts/create/';
+const URL = 'http://104.248.238.211:8000/accounts/create/';
 
 
 class SignUp extends React.Component {
