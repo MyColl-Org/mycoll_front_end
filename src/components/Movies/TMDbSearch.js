@@ -16,7 +16,7 @@ class TMDbSearch extends React.Component {
     // Requests details from TMDb when a movie is selected from search results
     // Updates <MovieCreation> state to populate <MovieForm>
     const movie_id = event.target.value;
-    const URL = `http://104.248.238.211:8000/api/v1/movies/search/details?query=${movie_id}`;
+    const URL = `http://104.248.238.221:8000/api/v1/movies/search/details?query=${movie_id}`;
 
     const axiosConfig = {
       headers: {
@@ -38,7 +38,7 @@ class TMDbSearch extends React.Component {
     // Requests search results from TMDb and updates <MovieCreation> state to render results
     event.preventDefault();
 
-    const URL = `http://104.248.238.211:8000/api/v1/movies/search?query=${this.props.query}`;
+    const URL = `http://104.248.238.221:8000/api/v1/movies/search?query=${this.props.query}`;
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
