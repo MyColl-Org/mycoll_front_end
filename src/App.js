@@ -63,11 +63,11 @@ class App extends React.Component {
               <Switch>
                 <Route path="/" exact>
                   <div className="welcome">
-                    <h1>MyColl</h1>
                     {/* Render collections or login/signup depending on presence of tokens */}
                     { this.state.accessToken ?
                       false :
                       <>
+                        <h1>MyColl</h1>
                         <Login 
                           newUser={this.state.newUser}
                           renderSignUpForm={this.state.renderSignUpForm}

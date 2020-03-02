@@ -13,6 +13,7 @@ class MovieCopies extends React.Component {
     };
 
     this.addMovieCopy = this.addMovieCopy.bind(this);
+    this.generateEditButton = this.generateEditButton.bind(this);
     this.toggleCopyForm = this.toggleCopyForm.bind(this);
     this.toggleEditOptions = this.toggleEditOptions.bind(this);
   }
@@ -22,6 +23,14 @@ class MovieCopies extends React.Component {
     // Hides <CopyForm> and updates state in <Movies> with the new MovieCopy
     this.toggleCopyForm();
     this.props.addMovieCopy(newCopy);
+  }
+
+  generateEditButton() {
+    if (this.state.renderCopyForm || !this.props.movie.copies || this.props.movie.copies.length === 0) {
+      return false
+    }
+    const buttonText = this.state.renderEditOptions ? "Done Editing" : "Edit Copies";
+    return <button onClick={this.toggleEditOptions}>{ buttonText }</button>
   }
 
   toggleCopyForm() {
@@ -68,12 +77,7 @@ class MovieCopies extends React.Component {
             addMovieCopy={this.addMovieCopy}
           /> :
           <>
-            <button onClick={this.toggleEditOptions}>
-              { this.state.renderEditOptions ? 
-                "Done Editing" :
-                "Edit Copies"
-              }
-            </button>
+            { this.generateEditButton() }
             <button onClick={this.toggleCopyForm}>Add Copy</button>
           </>
         }
