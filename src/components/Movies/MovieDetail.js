@@ -14,12 +14,13 @@ class MovieDetail extends React.Component {
 
     this.state = {
       confirmDelete: false,
-      deleteButtonText: 'DELETE',
+      deleteButtonText: 'Delete',
       renderUpdateForm: false,
-      updateButtonText: 'UPDATE',
+      updateButtonText: 'Update',
     }
 
     this.deleteMovie = this.deleteMovie.bind(this);
+    this.generateDeleteButtons = this.generateDeleteButtons.bind(this);
     this.generateTinyDetails = this.generateTinyDetails.bind(this);
     this.toggleConfirmDelete = this.toggleConfirmDelete.bind(this);
     this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
@@ -28,7 +29,7 @@ class MovieDetail extends React.Component {
   toggleConfirmDelete() {
     // Toggles the 'Confirm Delete' button's text
     const newState = this.state.confirmDelete ? false : true;
-    const newButtonText = this.state.confirmDelete ? 'DELETE' : 'CANCEL';
+    const newButtonText = this.state.confirmDelete ? 'Delete' : 'Cancel';
     this.setState({ 
       confirmDelete: newState,
       deleteButtonText: newButtonText,
@@ -38,7 +39,7 @@ class MovieDetail extends React.Component {
   toggleUpdateForm() {
     // Toggles rendering of the <MovieUpdateForm>
     const newRenderState = this.state.renderUpdateForm ? false : true;
-    const newButtonText = this.state.renderUpdateForm ?  'UPDATE' : 'CANCEL';
+    const newButtonText = this.state.renderUpdateForm ?  'Update' : 'Cancel';
     this.setState({ 
       renderUpdateForm: newRenderState,
       updateButtonText: newButtonText,
@@ -66,6 +67,20 @@ class MovieDetail extends React.Component {
     if (response.status === 204 ) {
       this.props.removeMovie(this.props.movie.id);
     }
+  }
+
+  generateDeleteButtons() {
+    if (this.state.renderUpdateForm) return false;
+    if (this.state.confirmDelete) {
+      return (
+        <>
+          <button onClick={this.toggleConfirmDelete} className="safe-button">Cancel</button>
+          <button onClick={this.deleteMovie} className="unsafe-button">Confirm Delete</button> 
+        </> 
+      )
+    }
+    return <button onClick={this.toggleConfirmDelete} className="unsafe-button">Delete</button>
+
   }
 
   generateTinyDetails() {
@@ -112,19 +127,18 @@ class MovieDetail extends React.Component {
         {/* Delete Buttons */}
         <div className="movie-edit-buttons">
           <button onClick={this.toggleUpdateForm}>{ this.state.updateButtonText }</button>
-          <button onClick={this.toggleConfirmDelete}>{ this.state.deleteButtonText }</button>
-        { this.state.confirmDelete ?
-          <button onClick={this.deleteMovie}>CONFIRM DELETE</button> :
-          false
-        }
-        </div> 
-        <MovieCopies 
+          { this.generateDeleteButtons() }
+        </div>
+        { this.state.renderUpdateForm ? 
+          false :
+          <MovieCopies 
           movie={this.props.movie}
           accessToken={this.props.accessToken}
           addMovieCopy={this.props.addMovieCopy}
           copyCreated={this.copyCreated}
           removeMovieCopy={this.props.removeMovieCopy}
-        />
+          />
+        } 
       </div>
     );
   }

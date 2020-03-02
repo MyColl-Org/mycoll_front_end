@@ -17,6 +17,23 @@
       text-decoration: none;
     }
   }
+  .movie-edit-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 20px auto 10px auto;
+    button {
+      font-size: 16px;
+      height: 30px;
+      border-radius: 5px;
+    }
+    .unsafe-button {
+      background-color: rgb(226, 72, 72);
+    }
+    .safe-button {
+      background-color: rgb(66, 172, 112);
+    }
+  }
   .overview {
     margin-bottom: 10px;
   }

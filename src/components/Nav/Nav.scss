@@ -10,7 +10,11 @@ nav ul {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    height: 100%;
     li {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         a {
             display: block;
             margin-top: 3px;

@@ -21,12 +21,13 @@
   }
 
   form {
+
     label {
       display: block;
       margin-bottom: 10px;
       font-size: 20px;
-  
     }
+
     input {
       display: block;
       margin: 0 auto 10px auto;
@@ -36,9 +37,11 @@
       font-size: 16px;
       text-align: center;
     }
+
     input::placeholder {
       text-align: center;
     }
+    
     button {
       margin-top: 20px;
     }
