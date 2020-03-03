@@ -53,10 +53,10 @@ class SignUp extends React.Component {
         {/* Render form or button */}
         { this.props.renderSignUpForm ?
           <>
-            <h2>Create an Account:</h2>
             <form onSubmit={this.createUser} className="signup-form">
               <label for="username">Username:</label>
               <input
+                id="username"
                 name="username"
                 type="text"
                 value={this.state.username}
@@ -65,6 +65,7 @@ class SignUp extends React.Component {
               />
               <label for="password">Password (min 8 characters):</label>
               <input
+                id="password"
                 name="password"
                 type="password"
                 value={this.state.password}
@@ -73,6 +74,7 @@ class SignUp extends React.Component {
               />
               <label for="email">Email Address:</label>
               <input
+                id="email"
                 name="email"
                 type="email"
                 value={this.state.email}

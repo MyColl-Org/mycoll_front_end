@@ -1,0 +1,45 @@
+.movie-update-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  button {
+    height: 30px;
+    width: 160px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 20px auto 10px auto;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  input {
+    display: block;
+    margin: 0 auto 10px auto;
+    border-radius: 5px;
+    height: 40px;
+    width: 90%;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  input::placeholder {
+    text-align: center;
+  }
+
+  textarea {
+    display: block;
+    width: 90%;
+    height: 200px;
+    margin: 0 auto 10px auto;
+    border-radius: 5px;
+    font-size: 16px;
+    overflow-y: visible;
+  }
+}

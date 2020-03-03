@@ -1,22 +1,53 @@
 .movie-detail {
+
   h2 {
     font-size: 30px;
     text-align: center;
     margin-bottom: 10px;
   }
+
   img {
     display: block;
-    margin: 20px auto 10px auto;
+    margin: 20px auto;
     width: 200px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
   }
+
   .tiny-details {
     text-align: center;
     margin-bottom: 10px;
+
     a {
       text-decoration: none;
     }
   }
-  .overview {
+
+  .movie-edit-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 20px auto 10px auto;
+
+    button {
+      font-size: 16px;
+      height: 30px;
+      border-radius: 5px;
+    }
+
+    .unsafe-button {
+      background-color: rgb(226, 72, 72);
+    }
+
+    .safe-button {
+      background-color: rgb(66, 172, 112);
+    }
+  }
+
+  p.overview {
+    font-size: 20px;
+    text-align: justify;
     margin-bottom: 10px;
+    line-height: 1.2em;
   }
 }

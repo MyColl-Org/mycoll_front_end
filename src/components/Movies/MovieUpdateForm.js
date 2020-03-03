@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import './MovieUpdateForm.scss';
+
 
 class MovieForm extends React.Component {
   constructor(props) {
@@ -72,80 +74,84 @@ class MovieForm extends React.Component {
   render() {
     return (<>
       <form onSubmit={this.putMovie} className="movie-update-form">
-        <label>
+        <label htmlFor="title">
           Title
-          <input
-            name="title"
-            type="text"
-            value={this.state.title}
-            placeholder='Title'
-            onChange={this.changeHandler}
-          />
-        </label>
-        <label>
-          Release Year
-          <input
-            name="releaseYear"
-            type="text"
-            value={this.state.releaseYear}
-            placeholder='Release Year'
-            onChange={this.changeHandler}
-          />
-        </label>
-        <label>
-          MPAA Rating
-          <input
-            name="mpaaRating"
-            type="text"
-            value={this.state.mpaaRating}
-            placeholder='MPAA Rating'
-            onChange={this.changeHandler}
-          />
-        </label>
-        <label>
-          Overview
-          <textarea
-            name="overview"
-            type="text"
-            value={this.state.overview}
-            placeholder='Overview'
-            onChange={this.changeHandler}
-          />
-        </label>
-        <label>
-          Runtime (mins)
-          <input
-            name="runtimeMinutes"
-            type="text"
-            value={this.state.runtimeMinutes}
-            placeholder='Runtime (mins)'
-            onChange={this.changeHandler}
-          />
-        </label>
-        <label>
-          Image Link
-          <input
-            name="imageLink"
-            type="text"
-            value={this.state.imageLink}
-            placeholder='Image Link'
-            onChange={this.changeHandler}
-          />
-        </label>
-        <label>
-          TMDb Page Link
-          <input
-            name="tmdbPageLink"
-            type="text"
-            value={this.state.tmdbPageLink}
-            placeholder='TMDb Page Link'
-            onChange={this.changeHandler}
-          />
         </label>
         <input
-          type="submit"
-          value="Update Movie"
+          id="title"
+          name="title"
+          type="text"
+          value={this.state.title}
+          placeholder='Title'
+          onChange={this.changeHandler}
         />
+        <label htmlFor="releaseYear">
+          Release Year
+        </label>
+        <input
+          id="releaseYear"
+          name="releaseYear"
+          type="text"
+          value={this.state.releaseYear}
+          placeholder='Release Year'
+          onChange={this.changeHandler}
+        />
+        <label htmlFor="mpaaRating">
+          MPAA Rating
+        </label>
+        <input
+          id="mpaaRating"
+          name="mpaaRating"
+          type="text"
+          value={this.state.mpaaRating}
+          placeholder='MPAA Rating'
+          onChange={this.changeHandler}
+        />
+        <label htmlFor="overview">
+          Overview
+        </label>
+        <textarea
+          id="overview"
+          name="overview"
+          type="text"
+          value={this.state.overview}
+          placeholder='Overview'
+          onChange={this.changeHandler}
+        />
+        <label htmlFor="runtimeMinutes">
+          Runtime (mins)
+        </label>
+        <input
+          id="runtimeMinutes"
+          name="runtimeMinutes"
+          type="text"
+          value={this.state.runtimeMinutes}
+          placeholder='Runtime (mins)'
+          onChange={this.changeHandler}
+        />
+        <label htmlFor="imageLink">
+          Image Link
+        </label>
+        <input
+          id="imageLink"
+          name="imageLink"
+          type="text"
+          value={this.state.imageLink}
+          placeholder='Image Link'
+          onChange={this.changeHandler}
+        />
+        <label htmlFor="tmdbPageLink">
+          TMDb Page Link
+        </label>
+        <input
+          id="tmdbPageLink"
+          name="tmdbPageLink"
+          type="text"
+          value={this.state.tmdbPageLink}
+          placeholder='TMDb Page Link'
+          onChange={this.changeHandler}
+        />
+        <button type="submit">Update Movie</button>
       </form>
     </>);
   }

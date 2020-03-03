@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import './MovieCopies.scss';
+
 
 class MovieCopies extends React.Component {
   constructor(props) {
@@ -13,6 +15,7 @@ class MovieCopies extends React.Component {
     };
 
     this.addMovieCopy = this.addMovieCopy.bind(this);
+    this.generateEditButton = this.generateEditButton.bind(this);
     this.toggleCopyForm = this.toggleCopyForm.bind(this);
     this.toggleEditOptions = this.toggleEditOptions.bind(this);
   }
@@ -22,6 +25,14 @@ class MovieCopies extends React.Component {
     // Hides <CopyForm> and updates state in <Movies> with the new MovieCopy
     this.toggleCopyForm();
     this.props.addMovieCopy(newCopy);
+  }
+
+  generateEditButton() {
+    if (this.state.renderCopyForm || !this.props.movie.copies || this.props.movie.copies.length === 0) {
+      return false
+    }
+    const buttonText = this.state.renderEditOptions ? "Done Editing" : "Edit Copies";
+    return <button onClick={this.toggleEditOptions}>{ buttonText }</button>
   }
 
   toggleCopyForm() {
@@ -66,16 +77,12 @@ class MovieCopies extends React.Component {
             movieID={this.props.movie.id} 
             accessToken={this.props.accessToken}
             addMovieCopy={this.addMovieCopy}
+            toggleCopyForm={this.toggleCopyForm}
           /> :
-          <>
-            <button onClick={this.toggleEditOptions}>
-              { this.state.renderEditOptions ? 
-                "Done Editing" :
-                "Edit Copies"
-              }
-            </button>
+          <div className="movie-copy-buttons">
+            { this.generateEditButton() }
             <button onClick={this.toggleCopyForm}>Add Copy</button>
-          </>
+          </div>
         }
       </div>      
     );
@@ -86,11 +93,17 @@ class MovieCopies extends React.Component {
 class MovieCopyItem extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      confirmDelete: false,
+    };
     this.deleteMovieCopy = this.deleteMovieCopy.bind(this);
     this.removeMovieCopy = this.removeMovieCopy.bind(this);
+    this.renderDeleteButton = this.renderDeleteButton.bind(this);
+    this.toggleConfirmation = this.toggleConfirmation.bind(this);
   }
 
   removeMovieCopy() {
+    // Extends removeMovieCopy() from <Movies>
     this.props.removeMovieCopy({movieID: this.props.movieID, copyID: this.props.copyID});
   }
 
@@ -114,6 +127,29 @@ class MovieCopyItem extends React.Component {
       console.error('Error deleting movie copy.');
   }
 
+  renderDeleteButton() {
+    // Determines which delete action-related buttons to render
+    if (!this.props.renderOptions) return false;
+    const classState = this.state.confirmDelete ? "unsafe-wrapper" : "safe-wrapper"
+    return (
+      <div className={classState}>
+        { this.state.confirmDelete ?
+          <>
+            <button onClick={this.deleteMovieCopy} className="unsafe-button">Confirm Delete</button>
+            <button onClick={this.toggleConfirmation} className="safe-button">Cancel</button> 
+          </> :
+          <button onClick={this.toggleConfirmation}>Delete</button>
+        }
+      </div>
+    );
+  }
+
+  toggleConfirmation() {
+    // Toggles the confirmation button for the delete action
+    const toggledState = !this.state.confirmDelete;
+    this.setState({ confirmDelete: toggledState})
+  }
+
   render() {
     const copyText = `${this.props.copy.form} on ${this.props.copy.platform}`;
     const copyContent = this.props.copy.vod_link ?
@@ -121,14 +157,11 @@ class MovieCopyItem extends React.Component {
         { copyText }
       </a> :
       `${ copyText }`;
-    const editOptions = this.props.renderOptions ? 
-      <button onClick={this.deleteMovieCopy}>DELETE</button> : 
-      false;
 
     return (
       <li className="movie-copy-item">
         { copyContent }
-        { editOptions }
+        { this.renderDeleteButton() }
       </li>
     );
   }
@@ -188,31 +221,35 @@ class MovieCopyForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.putMovieCopy} className="movie-copy-form">
+        <label htmlFor="platform">Platform:</label>
         <input 
+          id="platform"
           name="platform" 
           type="text"
           value={this.state.platform}
           placeholder='Platform'
           onChange={this.changeHandler}
         />
-        <input 
+        <label htmlFor="format">Format:</label>
+        <input
+          id="format" 
           name="form" 
           type="text"
           value={this.state.form}
           placeholder='Format'
           onChange={this.changeHandler}
         />
-        <input 
+        <label htmlFor="vodLink">VOD Link (optional):</label>
+        <input
+          id="vodLink" 
           name="vodLink" 
           type="text"
           value={this.state.vodLink}
           placeholder='VOD Link (optional)'
           onChange={this.changeHandler}
         />
-        <input
-          type="submit"
-          value="Add Copy"
-        />
+        <button type="submit">Create Copy</button>
+        <button onClick={this.props.toggleCopyForm}>Cancel</button>
       </form>
     )
   }
