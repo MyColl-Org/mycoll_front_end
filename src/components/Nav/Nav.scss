@@ -11,6 +11,10 @@ nav ul {
     flex-direction: row;
     justify-content: space-around;
     height: 100%;
+    .mycoll-link {
+        font-family: 'Major Mono Display', sans-serif;
+        font-size: 24px;
+    }
     li {
         display: flex;
         flex-direction: column;

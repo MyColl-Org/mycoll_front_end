@@ -1,15 +1,18 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
+  Redirect,
   Route,
   Switch,
 } from 'react-router-dom';
 
 import About from './components/About/About';
+import Books from './components/Books/Books';
 import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Movies from './components/Movies/Movies';
 import Nav from './components/Nav/Nav';
+import Shows from './components/Shows/Shows';
 import SignUp from './components/SignUp/SignUp';
 
 import './App.scss';
@@ -65,7 +68,7 @@ class App extends React.Component {
                   <div className="welcome">
                     {/* Render collections or login/signup depending on presence of tokens */}
                     { this.state.accessToken ?
-                      false :
+                      <Redirect to="/movies" /> :
                       <>
                         <h1>MyColl</h1>
                         <Login 
@@ -91,6 +94,12 @@ class App extends React.Component {
                     accessToken={this.state.accessToken}
                     refreshToken={this.state.refreshToken} 
                   />
+                </Route>
+                <Route path='/books'>
+                  <Books />
+                </Route>
+                <Route path='/shows'>
+                  <Shows />
                 </Route>
               </Switch>
             </div>

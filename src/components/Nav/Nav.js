@@ -9,10 +9,10 @@ class Nav extends React.Component {
     return (
       <nav>
         <ul>
-          <li><Link to='/' className="mycoll-link">MyColl</Link></li>
+          <li className="mycoll-link">MyColl</li>
           <li><Link to='/movies'>Movies</Link></li>
-          <li><Link to=''>TV Shows</Link></li>
-          <li><Link to=''>Books</Link></li>
+          <li><Link to='/shows'>TV Shows</Link></li>
+          <li><Link to='/books'>Books</Link></li>
         </ul>
       </nav>
     )
