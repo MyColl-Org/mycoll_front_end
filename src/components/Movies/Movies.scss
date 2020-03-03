@@ -1,6 +1,8 @@
 .movies {
+  font-family: "Lato", sans-serif;
   width: 100%;
   .movies-header {
+    font-family: "Lato";
     font-size: 20px;
     margin-bottom: 20px;
     text-align: center;
@@ -8,7 +10,7 @@
   .add-movie {
     position: fixed;
     display: block;
-    // height of fotter 26 px + 10 px
+    // height of footer 26 px + 10 px
     bottom: 36px;
     right: 10px;
     height: 50px;
