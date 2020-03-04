@@ -6,7 +6,7 @@ import MovieCopies from './MovieCopies';
 import MovieUpdateForm from './MovieUpdateForm';
 
 import './MovieDetail.scss';
-import defaultImage from './img/default_movie_cover.png'
+import defaultImage from '../img/default_movie_cover.png'
 
 class MovieDetail extends React.Component {
   constructor(props) {

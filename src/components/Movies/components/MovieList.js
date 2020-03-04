@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
 import './MovieList.scss';
-import defaultImage from './img/default_movie_cover.png';
+import defaultImage from '../img/default_movie_cover.png';
 
 
 class MovieList extends React.Component {

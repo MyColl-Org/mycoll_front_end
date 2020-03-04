@@ -2,9 +2,9 @@ import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import CreateMovie from './CreateMovie';
-import MovieList from './MovieList';
-import MovieDetail from './MovieDetail';
+import CreateMovie from './components/CreateMovie';
+import MovieList from './components/MovieList';
+import MovieDetail from './components/MovieDetail';
 
 import './Movies.scss';
 import addButton from './img/add_button_green.png';
