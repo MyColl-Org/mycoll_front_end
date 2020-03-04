@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import './TMDbSearch.scss';
-import defaultImage from './img/default_movie_cover.png';
+import defaultImage from '../img/default_movie_cover.png';
 
 
 class TMDbSearch extends React.Component {
