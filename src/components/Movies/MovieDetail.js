@@ -6,7 +6,7 @@ import MovieCopies from './MovieCopies';
 import MovieUpdateForm from './MovieUpdateForm';
 
 import './MovieDetail.scss';
-
+import defaultImage from './img/default_movie_cover.png'
 
 class MovieDetail extends React.Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class MovieDetail extends React.Component {
     }
 
     this.deleteMovie = this.deleteMovie.bind(this);
+    this.generateCoverImage = this.generateCoverImage.bind(this);
     this.generateDeleteButtons = this.generateDeleteButtons.bind(this);
     this.generateTinyDetails = this.generateTinyDetails.bind(this);
     this.toggleConfirmDelete = this.toggleConfirmDelete.bind(this);
@@ -70,6 +71,7 @@ class MovieDetail extends React.Component {
   }
 
   generateDeleteButtons() {
+    // Dynamically generates delete function-related buttons and text
     if (this.state.renderUpdateForm) return false;
     if (this.state.confirmDelete) {
       return (
@@ -84,6 +86,7 @@ class MovieDetail extends React.Component {
   }
 
   generateTinyDetails() {
+    // Generates the tiny movie details that appear under the cover art image
     const tmdbLink = this.props.movie.tmdb_page_link ?
       <> 
         <a href={this.props.movie.tmdb_page_link} target="_blank" rel="noopener noreferrer">
@@ -97,6 +100,20 @@ class MovieDetail extends React.Component {
     if (tmdbLink !== '') tinyDetails += ` | `;
 
     return <p className="tiny-details">{ tinyDetails }{ tmdbLink }</p>;
+  }
+
+  generateCoverImage() {
+    // Generates the <img> tag for the cover art or default cover art image
+    const imageClass = this.props.movie.image_link ? '' : 'default-movie-image';
+    const imageLink = this.props.movie.image_link || defaultImage; 
+    return (
+      <img 
+        src={imageLink} 
+        alt={`${this.props.movie.title} cover art`}
+        title={this.props.movie.title} 
+        className={imageClass}
+      />
+    );
   }
 
   render() {
@@ -114,17 +131,15 @@ class MovieDetail extends React.Component {
             toggleForm={this.toggleUpdateForm}
           /> :
           <>
-            <img 
-              src={this.props.movie.image_link} 
-              alt={`${this.props.movie.title} cover art`}
-              title={this.props.movie.title} 
-              />
+            { this.generateCoverImage() }
             <h2>{ this.props.movie.title }</h2>
             { this.generateTinyDetails() }
-            <p className="overview">{ this.props.movie.overview }</p>
+            { this.props.movie.overview ? 
+              <p className="overview">{ this.props.movie.overview }</p> :
+              false
+            }
           </>
         }
-        {/* Delete Buttons */}
         <div className="movie-edit-buttons">
           <button onClick={this.toggleUpdateForm}>{ this.state.updateButtonText }</button>
           { this.generateDeleteButtons() }
