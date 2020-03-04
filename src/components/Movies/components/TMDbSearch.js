@@ -137,7 +137,8 @@ class TMDbItem extends React.Component {
         <div className="item-details-outer">
           <div className="item-details-inner">
             <p>{ movieTitle }</p>
-            <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a>
+            {/* <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a> */}
+            <a href={tmdbLink} target="_blank" rel="noopener noreferrer"><button>TMDb Page</button></a>
             <button value={this.props.movie.id} onClick={this.props.onSelect}>Select</button>
           </div>
         </div> 
