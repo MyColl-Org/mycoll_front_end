@@ -93,7 +93,7 @@ class MovieForm extends React.Component {
           required
           id="releaseYear"
           name="releaseYear"
-          type="text"
+          type="number"
           value={this.state.releaseYear}
           placeholder='Release Year'
           onChange={this.changeHandler}
@@ -117,7 +117,7 @@ class MovieForm extends React.Component {
           required
           id="runtimeMinutes"
           name="runtimeMinutes"
-          type="text"
+          type="number"
           value={this.state.runtimeMinutes}
           placeholder='Runtime (mins)'
           onChange={this.changeHandler}
