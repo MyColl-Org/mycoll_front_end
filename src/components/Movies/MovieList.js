@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
 import './MovieList.scss';
+import defaultImage from './img/default_movie_cover.png';
 
 
 class MovieList extends React.Component {
@@ -57,11 +58,19 @@ class MovieItem extends React.Component{
   render() {
     return (
       <li className="movie-item">
+        { this.props.movie.image_link ?
         <img 
-          src={this.props.movie.image_link} 
+          src={ this.props.movie.image_link}
           alt={`${this.props.movie.title} cover art`}
           title={this.props.movie.title} 
+        /> :
+        <img
+          src={defaultImage}
+          alt={`${this.props.movie.title} cover art`}
+          title={this.props.movie.title}
+          className="default-movie-image"
         />
+        }
         <div className="item-details-outer">
           <div className="item-details-inner">
           <Link to={{pathname: `movies/detail/${this.props.movie.id}`, state: this.props.movie}} replace >

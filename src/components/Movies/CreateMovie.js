@@ -4,8 +4,10 @@ import { Redirect } from 'react-router-dom';
 
 import TMDbSearch from './TMDbSearch';
 
+import './CreateMovie.scss';
 
-class AddMovie extends React.Component {
+
+class CreateMovie extends React.Component {
   constructor(props) {
     super(props);
     
@@ -81,7 +83,7 @@ class AddMovie extends React.Component {
   }
 
   render() {
-    return (<div className="movie-creation">
+    return (<div className="create-movie">
       {/* Redirect once a movie has been submitted */}
       { this.state.formSubmitted ? 
         <Redirect to={`/movies/detail/${this.state.movieID}`} /> :
@@ -153,90 +155,86 @@ class MovieForm extends React.Component {
 
   render() {
     return (
-      <div className="movie-form">
-        <img 
-          src={this.props.fields.imageLink} 
-          alt={this.props.fields.title}
-        />
+      <div className="create-movie-form">
+        { this.props.fields.imageLink ?
+          <img 
+            src={this.props.fields.imageLink} 
+            alt={this.props.fields.title}
+          /> :
+          false
+        }
         <form onSubmit={this.putMovie}>
-          <label>
-            Title
-            <input 
-              name="title" 
-              type="text"
-              value={this.props.fields.title}
-              placeholder="Title"
-              onChange={this.props.changeHandler}
-            />
-          </label>
-          <label>
-            Release Year
-            <input 
-              name="releaseYear" 
-              type="text"
-              value={this.props.fields.releaseYear}
-              placeholder="Release Year"
-              onChange={this.props.changeHandler}
-            />
-          </label>
-          <label>
-            MPAA Rating
-            <input 
-              name="mpaaRating" 
-              type="text"
-              value={this.props.fields.mpaaRating}
-              placeholder="MPAA Rating"
-              onChange={this.props.changeHandler}
-            />
-          </label>
-          <label>
-            Overview
-            <textarea 
-              name="overview" 
-              type="text"
-              value={this.props.fields.overview}
-              placeholder="Overview"
-              onChange={this.props.changeHandler}
-            />
-          </label>
-          <label>
-            Runtime (mins)
-            <input 
-              name="runtimeMinutes" 
-              type="text"
-              value={this.props.fields.runtimeMinutes}
-              placeholder="Runtime (mins)"
-              onChange={this.props.changeHandler}
-            />
-          </label>
-          <label>
-            Image Link
-            <input 
-              name="imageLink" 
-              type="text"
-              value={this.props.fields.imageLink}
-              placeholder="Image Link (optional)"
-              onChange={this.props.changeHandler}
-            />
-          </label>
-          <label>
-            TMDb Page Link
-            <input 
-              name="tmdbPageLink" 
-              type="text"
-              value={this.props.fields.tmdbPageLink}
-              placeholder="TMDB Page Link (optional)"
-              onChange={this.props.changeHandler}
-            />
-          </label>
+          <label htmlFor="title">Title</label>
           <input
-            type="submit"
-            value="Add Movie"
+            required 
+            id="title"
+            name="title" 
+            type="text"
+            value={this.props.fields.title}
+            placeholder="Title"
+            onChange={this.props.changeHandler}
           />
+          <label htmlFor="releaseYear">Release Year</label>
+          <input
+            required
+            id="releaseYear" 
+            name="releaseYear" 
+            type="text"
+            value={this.props.fields.releaseYear}
+            placeholder="Release Year"
+            onChange={this.props.changeHandler}
+          />
+          <label htmlFor="mpaaRating">MPAA Rating</label>
+          <input
+            required 
+            id='mpaaRating'
+            name="mpaaRating" 
+            type="text"
+            value={this.props.fields.mpaaRating}
+            placeholder="MPAA Rating"
+            onChange={this.props.changeHandler}
+          />
+          <label htmlFor="runtimeMinutes">Runtime (mins)</label>
+          <input
+            required 
+            id="runtimeMinutes"
+            name="runtimeMinutes" 
+            type="text"
+            value={this.props.fields.runtimeMinutes}
+            placeholder="Runtime (mins)"
+            onChange={this.props.changeHandler}
+          />
+          <label htmlFor="overview">Overview</label>
+          <textarea 
+            id="overview"
+            name="overview" 
+            type="text"
+            value={this.props.fields.overview}
+            placeholder="Overview (optional)"
+            onChange={this.props.changeHandler}
+          />
+          <label htmlFor="imageLink">Image Link</label>
+          <input 
+            name="imageLink" 
+            type="text"
+            value={this.props.fields.imageLink}
+            placeholder="Image Link (optional)"
+            onChange={this.props.changeHandler}
+          />
+          <label htmlFor="tmdbPageLink">TMDb Page Link</label>
+          <input 
+            id="tmdbPageLink"
+            name="tmdbPageLink" 
+            type="text"
+            value={this.props.fields.tmdbPageLink}
+            placeholder="TMDB Page Link (optional)"
+            onChange={this.props.changeHandler}
+          />
+          <button type="submit">Add Movie</button>
         </form>
       </div>
     );
   }
 }
 
-export default AddMovie;
+export default CreateMovie;
