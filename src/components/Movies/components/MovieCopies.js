@@ -222,7 +222,8 @@ class MovieCopyForm extends React.Component {
     return (
       <form onSubmit={this.putMovieCopy} className="movie-copy-form">
         <label htmlFor="platform">Platform:</label>
-        <input 
+        <input
+          required 
           id="platform"
           name="platform" 
           type="text"
@@ -232,6 +233,7 @@ class MovieCopyForm extends React.Component {
         />
         <label htmlFor="format">Format:</label>
         <input
+          required
           id="format" 
           name="form" 
           type="text"
@@ -248,7 +250,7 @@ class MovieCopyForm extends React.Component {
           placeholder='VOD Link (optional)'
           onChange={this.changeHandler}
         />
-        <button type="submit">Create Copy</button>
+        <button>Create Copy</button>
         <button onClick={this.props.toggleCopyForm}>Cancel</button>
       </form>
     )

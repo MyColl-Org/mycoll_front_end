@@ -8,9 +8,20 @@ import defaultImage from '../img/default_movie_cover.png';
 class TMDbSearch extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      previouseQuery: '',
+      querySent: false,
+    };
 
+    this.generateNoResultsMessage = this.generateNoResultsMessage.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.requestResults = this.requestResults.bind(this);
+  }
+
+  generateNoResultsMessage() {
+    // Generates message when no results are returned from TMDb
+    const noResultsMessage = `No results for ${this.state.previouseQuery}`
+    return this.state.querySent ? <p className="no-results">{ noResultsMessage }</p> : false;
   }
 
   async onSelect(event) {
@@ -28,6 +39,7 @@ class TMDbSearch extends React.Component {
     try {
       const response = await axios.get(URL, axiosConfig);
       this.props.updateForm(response.data);
+      this.setState({ querySent: false });
     } 
     catch(error) {
       console.log("Error while trying to request details from TMDb.");
@@ -49,6 +61,7 @@ class TMDbSearch extends React.Component {
     try {
       const response = await axios.get(URL, axiosConfig);
       this.props.updateResults(response.data);
+      this.setState({ querySent: true, previouseQuery: this.props.query });
     } 
     catch(error) {
       console.log("Error while trying to search TMDb.");
@@ -63,6 +76,7 @@ class TMDbSearch extends React.Component {
         <form onSubmit={this.requestResults} className="tmdb-search-form">
           <label htmlFor="query" className="search-query-label">Movie Title:</label>
           <input
+            required
             id="query"
             name="query"
             type="text"
@@ -70,10 +84,10 @@ class TMDbSearch extends React.Component {
             placeholder='Movie Title'
             onChange={this.props.changeHandler}
           />
-          <button type="submit">Search</button>
+          <button>Search</button>
         </form>
         {/* Render search results if present in state */}
-        { this.props.results ?
+        { this.props.results.length ?
           <ul className="tmdb-search-results">
             {this.props.results.map( movie => 
               <TMDbItem 
@@ -83,7 +97,7 @@ class TMDbSearch extends React.Component {
               />
             )}
           </ul> :
-          false
+          this.generateNoResultsMessage()
         }
       </div>
     );

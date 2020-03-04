@@ -155,7 +155,7 @@ class MovieForm extends React.Component {
           placeholder='TMDb Page Link'
           onChange={this.changeHandler}
         />
-        <button type="submit">Update Movie</button>
+        <button>Update Movie</button>
       </form>
     </>);
   }

@@ -230,7 +230,7 @@ class MovieForm extends React.Component {
             placeholder="TMDB Page Link (optional)"
             onChange={this.props.changeHandler}
           />
-          <button type="submit">Add Movie</button>
+          <button>Add Movie</button>
         </form>
       </div>
     );

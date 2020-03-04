@@ -54,7 +54,7 @@ class SignUp extends React.Component {
         { this.props.renderSignUpForm ?
           <>
             <form onSubmit={this.createUser} className="signup-form">
-              <label for="username">Username:</label>
+              <label htmlFor="username">Username:</label>
               <input
                 required
                 id="username"
@@ -64,7 +64,7 @@ class SignUp extends React.Component {
                 placeholder="username"
                 onChange={this.changeHandler}
               />
-              <label for="password">Password (min 8 characters):</label>
+              <label htmlFor="password">Password (min 8 characters):</label>
               <input
                 required
                 id="password"
@@ -74,7 +74,7 @@ class SignUp extends React.Component {
                 placeholder="password"
                 onChange={this.changeHandler}
               />
-              <label for="email">Email Address:</label>
+              <label htmlFor="email">Email Address:</label>
               <input
                 required
                 id="email"
