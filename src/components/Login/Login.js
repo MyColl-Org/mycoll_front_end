@@ -54,6 +54,7 @@ class Login extends React.Component {
         <form onSubmit={this.obtainTokens} className="login-form">
           <label htmlFor="username">Username:</label>
           <input
+            required
             id="username"
             name="username"
             type="text"
@@ -63,6 +64,7 @@ class Login extends React.Component {
           />
           <label htmlFor="password">Password:</label>
           <input
+            required
             id="password"
             name="password"
             type="password"

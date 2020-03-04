@@ -78,6 +78,7 @@ class MovieForm extends React.Component {
           Title
         </label>
         <input
+          required
           id="title"
           name="title"
           type="text"
@@ -89,6 +90,7 @@ class MovieForm extends React.Component {
           Release Year
         </label>
         <input
+          required
           id="releaseYear"
           name="releaseYear"
           type="text"
@@ -100,11 +102,24 @@ class MovieForm extends React.Component {
           MPAA Rating
         </label>
         <input
+          required
           id="mpaaRating"
           name="mpaaRating"
           type="text"
           value={this.state.mpaaRating}
           placeholder='MPAA Rating'
+          onChange={this.changeHandler}
+        />
+        <label htmlFor="runtimeMinutes">
+          Runtime (mins)
+        </label>
+        <input
+          required
+          id="runtimeMinutes"
+          name="runtimeMinutes"
+          type="text"
+          value={this.state.runtimeMinutes}
+          placeholder='Runtime (mins)'
           onChange={this.changeHandler}
         />
         <label htmlFor="overview">
@@ -116,17 +131,6 @@ class MovieForm extends React.Component {
           type="text"
           value={this.state.overview}
           placeholder='Overview'
-          onChange={this.changeHandler}
-        />
-        <label htmlFor="runtimeMinutes">
-          Runtime (mins)
-        </label>
-        <input
-          id="runtimeMinutes"
-          name="runtimeMinutes"
-          type="text"
-          value={this.state.runtimeMinutes}
-          placeholder='Runtime (mins)'
           onChange={this.changeHandler}
         />
         <label htmlFor="imageLink">

@@ -2,12 +2,12 @@ import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import AddMovie from './AddMovie';
+import CreateMovie from './CreateMovie';
 import MovieList from './MovieList';
 import MovieDetail from './MovieDetail';
 
 import './Movies.scss';
-import addButton from './img/add_button.png';
+import addButton from './img/add_button_green.png';
 
 
 class Movies extends React.Component {
@@ -116,9 +116,10 @@ class Movies extends React.Component {
             <MovieList movies={this.state.movies} />
           </Route>
           <Route path='/movies/new' exact >
-            <AddMovie
+            <CreateMovie
               accessToken={this.props.accessToken}
-              addMovie={this.addMovie} />
+              addMovie={this.addMovie} 
+            />
           </Route>
           <Route 
             path='/movies/detail/:movieID' 

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+import './TMDbSearch.scss';
 import defaultImage from './img/default_movie_cover.png';
 
 
@@ -58,16 +59,18 @@ class TMDbSearch extends React.Component {
   render() {
     return (
       <div className="tmdb-search">
-        <h2>Search Form</h2>
+        <h2>Search The Movie Database</h2>
         <form onSubmit={this.requestResults} className="tmdb-search-form">
+          <label htmlFor="query" className="search-query-label">Movie Title:</label>
           <input
+            id="query"
             name="query"
             type="text"
             value={this.props.query}
             placeholder='Movie Title'
             onChange={this.props.changeHandler}
           />
-          <button type="submit">Submit</button>
+          <button type="submit">Search</button>
         </form>
         {/* Render search results if present in state */}
         { this.props.results ?
@@ -89,23 +92,41 @@ class TMDbSearch extends React.Component {
 
 
 class TMDbItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.generateCoverImage = this.generateCoverImage.bind(this);
+  }
+
+  generateCoverImage() {
+    // Genereates <img> for search result depending on presence of image link
+    const imageSource = this.props.movie.poster_path || defaultImage;
+    const imageClass = this.props.movie.poster_path ? '' : 'default-movie-image';
+    return (
+      <div className="result-image-outer">
+        <img
+          src={imageSource}
+          alt={this.props.movie.title}
+          title={this.props.movie.title}
+          className={imageClass}
+        />
+      </div>
+    );
+  }
+
   render() {
-    const tmdbLink = `https://www.themoviedb.org/movie/${this.props.movie.id}`
-    const movieTitle = `${this.props.movie.title} (${this.props.movie.release_year})`
+    const tmdbLink = `https://www.themoviedb.org/movie/${this.props.movie.id}`;
+    let movieTitle = `${this.props.movie.title}`;
+    if (this.props.movie.release_year) movieTitle += ` (${this.props.movie.release_year})`;
     return (
       <li className="tmdb-item">
-        <img 
-          src={
-            this.props.movie.poster_path ?
-            this.props.movie.poster_path :
-            defaultImage
-          }
-          alt={this.props.movie.title}
-          title={this.props.movie.overview}
-        /> 
-        <p>{ movieTitle }</p>
-        <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a>
-        <button value={this.props.movie.id} onClick={this.props.onSelect}>Select</button>
+        { this.generateCoverImage() }
+        <div className="item-details-outer">
+          <div className="item-details-inner">
+            <p>{ movieTitle }</p>
+            <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a>
+            <button value={this.props.movie.id} onClick={this.props.onSelect}>Select</button>
+          </div>
+        </div> 
       </li>
     );
   }

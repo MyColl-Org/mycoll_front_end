@@ -56,6 +56,7 @@ class SignUp extends React.Component {
             <form onSubmit={this.createUser} className="signup-form">
               <label for="username">Username:</label>
               <input
+                required
                 id="username"
                 name="username"
                 type="text"
@@ -65,6 +66,7 @@ class SignUp extends React.Component {
               />
               <label for="password">Password (min 8 characters):</label>
               <input
+                required
                 id="password"
                 name="password"
                 type="password"
@@ -74,6 +76,7 @@ class SignUp extends React.Component {
               />
               <label for="email">Email Address:</label>
               <input
+                required
                 id="email"
                 name="email"
                 type="email"
