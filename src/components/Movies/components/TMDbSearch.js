@@ -8,16 +8,27 @@ import defaultImage from '../img/default_movie_cover.png';
 class TMDbSearch extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      previouseQuery: '',
+      querySent: false,
+    };
 
+    this.generateNoResultsMessage = this.generateNoResultsMessage.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.requestResults = this.requestResults.bind(this);
+  }
+
+  generateNoResultsMessage() {
+    // Generates message when no results are returned from TMDb
+    const noResultsMessage = `No results for ${this.state.previouseQuery}`
+    return this.state.querySent ? <p className="no-results">{ noResultsMessage }</p> : false;
   }
 
   async onSelect(event) {
     // Requests details from TMDb when a movie is selected from search results
     // Updates <MovieCreation> state to populate <MovieForm>
     const movie_id = event.target.value;
-    const URL = `http://104.248.238.221:8000/api/v1/movies/search/details?query=${movie_id}`;
+    const URL = `https://104.248.238.221/api/v1/movies/search/details?query=${movie_id}`;
 
     const axiosConfig = {
       headers: {
@@ -28,6 +39,7 @@ class TMDbSearch extends React.Component {
     try {
       const response = await axios.get(URL, axiosConfig);
       this.props.updateForm(response.data);
+      this.setState({ querySent: false });
     } 
     catch(error) {
       console.log("Error while trying to request details from TMDb.");
@@ -39,7 +51,7 @@ class TMDbSearch extends React.Component {
     // Requests search results from TMDb and updates <MovieCreation> state to render results
     event.preventDefault();
 
-    const URL = `http://104.248.238.221:8000/api/v1/movies/search?query=${this.props.query}`;
+    const URL = `https://104.248.238.221/api/v1/movies/search?query=${this.props.query}`;
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
@@ -49,6 +61,7 @@ class TMDbSearch extends React.Component {
     try {
       const response = await axios.get(URL, axiosConfig);
       this.props.updateResults(response.data);
+      this.setState({ querySent: true, previouseQuery: this.props.query });
     } 
     catch(error) {
       console.log("Error while trying to search TMDb.");
@@ -63,6 +76,7 @@ class TMDbSearch extends React.Component {
         <form onSubmit={this.requestResults} className="tmdb-search-form">
           <label htmlFor="query" className="search-query-label">Movie Title:</label>
           <input
+            required
             id="query"
             name="query"
             type="text"
@@ -70,10 +84,10 @@ class TMDbSearch extends React.Component {
             placeholder='Movie Title'
             onChange={this.props.changeHandler}
           />
-          <button type="submit">Search</button>
+          <button>Search</button>
         </form>
         {/* Render search results if present in state */}
-        { this.props.results ?
+        { this.props.results.length ?
           <ul className="tmdb-search-results">
             {this.props.results.map( movie => 
               <TMDbItem 
@@ -83,7 +97,7 @@ class TMDbSearch extends React.Component {
               />
             )}
           </ul> :
-          false
+          this.generateNoResultsMessage()
         }
       </div>
     );
@@ -123,7 +137,8 @@ class TMDbItem extends React.Component {
         <div className="item-details-outer">
           <div className="item-details-inner">
             <p>{ movieTitle }</p>
-            <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a>
+            {/* <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a> */}
+            <a href={tmdbLink} target="_blank" rel="noopener noreferrer"><button>TMDb Page</button></a>
             <button value={this.props.movie.id} onClick={this.props.onSelect}>Select</button>
           </div>
         </div> 

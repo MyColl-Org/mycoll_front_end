@@ -39,7 +39,7 @@ class MovieForm extends React.Component {
   async putMovie(event) {
     event.preventDefault();
 
-    const URL = `http://104.248.238.221:8000/api/v1/movies/${this.state.id}`;
+    const URL = `https://104.248.238.221/api/v1/movies/${this.state.id}`;
     let formData = {
       title: this.state.title,
       release_year: this.state.releaseYear,
@@ -93,7 +93,7 @@ class MovieForm extends React.Component {
           required
           id="releaseYear"
           name="releaseYear"
-          type="text"
+          type="number"
           value={this.state.releaseYear}
           placeholder='Release Year'
           onChange={this.changeHandler}
@@ -117,7 +117,7 @@ class MovieForm extends React.Component {
           required
           id="runtimeMinutes"
           name="runtimeMinutes"
-          type="text"
+          type="number"
           value={this.state.runtimeMinutes}
           placeholder='Runtime (mins)'
           onChange={this.changeHandler}
@@ -155,7 +155,7 @@ class MovieForm extends React.Component {
           placeholder='TMDb Page Link'
           onChange={this.changeHandler}
         />
-        <button type="submit">Update Movie</button>
+        <button>Update Movie</button>
       </form>
     </>);
   }

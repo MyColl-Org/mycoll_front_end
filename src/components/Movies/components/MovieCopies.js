@@ -110,7 +110,7 @@ class MovieCopyItem extends React.Component {
   async deleteMovieCopy() {
     // Makes DELETE request to DB to remove MovieCopy instnace
     // Updates state in <Movies> through removeMovieCopy() chain
-    const URL = `http://104.248.238.221:8000/api/v1/movies/copies/${this.props.copyID}`;
+    const URL = `https://104.248.238.221/api/v1/movies/copies/${this.props.copyID}`;
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
@@ -192,7 +192,7 @@ class MovieCopyForm extends React.Component {
     // Makes POST request to DB to add new MovieCopy then updates state in <Movies>
     event.preventDefault();
 
-    const URL = "http://104.248.238.221:8000/api/v1/movies/copies/"
+    const URL = "https://104.248.238.221/api/v1/movies/copies/"
     const formData = {
       movie: this.state.movie,
       platform: this.state.platform,
@@ -222,7 +222,8 @@ class MovieCopyForm extends React.Component {
     return (
       <form onSubmit={this.putMovieCopy} className="movie-copy-form">
         <label htmlFor="platform">Platform:</label>
-        <input 
+        <input
+          required 
           id="platform"
           name="platform" 
           type="text"
@@ -232,6 +233,7 @@ class MovieCopyForm extends React.Component {
         />
         <label htmlFor="format">Format:</label>
         <input
+          required
           id="format" 
           name="form" 
           type="text"
@@ -248,7 +250,7 @@ class MovieCopyForm extends React.Component {
           placeholder='VOD Link (optional)'
           onChange={this.changeHandler}
         />
-        <button type="submit">Create Copy</button>
+        <button>Create Copy</button>
         <button onClick={this.props.toggleCopyForm}>Cancel</button>
       </form>
     )

@@ -126,7 +126,7 @@ class MovieForm extends React.Component {
     // POSTS movie to DB and updated state in <Movies> on success
     event.preventDefault();
     
-    const URL = "http://104.248.238.221:8000/api/v1/movies/";
+    const URL = "https://104.248.238.221/api/v1/movies/";
     let formData = {
       title: this.props.fields.title,
       release_year: this.props.fields.releaseYear,
@@ -179,7 +179,7 @@ class MovieForm extends React.Component {
             required
             id="releaseYear" 
             name="releaseYear" 
-            type="text"
+            type="number"
             value={this.props.fields.releaseYear}
             placeholder="Release Year"
             onChange={this.props.changeHandler}
@@ -199,7 +199,7 @@ class MovieForm extends React.Component {
             required 
             id="runtimeMinutes"
             name="runtimeMinutes" 
-            type="text"
+            type="number"
             value={this.props.fields.runtimeMinutes}
             placeholder="Runtime (mins)"
             onChange={this.props.changeHandler}
@@ -230,7 +230,7 @@ class MovieForm extends React.Component {
             placeholder="TMDB Page Link (optional)"
             onChange={this.props.changeHandler}
           />
-          <button type="submit">Add Movie</button>
+          <button>Add Movie</button>
         </form>
       </div>
     );

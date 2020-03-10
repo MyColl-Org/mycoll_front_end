@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import './Login.scss';
 
-const URL = 'http://104.248.238.221:8000/accounts/';
+const URL = 'https://104.248.238.221/accounts/';
 
 
 class Login extends React.Component {
