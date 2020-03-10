@@ -33,7 +33,7 @@ class Movies extends React.Component {
 
   async getMovies() {
     // Gathers all Movies in user's collection from the DB and updates state
-    const URL = "http://104.248.238.221:8000/api/v1/movies/";
+    const URL = "https://104.248.238.221/api/v1/movies/";
     const headers = {
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
