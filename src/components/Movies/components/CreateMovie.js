@@ -126,7 +126,7 @@ class MovieForm extends React.Component {
     // POSTS movie to DB and updated state in <Movies> on success
     event.preventDefault();
     
-    const URL = "http://104.248.238.221:8000/api/v1/movies/";
+    const URL = "https://104.248.238.221/api/v1/movies/";
     let formData = {
       title: this.props.fields.title,
       release_year: this.props.fields.releaseYear,

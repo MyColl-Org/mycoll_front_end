@@ -110,7 +110,7 @@ class MovieCopyItem extends React.Component {
   async deleteMovieCopy() {
     // Makes DELETE request to DB to remove MovieCopy instnace
     // Updates state in <Movies> through removeMovieCopy() chain
-    const URL = `http://104.248.238.221:8000/api/v1/movies/copies/${this.props.copyID}`;
+    const URL = `https://104.248.238.221/api/v1/movies/copies/${this.props.copyID}`;
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
@@ -192,7 +192,7 @@ class MovieCopyForm extends React.Component {
     // Makes POST request to DB to add new MovieCopy then updates state in <Movies>
     event.preventDefault();
 
-    const URL = "http://104.248.238.221:8000/api/v1/movies/copies/"
+    const URL = "https://104.248.238.221/api/v1/movies/copies/"
     const formData = {
       movie: this.state.movie,
       platform: this.state.platform,

@@ -39,7 +39,7 @@ class MovieForm extends React.Component {
   async putMovie(event) {
     event.preventDefault();
 
-    const URL = `http://104.248.238.221:8000/api/v1/movies/${this.state.id}`;
+    const URL = `https://104.248.238.221/api/v1/movies/${this.state.id}`;
     let formData = {
       title: this.state.title,
       release_year: this.state.releaseYear,
