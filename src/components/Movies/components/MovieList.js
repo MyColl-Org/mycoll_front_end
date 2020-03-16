@@ -57,26 +57,28 @@ class MovieList extends React.Component {
 class MovieItem extends React.Component{
   render() {
     return (
-      <li className="movie-item">
-        { this.props.movie.image_link ?
-        <img 
-          src={ this.props.movie.image_link}
-          alt={`${this.props.movie.title} cover art`}
-          title={this.props.movie.title} 
-        /> :
-        <img
-          src={defaultImage}
-          alt={`${this.props.movie.title} cover art`}
-          title={this.props.movie.title}
-          className="default-movie-image"
-        />
-        }
-        <div className="item-details-outer">
-          <div className="item-details-inner">
-          <Link to={{pathname: `movies/detail/${this.props.movie.id}`, state: this.props.movie}} replace >
-            <h3>{ this.props.movie.title }</h3>
-          </Link>
-          <p>{this.props.movie.release_year} | {this.props.movie.mpaa_rating} | {this.props.movie.runtime_minutes}mins</p>
+      <li>
+        <div className="movie-item">
+          { this.props.movie.image_link ?
+          <img 
+            src={ this.props.movie.image_link}
+            alt={`${this.props.movie.title} cover art`}
+            title={this.props.movie.title} 
+          /> :
+          <img
+            src={defaultImage}
+            alt={`${this.props.movie.title} cover art`}
+            title={this.props.movie.title}
+            className="default-movie-image"
+          />
+          }
+          <div className="item-details-outer">
+            <div className="item-details-inner">
+            <Link to={{pathname: `movies/detail/${this.props.movie.id}`, state: this.props.movie}} replace >
+              <h3>{ this.props.movie.title }</h3>
+            </Link>
+            <p>{this.props.movie.release_year} | {this.props.movie.mpaa_rating} | {this.props.movie.runtime_minutes}mins</p>
+            </div>
           </div>
         </div>
       </li>
