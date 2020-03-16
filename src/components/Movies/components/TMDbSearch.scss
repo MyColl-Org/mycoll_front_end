@@ -4,9 +4,14 @@
   justify-content: center;
   margin: 20px 0 40px;
   padding-top: 20px;
-  background-color: rgb(153, 152, 152);
-  border-radius: 5px;
-  box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
+  min-width: 300px;
+  
+  .search-container {
+    background-color: rgb(153, 152, 152);
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+  }
 
   h2 {
     text-align: center;
@@ -66,12 +71,16 @@
   }
 
   .tmdb-search-results {
-    padding: 20px;
+    margin-top: 30px;
     
     li {
       display: flex;
       flex-direction: row;
       margin-bottom: 20px;
+      background-color: rgb(153, 152, 152);
+      border-radius: 5px;
+      box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
+      min-width: 300px;
     }
     
     .result-image-outer {
@@ -79,40 +88,60 @@
       flex-direction: column;
       justify-content: center;
     }
-
+    
     img {
       width: 100px;
       border-radius: 5px;
+      margin-right: 10px;
       box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
     }
-
+    
     img.default-movie-image {
       width: 100px;
       height: 100px;
       border-radius: 50%;
+      margin-left: 5px;
       box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
     }
-
+    
     .item-details-outer {
       display: flex;
       flex-direction: column;
       justify-content: center;
-    }
+      width: 100%;
 
-    .item-details-inner {
-      padding: 0 20px;
-      font-size: 24px;
-      text-align: center;
+      .item-details-inner {
+        padding: 20px;
+        font-size: 24px;
+        text-align: center;
 
-      a {
-        text-decoration: none;
-        font-size: 16px;
+        p {
+          color: white;
+          text-shadow: 1px 1px 4px rgb(51, 51, 51);
+        }
+  
+        a {
+          display: block;
+          text-decoration: none;
+          font-size: 16px;
+          margin: auto;
+        }
+  
+        .tmdb-item-buttons {
+          margin-top: 20px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-around;
+        }
       }
-
-      button {
-        display: block;
-        margin: 10px 0;
-      }
     }
+  }
+}
+
+@media (max-width: 400px) {
+  .tmdb-search {
+    margin: 20px 0 40px;
+    padding: 20px 10px 0;
   }
 }

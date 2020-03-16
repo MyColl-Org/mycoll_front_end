@@ -72,20 +72,22 @@ class TMDbSearch extends React.Component {
   render() {
     return (
       <div className="tmdb-search">
-        <h2>Search The Movie Database</h2>
-        <form onSubmit={this.requestResults} className="tmdb-search-form">
-          <label htmlFor="query" className="search-query-label">Movie Title:</label>
-          <input
-            required
-            id="query"
-            name="query"
-            type="text"
-            value={this.props.query}
-            placeholder='Movie Title'
-            onChange={this.props.changeHandler}
-          />
-          <button>Search</button>
-        </form>
+        <div className="search-container">
+          <h2>Search The Movie Database</h2>
+          <form onSubmit={this.requestResults} className="tmdb-search-form">
+            <label htmlFor="query" className="search-query-label">Movie Title:</label>
+            <input
+              required
+              id="query"
+              name="query"
+              type="text"
+              value={this.props.query}
+              placeholder='Movie Title'
+              onChange={this.props.changeHandler}
+            />
+            <button>Search</button>
+          </form>
+        </div>
         {/* Render search results if present in state */}
         { this.props.results.length ?
           <ul className="tmdb-search-results">
@@ -137,9 +139,11 @@ class TMDbItem extends React.Component {
         <div className="item-details-outer">
           <div className="item-details-inner">
             <p>{ movieTitle }</p>
-            {/* <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a> */}
-            <a href={tmdbLink} target="_blank" rel="noopener noreferrer"><button>TMDb Page</button></a>
-            <button value={this.props.movie.id} onClick={this.props.onSelect}>Select</button>
+            <div className="tmdb-item-buttons">
+              {/* <a href={tmdbLink} target="_blank" rel="noopener noreferrer">TMDb Page</a> */}
+              <a href={tmdbLink} target="_blank" rel="noopener noreferrer"><button>TMDb Page</button></a>
+              <button value={this.props.movie.id} onClick={this.props.onSelect}>Select</button>
+            </div>
           </div>
         </div> 
       </li>
