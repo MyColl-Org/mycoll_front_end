@@ -1,16 +1,27 @@
 
 .movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax( 320px, 1fr));
 
   li {
     display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .movie-item {
+    display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
-
+    border-radius: 5px;
+    background-color: rgb(152, 152, 152);
+    width: 300px;
+    
     img {
       width: 100px;
       border-radius: 5px;
-      box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
+      box-shadow: 2px 0px 4px 3px rgba(0, 0, 0, 0.2);
     }
+
     img.default-movie-image {
       width: 100px;
       border-radius: 50%;
@@ -21,13 +32,17 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      width: 100%;
     }
 
     .item-details-inner {
       padding: 0 10px;
       font-size: 16px;
+      text-align: center;
 
       a {
+        color: white;
+        text-shadow: 1px 1px 4px rgb(51, 51, 51); 
         text-decoration: none;
         font-size: 24px;
       }

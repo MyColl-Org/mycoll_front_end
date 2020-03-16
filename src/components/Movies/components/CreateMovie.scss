@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: auto;
+  max-width: 640px;
 
   button {
     height: 40px;
@@ -28,6 +30,7 @@
   border-radius: 5px;
   box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
   font-family: "Lato", sans-serif;
+  min-width: 300px;
 
   img {
     display: block;
@@ -79,5 +82,12 @@
     font-family: "Lato", sans-serif;
     font-size: 16px;
     overflow-y: visible;
+  }
+}
+
+@media (max-width: 400px) {
+  .create-movie-form {
+    margin: 20px 10px 40px;
+    padding: 20px 0 0;
   }
 }

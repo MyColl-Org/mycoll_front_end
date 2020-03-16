@@ -10,7 +10,7 @@ class About extends React.Component {
   render() {
     return (
       <div className="about">
-        <h2>About Page</h2>
+        <h2>About <span className="mycoll-logo">MyColl</span></h2>
         <ProjectInfo />
         <MyInfo />
         <DataSources />
@@ -26,8 +26,8 @@ class ProjectInfo extends React.Component {
       <div className="project-info">
         <h3>Project Info:</h3>
         <p>MyColl was created by necessity. With consumers able to purchase media in multiple formats from an almost endless array of sources, it becomes difficult to sort out your physical and digital collections.</p>
-        <p>MyColl attempts to make cataloging those collections easier through an easy to use web interface that allows you to track what media you own and where any copies may be located.</p>
-        <p>MyColl uses a React front-end application, and a Django back-end server written in Python that is backed by a PostgreSQL database. For more information regarding the architecture of the project, please checkout it out on <a href="https://www.github.com/skylerburger/mycoll" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+        <p>MyColl attempts to make cataloging those collections easier through a simple, clean web interface that allows you to track what media you own and where any copies may be located.</p>
+        <p>MyColl uses a React front-end application, and a Django back-end server that is backed by a PostgreSQL database. The front and back end services are both deployed within a shared Digital Ocean Droplet using the same domain for simplicity and cost-savings. For more information regarding the architecture of the project, please check it out on <a href="https://www.github.com/skylerburger/mycoll" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
       </div>
     );
   }

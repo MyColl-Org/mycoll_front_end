@@ -10,7 +10,7 @@ class Footer extends React.Component {
         <Link to="/about">
           ABOUT <span className="mycoll">MyColl</span>
         </Link>
-        <p>Skyler (c) 2020</p>
+        <p>Skyler Burger | 2020</p>
       </footer>
     )
   }

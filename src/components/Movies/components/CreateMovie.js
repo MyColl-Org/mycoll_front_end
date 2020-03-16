@@ -90,7 +90,6 @@ class CreateMovie extends React.Component {
         false
       }
       {/* Initial content */}
-      <h1>Movie Creation Page</h1>
       <TMDbSearch
         accessToken={this.props.accessToken}
         changeHandler={this.changeHandler} 

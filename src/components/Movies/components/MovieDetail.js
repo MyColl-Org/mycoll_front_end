@@ -132,12 +132,14 @@ class MovieDetail extends React.Component {
           /> :
           <>
             { this.generateCoverImage() }
-            <h2>{ this.props.movie.title }</h2>
-            { this.generateTinyDetails() }
-            { this.props.movie.overview ? 
-              <p className="overview">{ this.props.movie.overview }</p> :
-              false
-            }
+            <div className="movie-text">
+              <h2>{ this.props.movie.title }</h2>
+              { this.generateTinyDetails() }
+              { this.props.movie.overview ? 
+                <p className="overview">{ this.props.movie.overview }</p> :
+                false
+              }
+            </div>
           </>
         }
         <div className="movie-edit-buttons">
