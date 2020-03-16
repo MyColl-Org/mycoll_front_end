@@ -1,4 +1,13 @@
 .about {
+  border-radius: 5px;
+  background-color: rgb(152, 152, 152);
+  padding: 20px;
+  min-width: 300px;
+
+  .mycoll-logo {
+    font-family: "Major Mono Display"
+  }
+
   h2 {
     margin-bottom: 40px;
     font-size: 30px;
@@ -34,5 +43,11 @@
     img.social-logo:first-child {
       width: 75px;
     }
+  }
+}
+
+@media (max-width: 400px) {
+  .about {
+    margin: 0 10px;
   }
 }
