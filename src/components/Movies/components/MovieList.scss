@@ -1,22 +1,18 @@
 
 .movie-list {
-
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax( 240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax( 320px, 1fr));
 
   li {
     display: flex;
     justify-content: center;
   }
   
-  // .movie-item
   .movie-item {
     display: flex;
     flex-direction: row;
     margin: 10px;
-    // border: 1px solid black;
     border-radius: 5px;
-    // box-shadow: 2px 2px 3px 1px rgba(206, 206, 206, 0.521);
     background-color: rgba(184, 184, 184, 0.466);
     width: 300px;
     
