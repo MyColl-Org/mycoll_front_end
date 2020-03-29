@@ -25,7 +25,7 @@ class ProjectInfo extends React.Component {
     return (
       <div className="project-info">
         <h3>Project Info:</h3>
-        <p>The motivation behind building MyColl was sparked at a thrift store. While digging through used DVDs, Skyler often struggled to remember which movies he already posessed. Though many may not be digging around for old DVDs, Skyler knew there was need for a solution that would put easy access to a catalog of one's collection in your pocket.</p>
+        <p>The motivation behind building MyColl was sparked at a thrift store. While digging through used DVDs, Skyler often struggled to remember which movies he already possessed. Though many may not be digging around for old DVDs, Skyler knew there was need for a solution that would put easy access to a catalog of one's collection in your pocket.</p>
         <p>With the ability to purchase media in multiple formats from an endless array of sources, it becomes difficult to sort out our physical and digital collections. MyColl attempts to make cataloging those collections easier through a simple, clean web interface that helps keep track of the media you own and where to access it.</p>
       </div>
     );
