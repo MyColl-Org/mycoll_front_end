@@ -25,9 +25,8 @@ class ProjectInfo extends React.Component {
     return (
       <div className="project-info">
         <h3>Project Info:</h3>
-        <p>MyColl was created by necessity. With consumers able to purchase media in multiple formats from an almost endless array of sources, it becomes difficult to sort out your physical and digital collections.</p>
-        <p>MyColl attempts to make cataloging those collections easier through a simple, clean web interface that allows you to track what media you own and where any copies may be located.</p>
-        <p>MyColl uses a React front-end application, and a Django back-end server that is backed by a PostgreSQL database. The front and back end services are both deployed within a shared Digital Ocean Droplet using the same domain for simplicity and cost-savings. For more information regarding the architecture of the project, please check it out on <a href="https://www.github.com/skylerburger/mycoll" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+        <p>The motivation behind building MyColl was sparked at a thrift store. While digging through used DVDs, Skyler often struggled to remember which movies he already possessed. Though many may not be digging around for old DVDs, Skyler knew there was need for a solution that would put easy access to a catalog of one's collection in your pocket.</p>
+        <p>With the ability to purchase media in multiple formats from an endless array of sources, it becomes difficult to sort out our physical and digital collections. MyColl attempts to make cataloging those collections easier through a simple, clean web interface that helps keep track of the media you own and where to access it.</p>
       </div>
     );
   }
@@ -38,8 +37,9 @@ class MyInfo extends React.Component {
   render() {
     return (
       <div className="my-info">
-        <h3>The Developer:</h3>
-        <p>Skyler is a software developer with experience in developing Python and Javascript web applications. The idea for MyColl came to Skyler while shopping for DVDs at a thrift store. When digging through the movies he would often find himself struggling to remember which DVDs he already posessed and decided there was need for a solution that would put easy access to a catalog of his collection in his pocket.</p>
+        <h3>Developer & Architecture:</h3>
+        <p>Skyler Burger is a software developer with experience in developing Python and Javascript web applications. With a background in office administration and technical theater, he is equipped with a love of art and the desire to organize anything related to it.</p>
+        <p>The MyColl service is composed of a React front-end application, a Django back-end server, and a PostgreSQL database. The front and back end services are both deployed within a shared Digital Ocean Droplet and accessed with a shared domain to keep this hobby-level project manageable. For more information regarding the architecture of the project, please check out the <a href="https://www.github.com/skylerburger/mycoll" target="_blank" rel="noopener noreferrer">MyColl Org on GitHub</a>.</p>
         <div className="links">
           <a href="https://www.github.com/skylerburger" rel="noopener noreferrer" target="_blank">
             <img src={githubLogo} alt="GitHub Logo" className="social-logo" />

@@ -1,11 +1,14 @@
 import React from 'react';
 
+import './Shows.scss';
+
 
 class Shows extends React.Component {
   render() {
     return (
       <div className="coming-soon">
-        <p>Show cataloging coming soon!</p>
+        <p>Show Cataloging</p>
+        <p>Coming Soon!</p>
       </div>
     );
   }

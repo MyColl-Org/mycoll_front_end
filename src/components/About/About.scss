@@ -1,8 +1,13 @@
 .about {
   border-radius: 5px;
   background-color: rgb(152, 152, 152);
+  box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
   padding: 20px;
+  margin: auto;
   min-width: 300px;
+  max-width: 640px;
+  font-family: "Lato";
+  font-size: 20px;
 
   .mycoll-logo {
     font-family: "Major Mono Display"
