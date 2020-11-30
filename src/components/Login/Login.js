@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import './Login.scss';
 
-const URL = 'https://db.mycoll.app/accounts/';
+const URL = 'https://db.mycoll.skybur.io/accounts/';
 
 
 class Login extends React.Component {
