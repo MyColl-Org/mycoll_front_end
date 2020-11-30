@@ -39,7 +39,7 @@ class MovieForm extends React.Component {
   async putMovie(event) {
     event.preventDefault();
 
-    const URL = `https://db.mycoll.app/api/v1/movies/${this.state.id}`;
+    const URL = `https://db.mycoll.skybur.io/api/v1/movies/${this.state.id}`;
     let formData = {
       title: this.state.title,
       release_year: this.state.releaseYear,

@@ -4,7 +4,7 @@ import axios from 'axios';
 import './SignUp.scss';
 
 
-const URL = 'https://db.mycoll.app/accounts/create/';
+const URL = 'https://db.mycoll.skybur.io/accounts/create/';
 
 
 class SignUp extends React.Component {

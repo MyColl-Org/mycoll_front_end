@@ -51,7 +51,7 @@ class MovieDetail extends React.Component {
     // Makes a DELETE request to the DB then updates state in <Movies>
     const axiosConfig = {
       method: 'delete',
-      url: `https://db.mycoll.app/api/v1/movies/${this.props.movie.id}`,
+      url: `https://db.mycoll.skybur.io/api/v1/movies/${this.props.movie.id}`,
       data: null,
       headers: {
         Authorization: `Bearer ${this.props.accessToken}`
