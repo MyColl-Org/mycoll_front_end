@@ -14,7 +14,6 @@ class SignUp extends React.Component {
     this.state = {
       username: '',
       password: '',
-      email: '',
     };
 
     this.changeHandler = this.changeHandler.bind(this);
@@ -32,12 +31,13 @@ class SignUp extends React.Component {
     // Makes a POST request to the DB to create a new user
     // Updates state through the addNewUser() chain
     event.preventDefault();
-
+    const d = new Date();
+    const fakeEmail = `${d.getTime()}fake${Math.round(Math.random() * 10000)}@fake.com`;
     try {
       const response = await axios.post(URL, {
         username: this.state.username,
         password: this.state.password,
-        email: this.state.email
+        email: fakeEmail
       });
 
       this.props.addNewUser(response.data);
@@ -70,18 +70,9 @@ class SignUp extends React.Component {
                 id="password"
                 name="password"
                 type="password"
+                minLength="8"
                 value={this.state.password}
                 placeholder="password"
-                onChange={this.changeHandler}
-              />
-              <label htmlFor="email">Email Address:</label>
-              <input
-                required
-                id="email"
-                name="email"
-                type="email"
-                value={this.state.email}
-                placeholder="email"
                 onChange={this.changeHandler}
               />
               <button>Submit</button>
